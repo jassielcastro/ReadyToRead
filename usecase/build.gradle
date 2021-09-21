@@ -10,6 +10,6 @@ java {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation project(":domain")
-    implementation project(":data")
+    api project(":domain")
+    api project(":data")
 }
