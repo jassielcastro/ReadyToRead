@@ -13,4 +13,6 @@ include ':data'
 include ':usecase'
 include ':annotation'
 include ':feature_bibles'
+include ':feature_book'
 project(':feature_bibles').projectDir= new File('features/bibles')
+project(':feature_book').projectDir= new File('features/book')
