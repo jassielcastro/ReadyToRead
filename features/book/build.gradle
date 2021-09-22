@@ -6,7 +6,6 @@ plugins {
 }
 
 dependencies {
-    implementation project(":annotation")
     implementation project(":usecase")
 
     //UI

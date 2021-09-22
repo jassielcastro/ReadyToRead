@@ -12,7 +12,6 @@ android {
 }
 
 dependencies {
-    implementation project(":annotation")
     implementation project(":usecase")
     implementation project(":feature_bibles")
 

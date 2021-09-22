@@ -1,8 +1,12 @@
 package com.ajcm.book.di
 
+import com.ajcm.annotation.AudioBookDataSource
+import com.ajcm.annotation.AudioBookRepo
 import com.ajcm.annotation.BookDataSource
 import com.ajcm.annotation.BookRepo
+import com.ajcm.book.datasource.RemoteAudioBookDataSource
 import com.ajcm.book.datasource.RemoteBookDataSource
+import com.ajcm.book.repository.AudioBookRepository
 import com.ajcm.book.repository.BookRepository
 import com.ajcm.book.service.BookService
 import com.ajcm.data.datasource.IRemoteBookDataSource
@@ -34,8 +38,16 @@ abstract class BookModule {
     @Binds
     abstract fun bindRemoteBookDataSource(datasource: RemoteBookDataSource): IRemoteBookDataSource
 
+    @AudioBookDataSource
+    @Binds
+    abstract fun bindRemoteAudioBookDataSource(datasource: RemoteAudioBookDataSource): IRemoteBookDataSource
+
     @BookRepo
     @Binds
     abstract fun bindBookRepository(repository: BookRepository): IBookRepository
+
+    @AudioBookRepo
+    @Binds
+    abstract fun bindAudioBookRepository(repository: AudioBookRepository): IBookRepository
 
 }

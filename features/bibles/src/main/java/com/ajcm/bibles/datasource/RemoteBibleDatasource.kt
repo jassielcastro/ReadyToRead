@@ -11,7 +11,4 @@ class RemoteBibleDatasource @Inject constructor(private val service: BibleServic
     override suspend fun getBibles(): List<BibleSummary> = service.getBiblesAsync().await().data
 
     override suspend fun getBible(bibleId: String): Bible = service.getBibleAsync(bibleId).await().data
-
-    override suspend fun getAudioBible(bibleId: String): AudioBible =
-        service.getAudioBibleAsync(bibleId).await().data
 }

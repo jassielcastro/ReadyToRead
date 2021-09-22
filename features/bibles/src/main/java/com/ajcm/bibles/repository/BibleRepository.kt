@@ -11,6 +11,4 @@ class BibleRepository @Inject constructor(private val dataSource: IRemoteBibleDa
     override suspend fun getBibles(): List<BibleSummary> = dataSource.getBibles()
 
     override suspend fun getBible(bibleId: String): Bible = dataSource.getBible(bibleId)
-
-    override suspend fun getAudioBible(bibleId: String): AudioBible = dataSource.getAudioBible(bibleId)
 }
