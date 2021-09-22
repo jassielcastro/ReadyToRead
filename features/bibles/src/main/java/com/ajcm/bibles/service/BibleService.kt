@@ -1,22 +1,23 @@
 package com.ajcm.bibles.service
 
-import com.ajcm.bibles.service.models.AudioBibleResponse
-import com.ajcm.bibles.service.models.BibleResponse
-import com.ajcm.bibles.service.models.BiblesResponse
+import com.ajcm.domain.AudioBible
+import com.ajcm.domain.Bible
+import com.ajcm.domain.BibleSummary
+import com.ajcm.domain.Response
 import kotlinx.coroutines.Deferred
 import retrofit2.http.GET
 import retrofit2.http.Path
 
 interface BibleService {
     @GET("/v1/bibles")
-    fun getBiblesAsync(): Deferred<BiblesResponse>
+    fun getBiblesAsync(): Deferred<Response<List<BibleSummary>>>
 
     @GET("/v1/audio-bibles")
-    fun getAudioBiblesAsync(): Deferred<BiblesResponse>
+    fun getAudioBiblesAsync(): Deferred<Response<List<BibleSummary>>>
 
     @GET("/v1/bibles/{bibleId}")
-    fun getBibleAsync(@Path("bibleId") bibleId: String): Deferred<BibleResponse>
+    fun getBibleAsync(@Path("bibleId") bibleId: String): Deferred<Response<Bible>>
 
     @GET("/v1/audio-bibles/{audioBibleId}")
-    fun getAudioBibleAsync(@Path("audioBibleId") audioBibleId: String): Deferred<AudioBibleResponse>
+    fun getAudioBibleAsync(@Path("audioBibleId") audioBibleId: String): Deferred<Response<AudioBible>>
 }
