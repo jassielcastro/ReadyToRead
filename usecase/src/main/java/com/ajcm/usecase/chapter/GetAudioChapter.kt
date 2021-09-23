@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 class GetAudioChapter @Inject constructor(private val repository: IChapterRepository) :
     BaseUseCaseWithParams<AudioChapter, String> {
-    override suspend fun invoke(vararg params: String): AudioChapter {
-        return repository.getAudioChapter(params[0], params[1])
+    override suspend fun invoke(id: String, vararg params: String): AudioChapter {
+        return repository.getAudioChapter(id, params[0])
     }
 }

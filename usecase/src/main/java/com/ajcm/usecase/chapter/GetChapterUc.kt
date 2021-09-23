@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 class GetChapterUc @Inject constructor(private val repository: IChapterRepository) :
     BaseUseCaseWithParams<Chapter, String> {
-    override suspend fun invoke(vararg params: String): Chapter {
-        return repository.getChapter(params[0], params[1])
+    override suspend fun invoke(id: String, vararg params: String): Chapter {
+        return repository.getChapter(id, params[0])
     }
 }

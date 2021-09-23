@@ -6,7 +6,7 @@ import com.ajcm.domain.Search
 import javax.inject.Inject
 
 class SearchUC @Inject constructor(private val repository: ISearchRepository) : BaseUseCaseWithParams<Search, String> {
-    override suspend fun invoke(vararg params: String): Search {
-        return repository.search(params[0], params[1])
+    override suspend fun invoke(id: String, vararg params: String): Search {
+        return repository.search(id, params[0])
     }
 }

@@ -1,21 +1,19 @@
 package com.ajcm.book.di
 
-import com.ajcm.annotation.AudioBookDataSource
-import com.ajcm.annotation.AudioBookRepo
-import com.ajcm.annotation.BookDataSource
-import com.ajcm.annotation.BookRepo
 import com.ajcm.book.datasource.RemoteAudioBookDataSource
 import com.ajcm.book.datasource.RemoteBookDataSource
 import com.ajcm.book.repository.AudioBookRepository
 import com.ajcm.book.repository.BookRepository
 import com.ajcm.book.service.BookService
+import com.ajcm.data.datasource.IRemoteAudioBookDataSource
 import com.ajcm.data.datasource.IRemoteBookDataSource
+import com.ajcm.data.repository.IAudioBookRepository
 import com.ajcm.data.repository.IBookRepository
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.FragmentComponent
+import dagger.hilt.android.components.ActivityComponent
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 
@@ -31,23 +29,19 @@ class NetworkBookModule {
 }
 
 @Module
-@InstallIn(FragmentComponent::class)
+@InstallIn(ActivityComponent::class)
 abstract class BookModule {
 
-    @BookDataSource
     @Binds
     abstract fun bindRemoteBookDataSource(datasource: RemoteBookDataSource): IRemoteBookDataSource
 
-    @AudioBookDataSource
     @Binds
-    abstract fun bindRemoteAudioBookDataSource(datasource: RemoteAudioBookDataSource): IRemoteBookDataSource
+    abstract fun bindRemoteAudioBookDataSource(datasource: RemoteAudioBookDataSource): IRemoteAudioBookDataSource
 
-    @BookRepo
     @Binds
     abstract fun bindBookRepository(repository: BookRepository): IBookRepository
 
-    @AudioBookRepo
     @Binds
-    abstract fun bindAudioBookRepository(repository: AudioBookRepository): IBookRepository
+    abstract fun bindAudioBookRepository(repository: AudioBookRepository): IAudioBookRepository
 
 }

@@ -5,9 +5,9 @@ interface BaseListUseCase<R> {
 }
 
 interface BaseUseCaseWithParams<R, P> {
-    suspend operator fun invoke(vararg params: P) : R
+    suspend operator fun invoke(id: String, vararg params: P) : R
 }
 
 interface BaseListUseCaseWithParams<R, P> {
-    suspend operator fun invoke(vararg params: P) : List<R>
+    suspend operator fun invoke(id: String, vararg params: P) : List<R>
 }

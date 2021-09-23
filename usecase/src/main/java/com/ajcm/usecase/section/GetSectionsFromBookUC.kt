@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 class GetSectionsFromBookUC @Inject constructor(private val repository: ISectionRepository) :
     BaseListUseCaseWithParams<SectionSummary, String> {
-    override suspend fun invoke(vararg params: String): List<SectionSummary> {
-        return repository.getSectionsFromBook(params[0], params[1])
+    override suspend fun invoke(id: String, vararg params: String): List<SectionSummary> {
+        return repository.getSectionsFromBook(id, params[0])
     }
 }

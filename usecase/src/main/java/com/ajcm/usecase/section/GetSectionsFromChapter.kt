@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 class GetSectionsFromChapter @Inject constructor(private val repository: ISectionRepository) :
     BaseListUseCaseWithParams<SectionSummary, String> {
-    override suspend fun invoke(vararg params: String): List<SectionSummary> {
-        return repository.getSectionsFromChapter(params[0], params[1])
+    override suspend fun invoke(id: String, vararg params: String): List<SectionSummary> {
+        return repository.getSectionsFromChapter(id, params[0])
     }
 }

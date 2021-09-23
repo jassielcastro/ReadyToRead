@@ -6,7 +6,7 @@ import com.ajcm.domain.ChapterSummary
 import javax.inject.Inject
 
 class GetChaptersUc @Inject constructor(private val repository: IChapterRepository) : BaseListUseCaseWithParams<ChapterSummary, String> {
-    override suspend fun invoke(vararg params: String): List<ChapterSummary> {
-        return repository.getChapters(params[0], params[1])
+    override suspend fun invoke(id: String, vararg params: String): List<ChapterSummary> {
+        return repository.getChapters(id, params[0])
     }
 }

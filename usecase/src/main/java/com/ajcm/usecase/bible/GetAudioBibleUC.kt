@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 class GetAudioBibleUC @Inject constructor(private val repository: IAudioBibleRepository) :
     BaseUseCaseWithParams<AudioBible, String> {
-    override suspend fun invoke(vararg params: String): AudioBible {
-        return repository.getAudioBible(params[0])
+    override suspend fun invoke(id: String, vararg params: String): AudioBible {
+        return repository.getAudioBible(id)
     }
 }
