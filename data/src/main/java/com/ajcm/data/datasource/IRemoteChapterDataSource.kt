@@ -1,8 +1,8 @@
 package com.ajcm.data.datasource
 
-import com.ajcm.domain.AudioChapter
-import com.ajcm.domain.Chapter
-import com.ajcm.domain.ChapterSummary
+import com.ajcm.domain.entity.AudioChapter
+import com.ajcm.domain.entity.Chapter
+import com.ajcm.domain.entity.ChapterSummary
 
 interface IRemoteChapterDataSource {
     suspend fun getChapters(bibleId: String, bookId: String): List<ChapterSummary>

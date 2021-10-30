@@ -2,9 +2,8 @@ package com.ajcm.bibles.datasource
 
 import com.ajcm.bibles.service.BibleService
 import com.ajcm.data.datasource.IRemoteBibleDataSource
-import com.ajcm.domain.AudioBible
-import com.ajcm.domain.Bible
-import com.ajcm.domain.BibleSummary
+import com.ajcm.domain.entity.Bible
+import com.ajcm.domain.entity.BibleSummary
 import javax.inject.Inject
 
 class RemoteBibleDatasource @Inject constructor(private val service: BibleService) : IRemoteBibleDataSource {

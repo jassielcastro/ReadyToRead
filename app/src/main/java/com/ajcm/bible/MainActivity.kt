@@ -8,10 +8,10 @@ import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import com.ajcm.usecase.bible.GetBibleUc
-import com.ajcm.usecase.bible.GetBiblesUc
-import com.ajcm.usecase.book.GetBookUC
-import com.ajcm.usecase.book.GetBooksUc
+import com.ajcm.domain.usecase.bible.GetBibleUc
+import com.ajcm.domain.usecase.bible.GetBiblesUc
+import com.ajcm.domain.usecase.book.GetBookUC
+import com.ajcm.domain.usecase.book.GetBooksUc
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

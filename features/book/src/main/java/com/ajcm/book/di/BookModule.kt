@@ -2,13 +2,13 @@ package com.ajcm.book.di
 
 import com.ajcm.book.datasource.RemoteAudioBookDataSource
 import com.ajcm.book.datasource.RemoteBookDataSource
-import com.ajcm.book.repository.AudioBookRepository
-import com.ajcm.book.repository.BookRepository
+import com.ajcm.data.repository.AudioBookRepository
+import com.ajcm.data.repository.BookRepository
 import com.ajcm.book.service.BookService
 import com.ajcm.data.datasource.IRemoteAudioBookDataSource
 import com.ajcm.data.datasource.IRemoteBookDataSource
-import com.ajcm.data.repository.IAudioBookRepository
-import com.ajcm.data.repository.IBookRepository
+import com.ajcm.domain.repository.IAudioBookRepository
+import com.ajcm.domain.repository.IBookRepository
 import dagger.Binds
 import dagger.Module
 import dagger.Provides

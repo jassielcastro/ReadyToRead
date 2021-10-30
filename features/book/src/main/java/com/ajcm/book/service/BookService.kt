@@ -1,7 +1,7 @@
 package com.ajcm.book.service
 
-import com.ajcm.domain.Book
-import com.ajcm.domain.Response
+import com.ajcm.domain.entity.Book
+import com.ajcm.domain.entity.Response
 import kotlinx.coroutines.Deferred
 import retrofit2.http.GET
 import retrofit2.http.Path

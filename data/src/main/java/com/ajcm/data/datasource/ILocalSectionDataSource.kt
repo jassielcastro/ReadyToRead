@@ -1,7 +1,7 @@
 package com.ajcm.data.datasource
 
-import com.ajcm.domain.Section
-import com.ajcm.domain.SectionSummary
+import com.ajcm.domain.entity.Section
+import com.ajcm.domain.entity.SectionSummary
 
 interface ILocalSectionDataSource {
     suspend fun saveSections(sections: List<SectionSummary>)

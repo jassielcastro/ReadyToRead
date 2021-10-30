@@ -1,6 +1,6 @@
 package com.ajcm.data.datasource
 
-import com.ajcm.domain.Book
+import com.ajcm.domain.entity.Book
 
 /***
  * Used for both Book and AudioBook

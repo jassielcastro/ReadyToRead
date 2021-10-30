@@ -1,7 +1,7 @@
 package com.ajcm.data.datasource
 
-import com.ajcm.domain.AudioBible
-import com.ajcm.domain.BibleSummary
+import com.ajcm.domain.entity.AudioBible
+import com.ajcm.domain.entity.BibleSummary
 
 interface ILocalAudioBibleDataSource {
     suspend fun saveBibles(bibleList: List<BibleSummary>)

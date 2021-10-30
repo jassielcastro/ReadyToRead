@@ -2,13 +2,13 @@ package com.ajcm.bibles.di
 
 import com.ajcm.bibles.datasource.RemoteAudioBibleDataSource
 import com.ajcm.bibles.datasource.RemoteBibleDatasource
-import com.ajcm.bibles.repository.AudioBibleRepository
-import com.ajcm.bibles.repository.BibleRepository
+import com.ajcm.data.repository.AudioBibleRepository
+import com.ajcm.data.repository.BibleRepository
 import com.ajcm.bibles.service.BibleService
 import com.ajcm.data.datasource.IRemoteAudioBibleDataSource
 import com.ajcm.data.datasource.IRemoteBibleDataSource
-import com.ajcm.data.repository.IAudioBibleRepository
-import com.ajcm.data.repository.IBibleRepository
+import com.ajcm.domain.repository.IAudioBibleRepository
+import com.ajcm.domain.repository.IBibleRepository
 import dagger.Binds
 import dagger.Module
 import dagger.Provides

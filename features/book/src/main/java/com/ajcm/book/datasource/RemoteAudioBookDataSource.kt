@@ -2,7 +2,7 @@ package com.ajcm.book.datasource
 
 import com.ajcm.book.service.BookService
 import com.ajcm.data.datasource.IRemoteAudioBookDataSource
-import com.ajcm.domain.Book
+import com.ajcm.domain.entity.Book
 import javax.inject.Inject
 
 class RemoteAudioBookDataSource @Inject constructor(private val service: BookService) :

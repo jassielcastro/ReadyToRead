@@ -1,7 +1,7 @@
 package com.ajcm.data.datasource
 
-import com.ajcm.domain.Verse
-import com.ajcm.domain.VerseSummary
+import com.ajcm.domain.entity.Verse
+import com.ajcm.domain.entity.VerseSummary
 
 interface ILocalVerseDataSource {
     suspend fun saveVerses(verses: List<VerseSummary>)

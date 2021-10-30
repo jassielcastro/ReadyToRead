@@ -1,9 +1,9 @@
 package com.ajcm.bibles.service
 
-import com.ajcm.domain.AudioBible
-import com.ajcm.domain.Bible
-import com.ajcm.domain.BibleSummary
-import com.ajcm.domain.Response
+import com.ajcm.domain.entity.AudioBible
+import com.ajcm.domain.entity.Bible
+import com.ajcm.domain.entity.BibleSummary
+import com.ajcm.domain.entity.Response
 import kotlinx.coroutines.Deferred
 import retrofit2.http.GET
 import retrofit2.http.Path

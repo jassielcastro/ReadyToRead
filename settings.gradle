@@ -10,8 +10,6 @@ rootProject.name = "Bible"
 include ':app'
 include ':domain'
 include ':data'
-include ':usecase'
-include ':annotation'
 include ':feature_bibles'
 include ':feature_book'
 project(':feature_bibles').projectDir= new File('features/bibles')
