@@ -17,7 +17,7 @@ class LocalBibleDataSource @Inject constructor(
     }
 
     override suspend fun saveBible(bible: Bible) {
-        bibleDAO.insertBible(bibleMapper.to(bible))
+        bibleDAO.insertOrUpdateBible(bibleMapper.to(bible))
     }
 
     override suspend fun getBibles(): List<Bible> {

@@ -17,7 +17,7 @@ class LocalBookDataSource @Inject constructor(
     }
 
     override suspend fun saveBook(book: Book) {
-        bookDAO.insertBook(bookMapper.to(book))
+        bookDAO.insertOrUpdateBook(bookMapper.to(book))
     }
 
     override suspend fun getBooks(bibleId: String): List<Book> {

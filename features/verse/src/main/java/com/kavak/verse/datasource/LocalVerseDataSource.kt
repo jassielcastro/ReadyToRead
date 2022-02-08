@@ -17,7 +17,7 @@ class LocalVerseDataSource @Inject constructor(
     }
 
     override suspend fun saveVerse(verse: Verse) {
-        verseDAO.insertVerse(verseMapper.to(verse))
+        verseDAO.insertOrUpdateVerse(verseMapper.to(verse))
     }
 
     override suspend fun getVerses(bibleId: String, chapterId: String): List<Verse> {

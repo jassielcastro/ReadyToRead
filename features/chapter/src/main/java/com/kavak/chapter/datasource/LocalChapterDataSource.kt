@@ -17,7 +17,7 @@ class LocalChapterDataSource @Inject constructor(
     }
 
     override suspend fun saveChapter(chapter: Chapter) {
-        chapterDAO.insertChapter(chapterMapper.to(chapter))
+        chapterDAO.insertOrUpdateChapter(chapterMapper.to(chapter))
     }
 
     override suspend fun getChapters(bibleId: String, bookId: String): List<Chapter> {
