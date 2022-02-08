@@ -67,7 +67,7 @@ class ConfigurationModule {
         return Retrofit.Builder()
             .baseUrl(baseUrl)
             .client(client)
-            .addCallAdapterFactory(CoroutineCallAdapterFactory())
+            //.addCallAdapterFactory(CoroutineCallAdapterFactory())
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }

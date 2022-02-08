@@ -5,6 +5,5 @@ data class Book(
     val bibleId: String,
     val abbreviation: String,
     val name: String,
-    val nameLong: String,
-    val chapters: List<ChapterSummary>
+    val nameLong: String
 )

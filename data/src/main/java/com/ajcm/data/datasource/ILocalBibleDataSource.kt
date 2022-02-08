@@ -1,12 +1,11 @@
 package com.ajcm.data.datasource
 
 import com.ajcm.domain.entity.Bible
-import com.ajcm.domain.entity.BibleSummary
 
 interface ILocalBibleDataSource {
-    suspend fun saveBibles(bibleList: List<BibleSummary>)
+    suspend fun saveBibles(bibleList: List<Bible>)
     suspend fun saveBible(bible: Bible)
 
-    suspend fun getBibles(): List<BibleSummary>
+    suspend fun getBibles(): List<Bible>
     suspend fun getBible(bibleId: String): Bible
 }

@@ -4,7 +4,6 @@ import com.ajcm.data.datasource.ILocalBibleDataSource
 import com.ajcm.data.datasource.IRemoteBibleDataSource
 import com.ajcm.domain.repository.IBibleRepository
 import com.ajcm.domain.entity.Bible
-import com.ajcm.domain.entity.BibleSummary
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -16,7 +15,8 @@ class BibleRepository @Inject constructor(
     private val localDataSource: ILocalBibleDataSource,
     private val remoteDataSource: IRemoteBibleDataSource
 ) : IBibleRepository {
-    override suspend fun getBibles(): List<BibleSummary> {
+
+    override suspend fun getBibles(): List<Bible> {
         if (localDataSource.getBibles().isEmpty()) {
             val bibles = remoteDataSource.getBibles()
             localDataSource.saveBibles(bibles)

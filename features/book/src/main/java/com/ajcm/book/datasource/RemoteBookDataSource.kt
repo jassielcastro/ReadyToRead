@@ -9,8 +9,8 @@ class RemoteBookDataSource @Inject constructor(private val service: BookService)
     IRemoteBookDataSource {
 
     override suspend fun getBooks(bibleId: String): List<Book> =
-        service.getBooksAsync(bibleId).await().data
+        service.getBooksAsync(bibleId).data
 
     override suspend fun getBook(bibleId: String, bookId: String): Book =
-        service.getBookAsync(bibleId, bookId).await().data
+        service.getBookAsync(bibleId, bookId).data
 }

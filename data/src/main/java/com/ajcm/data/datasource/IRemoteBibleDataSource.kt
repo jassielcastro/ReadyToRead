@@ -1,9 +1,8 @@
 package com.ajcm.data.datasource
 
 import com.ajcm.domain.entity.Bible
-import com.ajcm.domain.entity.BibleSummary
 
 interface IRemoteBibleDataSource {
-    suspend fun getBibles(): List<BibleSummary>
+    suspend fun getBibles(): List<Bible>
     suspend fun getBible(bibleId: String): Bible
 }

@@ -15,6 +15,5 @@ data class Bible(
     val info: String,
     val type: String,
     val updatedAt: String,
-    val relatedDbl: String,
-    val audioBibles: List<AudioBibleSummary>
+    val relatedDbl: String
 )

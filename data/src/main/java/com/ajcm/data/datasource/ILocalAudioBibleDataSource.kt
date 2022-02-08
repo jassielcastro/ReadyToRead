@@ -1,11 +1,11 @@
 package com.ajcm.data.datasource
 
 import com.ajcm.domain.entity.AudioBible
-import com.ajcm.domain.entity.BibleSummary
+import com.ajcm.domain.entity.Bible
 
 interface ILocalAudioBibleDataSource {
-    suspend fun saveBibles(bibleList: List<BibleSummary>)
+    suspend fun saveBibles(bibleList: List<Bible>)
     suspend fun saveAudioBible(audioBible: AudioBible)
-    suspend fun getBibles(): List<BibleSummary>
+    suspend fun getBibles(): List<Bible>
     suspend fun getAudioBible(bibleId: String): AudioBible
 }
