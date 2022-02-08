@@ -13,7 +13,7 @@ interface VerseService {
         @Path("chapterId") chapterId: String
     ): Response<List<Verse>>
 
-    @GET("/v1/bibles/{bibleId}/verses/{verseId}")
+    @GET("/v1/bibles/{bibleId}/verses/{verseId}?content-type=text")
     suspend fun getVerse(
         @Path("bibleId") bibleId: String,
         @Path("verseId") verseId: String
