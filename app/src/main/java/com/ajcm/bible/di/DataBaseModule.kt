@@ -6,6 +6,7 @@ import com.ajcm.bible.database.BibleDataBase
 import com.ajcm.bibles.database.BibleDAO
 import com.ajcm.book.database.BookDAO
 import com.kavak.chapter.database.ChapterDAO
+import com.kavak.verse.database.VerseDAO
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -38,6 +39,11 @@ class DataBaseModule {
     @Provides
     fun provideChapterDao(database: BibleDataBase): ChapterDAO {
         return database.chapterDao()
+    }
+
+    @Provides
+    fun provideVerseDao(database: BibleDataBase): VerseDAO {
+        return database.verseDao()
     }
 
 }

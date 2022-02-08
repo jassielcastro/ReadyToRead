@@ -5,7 +5,7 @@ import com.ajcm.domain.repository.IVerseRepository
 import javax.inject.Inject
 
 class GetVersesUC @Inject constructor(private val repository: IVerseRepository) {
-    suspend operator fun invoke(id: String, chapterId: String): List<Verse> {
-        return repository.getVerses(id, chapterId)
+    suspend operator fun invoke(bibleId: String, chapterId: String): List<Verse> {
+        return repository.getVerses(bibleId, chapterId)
     }
 }

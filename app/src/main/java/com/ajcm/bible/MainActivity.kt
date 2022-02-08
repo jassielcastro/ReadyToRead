@@ -14,6 +14,8 @@ import com.ajcm.domain.usecase.book.GetBookUC
 import com.ajcm.domain.usecase.book.GetBooksUc
 import com.ajcm.domain.usecase.chapter.GetChapterUc
 import com.ajcm.domain.usecase.chapter.GetChaptersUc
+import com.ajcm.domain.usecase.verse.GetVerseUC
+import com.ajcm.domain.usecase.verse.GetVersesUC
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -25,16 +27,27 @@ class MainActivity : AppCompatActivity() {
 
     @Inject
     lateinit var getBiblesUc: GetBiblesUc
+
     @Inject
     lateinit var getBibleUc: GetBibleUc
+
     @Inject
     lateinit var getBooksUc: GetBooksUc
+
     @Inject
     lateinit var getBookUc: GetBookUC
+
     @Inject
     lateinit var getChaptersUc: GetChaptersUc
+
     @Inject
     lateinit var getChapterUc: GetChapterUc
+
+    @Inject
+    lateinit var getVersesUc: GetVersesUC
+
+    @Inject
+    lateinit var getVerseUc: GetVerseUC
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -124,6 +137,32 @@ class MainActivity : AppCompatActivity() {
                 getChapterUc(bibleId, chapterId)
             }.onSuccess {
                 println("MainActivity.getBookChapter --> $it")
+                getChapterVerses(bibleId, chapterId)
+            }.onFailure {
+                it.printStackTrace()
+            }
+        }
+    }
+
+    private fun getChapterVerses(bibleId: String, chapterId: String) {
+        CoroutineScope(Dispatchers.IO).launch {
+            runCatching {
+                getVersesUc(bibleId, chapterId)
+            }.onSuccess {
+                println("MainActivity.getChapterVerses --> $it")
+                getChapterVerse(bibleId, it.first().id)
+            }.onFailure {
+                it.printStackTrace()
+            }
+        }
+    }
+
+    private fun getChapterVerse(bibleId: String, verseId: String) {
+        CoroutineScope(Dispatchers.IO).launch {
+            runCatching {
+                getVerseUc(bibleId, verseId)
+            }.onSuccess {
+                println("MainActivity.getChapterVerse --> $it")
             }.onFailure {
                 it.printStackTrace()
             }
