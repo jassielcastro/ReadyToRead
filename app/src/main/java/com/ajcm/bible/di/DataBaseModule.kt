@@ -5,6 +5,7 @@ import androidx.room.Room
 import com.ajcm.bible.database.BibleDataBase
 import com.ajcm.bibles.database.BibleDAO
 import com.ajcm.book.database.BookDAO
+import com.kavak.chapter.database.ChapterDAO
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -32,6 +33,11 @@ class DataBaseModule {
     @Provides
     fun provideBookDao(database: BibleDataBase): BookDAO {
         return database.bookDao()
+    }
+
+    @Provides
+    fun provideChapterDao(database: BibleDataBase): ChapterDAO {
+        return database.chapterDao()
     }
 
 }

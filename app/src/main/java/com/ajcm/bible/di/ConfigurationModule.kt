@@ -1,7 +1,6 @@
 package com.ajcm.bible.di
 
 import com.ajcm.bible.network.HeaderInterceptor
-import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -67,7 +66,6 @@ class ConfigurationModule {
         return Retrofit.Builder()
             .baseUrl(baseUrl)
             .client(client)
-            //.addCallAdapterFactory(CoroutineCallAdapterFactory())
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }

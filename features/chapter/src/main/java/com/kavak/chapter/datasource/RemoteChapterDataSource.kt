@@ -1,0 +1,24 @@
+package com.kavak.chapter.datasource
+
+import com.ajcm.data.datasource.IRemoteChapterDataSource
+import com.ajcm.domain.entity.AudioChapter
+import com.ajcm.domain.entity.Chapter
+import com.kavak.chapter.service.ChapterService
+import javax.inject.Inject
+
+class RemoteChapterDataSource @Inject constructor(
+    private val chapterService: ChapterService
+) : IRemoteChapterDataSource {
+
+    override suspend fun getChapters(bibleId: String, bookId: String): List<Chapter> {
+        return chapterService.getChapters(bibleId, bookId).data
+    }
+
+    override suspend fun getChapter(bibleId: String, chapterId: String): Chapter {
+        return chapterService.getChapter(bibleId, chapterId).data
+    }
+
+    override suspend fun getAudioChapter(bibleId: String, chapterId: String): AudioChapter {
+        TODO("Not yet implemented")
+    }
+}

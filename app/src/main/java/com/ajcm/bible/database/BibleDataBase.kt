@@ -9,20 +9,28 @@ import com.ajcm.bibles.database.converters.LanguageConverter
 import com.ajcm.bibles.database.model.BibleDTO
 import com.ajcm.book.database.BookDAO
 import com.ajcm.book.database.model.BookDTO
+import com.kavak.chapter.database.ChapterDAO
+import com.kavak.chapter.database.converters.NextChapterConverter
+import com.kavak.chapter.database.converters.PreviousChapterConverter
+import com.kavak.chapter.database.model.ChapterDTO
 
 @Database(
-    entities = [BibleDTO::class, BookDTO::class],
+    entities = [BibleDTO::class, BookDTO::class, ChapterDTO::class],
     version = 1,
     exportSchema = false
 )
 @TypeConverters(
     LanguageConverter::class,
-    CountryConverter::class
+    CountryConverter::class,
+    NextChapterConverter::class,
+    PreviousChapterConverter::class,
 )
 abstract class BibleDataBase : RoomDatabase() {
 
     abstract fun bibleDao(): BibleDAO
 
     abstract fun bookDao(): BookDAO
+
+    abstract fun chapterDao(): ChapterDAO
 
 }

@@ -5,7 +5,7 @@ import com.ajcm.domain.repository.IChapterRepository
 import javax.inject.Inject
 
 class GetChaptersUc @Inject constructor(private val repository: IChapterRepository) {
-    suspend operator fun invoke(id: String, bookId: String): List<Chapter> {
-        return repository.getChapters(id, bookId)
+    suspend operator fun invoke(bibleId: String, bookId: String): List<Chapter> {
+        return repository.getChapters(bibleId, bookId)
     }
 }

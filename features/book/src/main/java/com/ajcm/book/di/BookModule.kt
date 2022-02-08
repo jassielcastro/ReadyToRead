@@ -54,6 +54,6 @@ abstract class BookModule {
     abstract fun bindAudioBookRepository(repository: AudioBookRepository): IAudioBookRepository
 
     @Binds
-    abstract fun bindBiblesMapper(mapper: BookMapper): BaseMapper<Book, BookDTO>
+    abstract fun bindBookMapper(mapper: BookMapper): BaseMapper<Book, BookDTO>
 
 }

@@ -12,6 +12,8 @@ import com.ajcm.domain.usecase.bible.GetBibleUc
 import com.ajcm.domain.usecase.bible.GetBiblesUc
 import com.ajcm.domain.usecase.book.GetBookUC
 import com.ajcm.domain.usecase.book.GetBooksUc
+import com.ajcm.domain.usecase.chapter.GetChapterUc
+import com.ajcm.domain.usecase.chapter.GetChaptersUc
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -29,6 +31,10 @@ class MainActivity : AppCompatActivity() {
     lateinit var getBooksUc: GetBooksUc
     @Inject
     lateinit var getBookUc: GetBookUC
+    @Inject
+    lateinit var getChaptersUc: GetChaptersUc
+    @Inject
+    lateinit var getChapterUc: GetChapterUc
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -92,6 +98,32 @@ class MainActivity : AppCompatActivity() {
                 getBookUc(bibleId, bookId)
             }.onSuccess {
                 println("MainActivity.getBibleBook --> $it")
+                getBookChapters(bibleId, bookId)
+            }.onFailure {
+                it.printStackTrace()
+            }
+        }
+    }
+
+    private fun getBookChapters(bibleId: String, bookId: String) {
+        CoroutineScope(Dispatchers.IO).launch {
+            runCatching {
+                getChaptersUc(bibleId, bookId)
+            }.onSuccess {
+                println("MainActivity.getBookChapters --> $it")
+                getBookChapter(bibleId, it.first().id)
+            }.onFailure {
+                it.printStackTrace()
+            }
+        }
+    }
+
+    private fun getBookChapter(bibleId: String, chapterId: String) {
+        CoroutineScope(Dispatchers.IO).launch {
+            runCatching {
+                getChapterUc(bibleId, chapterId)
+            }.onSuccess {
+                println("MainActivity.getBookChapter --> $it")
             }.onFailure {
                 it.printStackTrace()
             }
