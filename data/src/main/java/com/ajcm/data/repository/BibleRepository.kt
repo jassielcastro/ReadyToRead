@@ -2,14 +2,9 @@ package com.ajcm.data.repository
 
 import com.ajcm.data.datasource.ILocalBibleDataSource
 import com.ajcm.data.datasource.IRemoteBibleDataSource
-import com.ajcm.domain.repository.IBibleRepository
 import com.ajcm.domain.entity.Bible
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import com.ajcm.domain.repository.IBibleRepository
 import javax.inject.Inject
-import kotlin.coroutines.resume
-import kotlin.coroutines.suspendCoroutine
 
 class BibleRepository @Inject constructor(
     private val localDataSource: ILocalBibleDataSource,
@@ -25,17 +20,17 @@ class BibleRepository @Inject constructor(
         return localDataSource.getBibles()
     }
 
-    override suspend fun getBible(bibleId: String): Bible = suspendCoroutine { continuation ->
-        CoroutineScope(Dispatchers.IO).launch {
-            runCatching {
-                localDataSource.getBible(bibleId)
-            }.onSuccess {
-                continuation.resume(it)
-            }.onFailure {
-                val bible = remoteDataSource.getBible(bibleId)
-                localDataSource.saveBible(bible)
-                continuation.resume(localDataSource.getBible(bibleId))
-            }
+    override suspend fun getBible(bibleId: String): Bible {
+        val bible = try {
+            localDataSource.getBible(bibleId)
+        } catch (e: Exception) {
+            remoteDataSource.getBible(bibleId)
         }
+
+        if (bible.info.isEmpty()) {
+            localDataSource.saveBible(remoteDataSource.getBible(bibleId))
+        }
+
+        return localDataSource.getBible(bibleId)
     }
 }

@@ -10,7 +10,10 @@ import com.ajcm.book.database.model.BookDTO
 interface BookDAO {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertBooks(bibles: List<BookDTO>)
+    fun insertBooks(book: List<BookDTO>)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertBook(book: BookDTO)
 
     @Query("SELECT * FROM ${BookDTO.TABLE_NAME} WHERE bibleId = :bibleId")
     fun getAllBooksByBible(bibleId: String): List<BookDTO>
