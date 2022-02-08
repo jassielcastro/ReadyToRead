@@ -8,8 +8,8 @@ import javax.inject.Inject
 class RemoteBibleDatasource @Inject constructor(
     private val service: BibleService
 ) : IRemoteBibleDataSource {
-    override suspend fun getBibles(): List<Bible> = service.getBiblesAsync().data
+    override suspend fun getBibles(): List<Bible> = service.getBibles().data
 
     override suspend fun getBible(bibleId: String): Bible =
-        service.getBibleAsync(bibleId).data
+        service.getBible(bibleId).data
 }

@@ -2,18 +2,14 @@ package com.ajcm.bibles.di
 
 import com.ajcm.bibles.database.model.BibleDTO
 import com.ajcm.bibles.datasource.LocalBibleDataSource
-import com.ajcm.bibles.datasource.RemoteAudioBibleDataSource
 import com.ajcm.bibles.datasource.RemoteBibleDatasource
 import com.ajcm.bibles.mappers.BiblesMapper
 import com.ajcm.bibles.service.BibleService
 import com.ajcm.data.datasource.ILocalBibleDataSource
-import com.ajcm.data.datasource.IRemoteAudioBibleDataSource
 import com.ajcm.data.datasource.IRemoteBibleDataSource
 import com.ajcm.data.mapper.BaseMapper
-import com.ajcm.data.repository.AudioBibleRepository
 import com.ajcm.data.repository.BibleRepository
 import com.ajcm.domain.entity.Bible
-import com.ajcm.domain.repository.IAudioBibleRepository
 import com.ajcm.domain.repository.IBibleRepository
 import dagger.Binds
 import dagger.Module
@@ -43,12 +39,6 @@ abstract class BibleModule {
 
     @Binds
     abstract fun bindBibleRepository(repository: BibleRepository): IBibleRepository
-
-    @Binds
-    abstract fun bindAudioBibleDataSource(dataSource: RemoteAudioBibleDataSource): IRemoteAudioBibleDataSource
-
-    @Binds
-    abstract fun bindAudioBibleRepository(repository: AudioBibleRepository): IAudioBibleRepository
 
     @Binds
     abstract fun bindLocalBibleDataSource(dataSource: LocalBibleDataSource): ILocalBibleDataSource

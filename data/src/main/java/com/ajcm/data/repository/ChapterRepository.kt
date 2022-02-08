@@ -2,7 +2,6 @@ package com.ajcm.data.repository
 
 import com.ajcm.data.datasource.ILocalChapterDataSource
 import com.ajcm.data.datasource.IRemoteChapterDataSource
-import com.ajcm.domain.entity.AudioChapter
 import com.ajcm.domain.entity.Chapter
 import com.ajcm.domain.repository.IChapterRepository
 import javax.inject.Inject
@@ -33,10 +32,6 @@ class ChapterRepository @Inject constructor(
         }
 
         return localDataSource.getChapter(bibleId, chapterId)
-    }
-
-    override suspend fun getAudioChapter(bibleId: String, chapterId: String): AudioChapter {
-        TODO("Not yet implemented")
     }
 
 }

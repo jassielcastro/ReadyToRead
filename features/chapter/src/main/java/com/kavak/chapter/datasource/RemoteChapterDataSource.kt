@@ -1,7 +1,6 @@
 package com.kavak.chapter.datasource
 
 import com.ajcm.data.datasource.IRemoteChapterDataSource
-import com.ajcm.domain.entity.AudioChapter
 import com.ajcm.domain.entity.Chapter
 import com.kavak.chapter.service.ChapterService
 import javax.inject.Inject
@@ -18,7 +17,4 @@ class RemoteChapterDataSource @Inject constructor(
         return chapterService.getChapter(bibleId, chapterId).data
     }
 
-    override suspend fun getAudioChapter(bibleId: String, chapterId: String): AudioChapter {
-        TODO("Not yet implemented")
-    }
 }
