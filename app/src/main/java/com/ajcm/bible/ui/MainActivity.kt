@@ -1,4 +1,4 @@
-package com.ajcm.bible
+package com.ajcm.bible.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
