@@ -15,7 +15,7 @@ fun TitleText(text: String, modifier: Modifier = Modifier) {
         color = AquaDark,
         fontSize = 28.sp,
         fontFamily = FontFamily.Cursive,
-        fontWeight = FontWeight.Bold,
+        fontWeight = FontWeight.ExtraBold,
         modifier = modifier
     )
 }
