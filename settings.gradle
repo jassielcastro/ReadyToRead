@@ -13,6 +13,7 @@ include ':feature_bibles'
 include ':feature_book'
 include ':feature_chapter'
 include ':feature_verse'
+include ':design'
 project(':feature_bibles').projectDir= new File('features/bibles')
 project(':feature_book').projectDir= new File('features/book')
 project(':feature_chapter').projectDir= new File('features/chapter')
