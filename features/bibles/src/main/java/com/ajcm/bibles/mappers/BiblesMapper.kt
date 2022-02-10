@@ -23,7 +23,8 @@ class BiblesMapper @Inject constructor() : BaseMapper<Bible, BibleDTO> {
             info = e.info ?: "",
             type = e.type ?: "",
             updatedAt = e.updatedAt ?: "",
-            relatedDbl = e.relatedDbl ?: ""
+            relatedDbl = e.relatedDbl ?: "",
+            isFavourite = e.isFavourite == 1
         )
     }
 
@@ -43,7 +44,8 @@ class BiblesMapper @Inject constructor() : BaseMapper<Bible, BibleDTO> {
             info = t.info,
             type = t.type,
             updatedAt = t.updatedAt,
-            relatedDbl = t.relatedDbl
+            relatedDbl = t.relatedDbl,
+            isFavourite = if (t.isFavourite) 1 else 0
         )
     }
 

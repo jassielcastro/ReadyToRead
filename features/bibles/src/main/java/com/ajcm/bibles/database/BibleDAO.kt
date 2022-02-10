@@ -34,6 +34,9 @@ interface BibleDAO {
     @Query("SELECT * FROM ${BibleDTO.TABLE_NAME}")
     fun getAllBibles(): List<BibleDTO>
 
+    @Query("SELECT * FROM ${BibleDTO.TABLE_NAME} WHERE isFavourite == 1")
+    fun getFavouriteBibles(): List<BibleDTO>
+
     @Query("SELECT * FROM ${BibleDTO.TABLE_NAME} WHERE id = :bibleId")
     fun getBible(bibleId: String): BibleDTO
 

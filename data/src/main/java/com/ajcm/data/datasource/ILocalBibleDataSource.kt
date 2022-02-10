@@ -7,5 +7,6 @@ interface ILocalBibleDataSource {
     suspend fun saveBible(bible: Bible)
 
     suspend fun getBibles(): List<Bible>
+    suspend fun getFavouriteBibles(): List<Bible>
     suspend fun getBible(bibleId: String): Bible
 }

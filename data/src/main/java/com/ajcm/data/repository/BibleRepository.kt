@@ -20,6 +20,10 @@ class BibleRepository @Inject constructor(
         return localDataSource.getBibles()
     }
 
+    override suspend fun getFavouriteBibles(): List<Bible> {
+        return localDataSource.getFavouriteBibles()
+    }
+
     override suspend fun getBible(bibleId: String): Bible {
         val bible = try {
             localDataSource.getBible(bibleId)

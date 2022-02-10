@@ -22,7 +22,8 @@ data class BibleDTO(
     val info: String?,
     val type: String?,
     val updatedAt: String?,
-    val relatedDbl: String?
+    val relatedDbl: String?,
+    var isFavourite: Int
 ) {
     companion object {
         const val TABLE_NAME = "Bible"

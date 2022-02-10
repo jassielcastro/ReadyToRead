@@ -15,5 +15,6 @@ data class Bible(
     val info: String,
     val type: String,
     val updatedAt: String,
-    val relatedDbl: String
+    val relatedDbl: String,
+    var isFavourite: Boolean
 )
