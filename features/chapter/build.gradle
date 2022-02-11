@@ -5,6 +5,21 @@ plugins {
     id 'dagger.hilt.android.plugin'
 }
 
+android {
+    buildFeatures {
+        compose true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion '1.0.5'
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+        useIR = true
+    }
+}
+
 dependencies {
     implementation project(":design")
     implementation project(":data")

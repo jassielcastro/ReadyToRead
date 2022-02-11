@@ -1,4 +1,4 @@
-package com.ajcm.common.di
+package com.ajcm.bible.di
 
 import com.ajcm.common.annotation.IoDispatcher
 import com.ajcm.common.annotation.MainScope

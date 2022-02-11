@@ -9,12 +9,26 @@ android {
     defaultConfig {
         applicationId "com.ajcm.bible"
     }
+
+    buildFeatures {
+        compose true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion '1.0.5'
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+        useIR = true
+    }
 }
 
 dependencies {
     implementation project(":design")
     implementation project(":data")
     implementation project(":domain")
+    implementation project(":common")
     implementation project(":feature_splash")
     implementation project(":feature_bibles")
     implementation project(":feature_book")
