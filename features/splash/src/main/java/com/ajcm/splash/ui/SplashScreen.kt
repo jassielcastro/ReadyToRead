@@ -13,14 +13,16 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.ajcm.splash.R
-import com.ajcm.splash.viewModel.SplashViewModel
+import com.ajcm.design.common.State
 import com.ajcm.design.component.TitleText
 import com.ajcm.design.theme.White
+import com.ajcm.splash.R
+import com.ajcm.splash.viewModel.SplashViewModel
 
 @Composable
 fun SplashScreen(
-    navController: NavController
+    navController: NavController,
+    splashViewModel: SplashViewModel = hiltViewModel()
 ) {
     Column(
         modifier = Modifier
@@ -39,12 +41,15 @@ fun SplashScreen(
 
         TitleText(text = stringResource(id = R.string.app_name))
     }
-
-    val splashViewModel: SplashViewModel = hiltViewModel()
     val hasFavouriteBibles by splashViewModel.hasFavouriteBibles.collectAsState()
-    if (hasFavouriteBibles) {
-        println("<top>.SplashScreen --> SI contiene biblias favoritas")
-    } else {
-        println("<top>.SplashScreen --> NO contiene biblias favoritas")
+    when (hasFavouriteBibles) {
+        is State.Success<*> -> {
+            println("<top>.SplashScreen ---> Si tiene biblias")
+        }
+        State.Empty -> {
+            println("<top>.SplashScreen ---> No tiene biblias")
+        }
+        else -> {
+        }
     }
 }

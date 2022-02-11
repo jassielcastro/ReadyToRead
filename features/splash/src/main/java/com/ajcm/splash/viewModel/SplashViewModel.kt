@@ -2,6 +2,7 @@ package com.ajcm.splash.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.ajcm.design.common.State
 import com.ajcm.domain.usecase.bible.FavouriteBiblesUC
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -16,15 +17,20 @@ class SplashViewModel @Inject constructor(
     private val favouriteBiblesUC: FavouriteBiblesUC
 ) : ViewModel() {
 
-    private val mHasFavouriteBibles = MutableStateFlow(false)
+    private val mHasFavouriteBibles = MutableStateFlow<State>(State.Loading)
     val hasFavouriteBibles = mHasFavouriteBibles.asStateFlow()
 
     init {
+        println("SplashViewModel. ---> init")
         viewModelScope.launch {
             val hasFavourite = withContext(Dispatchers.IO) {
-                favouriteBiblesUC().isNotEmpty()
+                favouriteBiblesUC()
             }
-            mHasFavouriteBibles.value = hasFavourite
+            mHasFavouriteBibles.value = if (hasFavourite.isNotEmpty()) {
+                State.Success(hasFavourite)
+            } else {
+                State.Empty
+            }
         }
     }
 
