@@ -1,22 +1,27 @@
-package com.ajcm.bible.ui.splash
+package com.ajcm.splash.ui
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
-import com.ajcm.bible.R
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
+import com.ajcm.splash.R
+import com.ajcm.splash.viewModel.SplashViewModel
 import com.kavak.design.component.TitleText
 import com.kavak.design.theme.White
 
-@Preview
 @Composable
-fun SplashScreen() {
+fun SplashScreen(
+    navController: NavController
+) {
     Column(
         modifier = Modifier
             .background(White)
@@ -33,5 +38,13 @@ fun SplashScreen() {
         )
 
         TitleText(text = stringResource(id = R.string.app_name))
+    }
+
+    val splashViewModel: SplashViewModel = hiltViewModel()
+    val hasFavouriteBibles by splashViewModel.hasFavouriteBibles.collectAsState()
+    if (hasFavouriteBibles) {
+        println("<top>.SplashScreen --> SI contiene biblias favoritas")
+    } else {
+        println("<top>.SplashScreen --> NO contiene biblias favoritas")
     }
 }

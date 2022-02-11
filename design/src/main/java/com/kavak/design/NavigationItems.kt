@@ -1,4 +1,4 @@
-package com.ajcm.bible.ui.navigation
+package com.kavak.design
 
 object NavigationItems {
 

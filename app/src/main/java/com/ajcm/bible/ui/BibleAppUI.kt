@@ -1,6 +1,5 @@
 package com.ajcm.bible.ui
 
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
@@ -21,9 +20,10 @@ fun BibleAppUI(appState: BibleAppState = rememberBibleAppState()) {
         Scaffold(
             scaffoldState = appState.scaffoldState
         ) { padding ->
-            Box(modifier = Modifier.padding(padding)) {
-                Navigation(appState.navController)
-            }
+            Navigation(
+                navController = appState.navController,
+                modifier = Modifier.padding(padding)
+            )
         }
         SetStatusBarColorEffect()
     }
