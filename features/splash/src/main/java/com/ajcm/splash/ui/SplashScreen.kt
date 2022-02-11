@@ -11,7 +11,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.ajcm.design.common.State
 import com.ajcm.design.component.TitleText
@@ -22,7 +21,7 @@ import com.ajcm.splash.viewModel.SplashViewModel
 @Composable
 fun SplashScreen(
     navController: NavController,
-    splashViewModel: SplashViewModel = hiltViewModel()
+    splashViewModel: SplashViewModel
 ) {
     Column(
         modifier = Modifier
