@@ -10,9 +10,9 @@ import androidx.compose.ui.graphics.Color
 import com.ajcm.bible.ui.navigation.Navigation
 import com.google.accompanist.systemuicontroller.SystemUiController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
-import com.kavak.design.BibleAppState
-import com.kavak.design.rememberBibleAppState
-import com.kavak.design.screen.BibleScreen
+import com.ajcm.design.BibleAppState
+import com.ajcm.design.rememberBibleAppState
+import com.ajcm.design.screen.BibleScreen
 
 @Composable
 fun BibleAppUI(appState: BibleAppState = rememberBibleAppState()) {

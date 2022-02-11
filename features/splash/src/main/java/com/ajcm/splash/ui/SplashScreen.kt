@@ -15,8 +15,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.ajcm.splash.R
 import com.ajcm.splash.viewModel.SplashViewModel
-import com.kavak.design.component.TitleText
-import com.kavak.design.theme.White
+import com.ajcm.design.component.TitleText
+import com.ajcm.design.theme.White
 
 @Composable
 fun SplashScreen(

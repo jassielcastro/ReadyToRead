@@ -9,12 +9,12 @@ import com.ajcm.bibles.database.converters.LanguageConverter
 import com.ajcm.bibles.database.model.BibleDTO
 import com.ajcm.book.database.BookDAO
 import com.ajcm.book.database.model.BookDTO
-import com.kavak.chapter.database.ChapterDAO
-import com.kavak.chapter.database.converters.NextChapterConverter
-import com.kavak.chapter.database.converters.PreviousChapterConverter
-import com.kavak.chapter.database.model.ChapterDTO
-import com.kavak.verse.database.VerseDAO
-import com.kavak.verse.database.model.VerseDTO
+import com.ajcm.chapter.database.ChapterDAO
+import com.ajcm.chapter.database.converters.NextChapterConverter
+import com.ajcm.chapter.database.converters.PreviousChapterConverter
+import com.ajcm.chapter.database.model.ChapterDTO
+import com.ajcm.verse.database.VerseDAO
+import com.ajcm.verse.database.model.VerseDTO
 
 @Database(
     entities = [BibleDTO::class, BookDTO::class, ChapterDTO::class, VerseDTO::class],

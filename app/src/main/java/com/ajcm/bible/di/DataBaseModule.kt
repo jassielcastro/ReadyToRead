@@ -5,8 +5,8 @@ import androidx.room.Room
 import com.ajcm.bible.database.BibleDataBase
 import com.ajcm.bibles.database.BibleDAO
 import com.ajcm.book.database.BookDAO
-import com.kavak.chapter.database.ChapterDAO
-import com.kavak.verse.database.VerseDAO
+import com.ajcm.chapter.database.ChapterDAO
+import com.ajcm.verse.database.VerseDAO
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

@@ -6,7 +6,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.ajcm.splash.ui.SplashScreen
-import com.kavak.design.NavigationItems
+import com.ajcm.design.NavigationItems
 
 @Composable
 fun Navigation(navController: NavHostController, modifier: Modifier = Modifier) {
