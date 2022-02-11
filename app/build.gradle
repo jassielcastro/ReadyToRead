@@ -41,6 +41,7 @@ dependencies {
     implementation project(":feature_chapter")
     implementation project(":feature_verse")
 
+    implementation "androidx.core:core-ktx:$coreKtxVersion"
     implementation "androidx.appcompat:appcompat:$appcompatVersion"
     implementation "androidx.activity:activity-ktx:$activityKtxVersion"
 

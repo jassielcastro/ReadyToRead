@@ -1,15 +1,9 @@
-dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-    repositories {
-        google()
-        mavenCentral()
-    }
-}
 rootProject.name = "Bible"
 include ':app'
 include ':domain'
 include ':data'
 include ':design'
+include ':common'
 include ':feature_bibles'
 include ':feature_book'
 include ':feature_chapter'
@@ -20,4 +14,3 @@ project(':feature_book').projectDir= new File('features/book')
 project(':feature_chapter').projectDir= new File('features/chapter')
 project(':feature_verse').projectDir= new File('features/verse')
 project(':feature_splash').projectDir= new File('features/splash')
-include ':common'

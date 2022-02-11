@@ -29,8 +29,9 @@ dependencies {
     api "com.google.accompanist:accompanist-systemuicontroller:$systemuicontrollerVersion"
     api "androidx.compose.foundation:foundation:$composeVersion"
     api "androidx.compose.material:material:$composeVersion"
-    api "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleRuntimeKtxVersion"
-    api "androidx.lifecycle:lifecycle-viewmodel-ktx:$viewModelVersion"
+    api "androidx.lifecycle:lifecycle-viewmodel-compose:$viewmodelComposeVersion"
+    api "androidx.lifecycle:lifecycle-viewmodel-ktx:$viewmodelComposeVersion"
+    api "androidx.compose.foundation:foundation-layout:$composeVersion"
 
     // Hilt + Compose
     api "androidx.hilt:hilt-navigation-compose:$hiltNavigationComposeVersion"
