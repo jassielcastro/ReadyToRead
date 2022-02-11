@@ -9,6 +9,7 @@ dependencies {
     implementation project(":design")
     implementation project(":data")
     implementation project(":domain")
+    implementation project(":common")
 
     //ROOM
     implementation "androidx.room:room-runtime:2.4.1"
