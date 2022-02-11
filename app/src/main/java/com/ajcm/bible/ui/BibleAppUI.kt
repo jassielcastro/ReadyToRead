@@ -7,6 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.lifecycle.ViewModel
 import com.ajcm.bible.ui.navigation.Navigation
 import com.google.accompanist.systemuicontroller.SystemUiController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
@@ -15,14 +16,15 @@ import com.ajcm.design.rememberBibleAppState
 import com.ajcm.design.screen.BibleScreen
 
 @Composable
-fun BibleAppUI(appState: BibleAppState = rememberBibleAppState()) {
+fun BibleAppUI(viewModels: List<ViewModel>, appState: BibleAppState = rememberBibleAppState()) {
     BibleScreen {
         Scaffold(
             scaffoldState = appState.scaffoldState
         ) { padding ->
             Navigation(
                 navController = appState.navController,
-                modifier = Modifier.padding(padding)
+                modifier = Modifier.padding(padding),
+                viewModels = viewModels
             )
         }
         SetStatusBarColorEffect()

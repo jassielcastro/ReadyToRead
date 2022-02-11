@@ -40,6 +40,7 @@ fun SplashScreen(
 
         TitleText(text = stringResource(id = R.string.app_name))
     }
+
     val hasFavouriteBibles by splashViewModel.hasFavouriteBibles.collectAsState()
     when (hasFavouriteBibles) {
         is State.Success<*> -> {
