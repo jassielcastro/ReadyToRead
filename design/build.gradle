@@ -24,13 +24,16 @@ dependencies {
     api "androidx.activity:activity-compose:$activityComposeVersion"
     api "androidx.compose.ui:ui-tooling-preview:$composeVersion"
     api "androidx.compose.material:material-icons-extended:$composeVersion"
-    api "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleRuntimeKtxVersion"
     api "androidx.navigation:navigation-compose:$navigationComposeVersion"
     api "androidx.compose.runtime:runtime:$composeVersion"
     api "com.google.accompanist:accompanist-systemuicontroller:$systemuicontrollerVersion"
     api "androidx.compose.foundation:foundation:$composeVersion"
     api "androidx.compose.material:material:$composeVersion"
+    api "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleRuntimeKtxVersion"
+    api "androidx.lifecycle:lifecycle-viewmodel-ktx:$viewModelVersion"
 
     // Hilt + Compose
     api "androidx.hilt:hilt-navigation-compose:$hiltNavigationComposeVersion"
+
+    debugImplementation "androidx.compose.ui:ui-tooling:$composeVersion"
 }
