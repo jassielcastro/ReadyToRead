@@ -1,6 +1,10 @@
 package com.ajcm.bible.di
 
 import com.ajcm.bible.network.HeaderInterceptor
+import com.ajcm.common.annotation.ApiToken
+import com.ajcm.common.annotation.BaseUrl
+import com.ajcm.common.annotation.InterceptorHeader
+import com.ajcm.common.annotation.InterceptorLogin
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -13,17 +17,16 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
-import javax.inject.Named
 
 @Module
 @InstallIn(SingletonComponent::class)
 class ConfigurationModule {
 
-    @Named(BASE_URL)
+    @BaseUrl
     @Provides
     fun provideUrl(): String = "https://api.scripture.api.bible"
 
-    @Named(API_TOKEN)
+    @ApiToken
     @Provides
     fun provideApiToken(): String = "78f3d242b9698359bf237a6816232629"
 
@@ -34,23 +37,23 @@ class ConfigurationModule {
             .build()
     }
 
-    @Named(LOGIN_INTERCEPTOR)
+    @InterceptorLogin
     @Provides
     fun provideLoggingInterceptor(): Interceptor {
         return HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
     }
 
-    @Named(HEADER_INTERCEPTOR)
+    @InterceptorHeader
     @Provides
-    fun provideHeaderInterceptor(@Named(API_TOKEN) apiToken: String): Interceptor {
+    fun provideHeaderInterceptor(@ApiToken apiToken: String): Interceptor {
         return HeaderInterceptor(apiToken)
     }
 
     @Provides
     fun provideOkHttpClient(
         cs: ConnectionSpec,
-        @Named(LOGIN_INTERCEPTOR) loggingInterceptor: Interceptor,
-        @Named(HEADER_INTERCEPTOR) headerInterceptor: Interceptor
+        @InterceptorLogin loggingInterceptor: Interceptor,
+        @InterceptorHeader headerInterceptor: Interceptor
     ): OkHttpClient {
         val okhttp = OkHttpClient.Builder()
         okhttp.writeTimeout(30, TimeUnit.SECONDS)
@@ -62,7 +65,7 @@ class ConfigurationModule {
     }
 
     @Provides
-    fun provideRetrofit(@Named(BASE_URL) baseUrl: String, client: OkHttpClient): Retrofit {
+    fun provideRetrofit(@BaseUrl baseUrl: String, client: OkHttpClient): Retrofit {
         return Retrofit.Builder()
             .baseUrl(baseUrl)
             .client(client)
