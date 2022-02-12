@@ -4,7 +4,9 @@ import com.ajcm.bibles.database.model.BibleDTO
 import com.ajcm.data.mapper.BaseMapper
 import com.ajcm.domain.entity.Bible
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class BiblesMapper @Inject constructor() : BaseMapper<Bible, BibleDTO> {
 
     override fun from(e: BibleDTO): Bible {

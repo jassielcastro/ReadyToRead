@@ -1,13 +1,10 @@
 package com.ajcm.bibles.di
 
-import com.ajcm.bibles.database.BibleDAO
 import com.ajcm.bibles.database.model.BibleDTO
 import com.ajcm.bibles.datasource.LocalBibleDataSource
 import com.ajcm.bibles.datasource.RemoteBibleDatasource
 import com.ajcm.bibles.mappers.BiblesMapper
 import com.ajcm.bibles.service.BibleService
-import com.ajcm.common.annotation.IoDispatcher
-import com.ajcm.common.annotation.MainScope
 import com.ajcm.data.datasource.ILocalBibleDataSource
 import com.ajcm.data.datasource.IRemoteBibleDataSource
 import com.ajcm.data.mapper.BaseMapper
@@ -18,8 +15,6 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.CoroutineScope
 import retrofit2.Retrofit
 
 @Module
@@ -27,7 +22,9 @@ import retrofit2.Retrofit
 class NetworkBibleModule {
 
     @Provides
-    fun provideApi(retrofit: Retrofit): BibleService {
+    fun provideApi(
+        retrofit: Retrofit
+    ): BibleService {
         return retrofit.create(BibleService::class.java)
     }
 
@@ -35,43 +32,26 @@ class NetworkBibleModule {
 
 @Module
 @InstallIn(SingletonComponent::class)
-class BibleModule {
+object BibleModule {
 
     @Provides
     fun bindRemoteBibleDataSource(
-        service: BibleService
-    ): IRemoteBibleDataSource {
-        return RemoteBibleDatasource(service)
-    }
+        dataSource: RemoteBibleDatasource
+    ): IRemoteBibleDataSource = dataSource
 
     @Provides
     fun bindBibleRepository(
-        localDataSource: ILocalBibleDataSource,
-        remoteDataSource: IRemoteBibleDataSource
-    ): IBibleRepository {
-        return BibleRepository(localDataSource, remoteDataSource)
-    }
+        repository: BibleRepository
+    ): IBibleRepository = repository
 
     @Provides
     fun bindLocalBibleDataSource(
-        bibleDAO: BibleDAO,
-        mapper: BaseMapper<Bible, BibleDTO>,
-        @MainScope
-        mainScope: CoroutineScope,
-        @IoDispatcher
-        ioDispatcher: CoroutineDispatcher
-    ): ILocalBibleDataSource {
-        return LocalBibleDataSource(
-            bibleDAO,
-            mapper,
-            mainScope,
-            ioDispatcher
-        )
-    }
+        dataSource: LocalBibleDataSource
+    ): ILocalBibleDataSource = dataSource
 
     @Provides
-    fun bindBiblesMapper(): BaseMapper<Bible, BibleDTO> {
-        return BiblesMapper()
-    }
+    fun bindBiblesMapper(
+        mapper: BiblesMapper
+    ): BaseMapper<Bible, BibleDTO> = mapper
 
 }
