@@ -12,9 +12,11 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
+import javax.inject.Singleton
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
+@Singleton
 class LocalBibleDataSource @Inject constructor(
     private val bibleDAO: BibleDAO,
     private val bibleMapper: BaseMapper<Bible, BibleDTO>,

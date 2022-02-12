@@ -4,7 +4,9 @@ import com.ajcm.bibles.service.BibleService
 import com.ajcm.data.datasource.IRemoteBibleDataSource
 import com.ajcm.domain.entity.Bible
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class RemoteBibleDatasource @Inject constructor(
     private val service: BibleService
 ) : IRemoteBibleDataSource {

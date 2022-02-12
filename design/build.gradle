@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.library'
     id 'kotlin-android'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -19,22 +20,39 @@ android {
 }
 
 dependencies {
-    //Compose
-    api "androidx.compose.ui:ui:$composeVersion"
-    api "androidx.activity:activity-compose:$activityComposeVersion"
-    api "androidx.compose.ui:ui-tooling-preview:$composeVersion"
-    api "androidx.compose.material:material-icons-extended:$composeVersion"
-    api "androidx.navigation:navigation-compose:$navigationComposeVersion"
     api "androidx.compose.runtime:runtime:$composeVersion"
-    api "com.google.accompanist:accompanist-systemuicontroller:$systemuicontrollerVersion"
-    api "androidx.compose.foundation:foundation:$composeVersion"
-    api "androidx.compose.material:material:$composeVersion"
-    api "androidx.lifecycle:lifecycle-viewmodel-compose:$viewmodelComposeVersion"
-    api "androidx.lifecycle:lifecycle-viewmodel-ktx:$viewmodelComposeVersion"
+    api "androidx.compose.ui:ui:$composeVersion"
     api "androidx.compose.foundation:foundation-layout:$composeVersion"
-
-    // Hilt + Compose
-    api "androidx.hilt:hilt-navigation-compose:$hiltNavigationComposeVersion"
-
+    api "androidx.compose.material:material:$composeVersion"
+    api "androidx.compose.material:material-icons-extended:$composeVersion"
+    api "androidx.compose.foundation:foundation:$composeVersion"
+    api "androidx.compose.animation:animation:$composeVersion"
+    api "androidx.compose.ui:ui-tooling-preview:$composeVersion"
+    api "androidx.compose.runtime:runtime-livedata:$composeVersion"
     debugImplementation "androidx.compose.ui:ui-tooling:$composeVersion"
+
+    api "com.google.accompanist:accompanist-systemuicontroller:$accompanistVersion"
+
+    api "androidx.lifecycle:lifecycle-viewmodel-ktx:$viewModelVersion"
+    api "androidx.lifecycle:lifecycle-viewmodel-savedstate:$viewModelVersion"
+    api "androidx.lifecycle:lifecycle-livedata-ktx:$viewModelVersion"
+    api "androidx.lifecycle:lifecycle-viewmodel-compose:$viewModelVersion"
+
+    api "androidx.navigation:navigation-compose:$navigationComposeVersion"
+    api "androidx.hilt:hilt-navigation-compose:$hiltNavigationComposeVersion"
+    kapt "androidx.hilt:hilt-compiler:$hiltNavigationComposeVersion"
+}
+
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+    kotlinOptions {
+        // Treat all Kotlin warnings as errors (disabled by default)
+        allWarningsAsErrors = project.hasProperty("warningsAsErrors") ? project.warningsAsErrors : false
+
+        freeCompilerArgs += '-Xopt-in=kotlin.RequiresOptIn'
+        // Enable experimental coroutines APIs, including Flow
+        freeCompilerArgs += '-Xopt-in=kotlin.Experimental'
+
+        // Set JVM target to 1.8
+        jvmTarget = "1.8"
+    }
 }
