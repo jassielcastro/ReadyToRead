@@ -22,7 +22,7 @@ fun Navigation(
     ) {
         composable(NavigationItems.SPLASH_SCREEN) { backStack ->
             val splashViewModel = hiltViewModel<SplashViewModel>(backStack)
-            SplashScreen(navController, splashViewModel)
+            SplashScreen(splashViewModel)
         }
     }
 }
