@@ -11,11 +11,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import com.ajcm.design.common.State
-import com.ajcm.design.component.TitleText
+import com.ajcm.design.component.LogoTitleText
+
 import com.ajcm.design.theme.White
 import com.ajcm.splash.R
 import com.ajcm.splash.viewModel.SplashViewModel
+import com.ajcm.verse.ui.VerseText
 
 @Composable
 fun SplashScreen(
@@ -36,7 +39,12 @@ fun SplashScreen(
             contentDescription = null
         )
 
-        TitleText(text = stringResource(id = R.string.app_name))
+        LogoTitleText(text = stringResource(id = R.string.app_name))
+
+
+        VerseText(verseNumber = "1", verse = "In the beginning God created the heavens and the earth.")
+        VerseText(verseNumber = "2", verse = "Now the earth was formless and empty, darkness was over the surface of the deep, and the Spirit of God was hovering over the waters.")
+        VerseText(verseNumber = "3", verse = "And God said, Let there be light, and there was light.")
     }
 
     val hasFavouriteBibles by splashViewModel.hasFavouriteBibles.collectAsState()

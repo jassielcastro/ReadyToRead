@@ -16,7 +16,7 @@ android {
 
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
-        useIR = true
+        //useIR = true
     }
 }
 
@@ -24,6 +24,7 @@ dependencies {
     implementation project(":design")
     implementation project(":domain")
     implementation project(":data")
+    implementation project(":feature_verse")
 
     //Dagger hilt
     implementation "com.google.dagger:hilt-android:$hiltVersion"
