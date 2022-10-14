@@ -29,6 +29,7 @@ dependencies {
     api "androidx.compose.animation:animation:$composeVersion"
     api "androidx.compose.ui:ui-tooling-preview:$composeVersion"
     api "androidx.compose.runtime:runtime-livedata:$composeVersion"
+    api "androidx.constraintlayout:constraintlayout-compose:1.0.1"
     debugImplementation "androidx.compose.ui:ui-tooling:$composeVersion"
 
     api "com.google.accompanist:accompanist-systemuicontroller:$accompanistVersion"

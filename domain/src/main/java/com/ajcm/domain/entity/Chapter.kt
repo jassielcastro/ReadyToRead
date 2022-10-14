@@ -11,4 +11,34 @@ data class Chapter(
     var next: NextChapter?,
     var previous: PreviousChapter?,
     var copyright: String
-)
+) {
+    class Builder {
+        var id: String = ""
+        var bibleId: String = ""
+        var number: String = ""
+        var bookId: String = ""
+        var content: String = ""
+        var reference: String = ""
+        var verseCount: Int = 0
+        var next: NextChapter? = null
+        var previous: PreviousChapter? = null
+        var copyright: String = ""
+
+        fun build() = Chapter(
+            id,
+            bibleId,
+            number,
+            bookId,
+            content,
+            reference,
+            verseCount,
+            next,
+            previous,
+            copyright
+        )
+    }
+}
+
+fun Chapter(block: Chapter.Builder.() -> Unit): Chapter {
+    return Chapter.Builder().apply(block).build()
+}

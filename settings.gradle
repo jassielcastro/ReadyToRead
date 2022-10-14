@@ -8,9 +8,7 @@ include ':feature_bibles'
 include ':feature_book'
 include ':feature_chapter'
 include ':feature_verse'
-include ':feature_splash'
 project(':feature_bibles').projectDir= new File('features/bibles')
 project(':feature_book').projectDir= new File('features/book')
 project(':feature_chapter').projectDir= new File('features/chapter')
 project(':feature_verse').projectDir= new File('features/verse')
-project(':feature_splash').projectDir= new File('features/splash')

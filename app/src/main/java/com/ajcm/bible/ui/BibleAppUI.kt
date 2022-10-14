@@ -7,7 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import com.ajcm.bible.ui.navigation.Navigation
+import com.ajcm.bible.ui.navigation.NavigationHost
 import com.ajcm.design.BibleAppState
 import com.ajcm.design.rememberBibleAppState
 import com.ajcm.design.screen.BibleScreen
@@ -20,7 +20,7 @@ fun BibleAppUI(appState: BibleAppState = rememberBibleAppState()) {
         Scaffold(
             scaffoldState = appState.scaffoldState
         ) { padding ->
-            Navigation(
+            NavigationHost(
                 navController = appState.navController,
                 modifier = Modifier.padding(padding)
             )

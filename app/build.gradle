@@ -35,7 +35,6 @@ dependencies {
     implementation project(":data")
     implementation project(":domain")
     implementation project(":common")
-    implementation project(":feature_splash")
     implementation project(":feature_bibles")
     implementation project(":feature_book")
     implementation project(":feature_chapter")

@@ -1,47 +1,46 @@
 package com.ajcm.design.theme
 
-import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.darkColors
-import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.ReadOnlyComposable
+import androidx.compose.runtime.remember
 
-private val DarkColorPalette = darkColors(
-    primary = AquaDark,
-    primaryVariant = White,
-    secondary = AquaMedium,
-    onPrimary = White
-)
-
-private val LightColorPalette = lightColors(
-    primary = AquaDark,
-    primaryVariant = White,
-    secondary = AquaMedium,
-    onPrimary = White
-
-    /* Other default colors to override
-    background = Color.White,
-    surface = Color.White,
-    onPrimary = Color.White,
-    onSecondary = Color.Black,
-    onBackground = Color.Black,
-    onSurface = Color.Black,
-    */
-)
+object MaterialBibleTheme {
+    val colors: BibleColors
+        @Composable
+        @ReadOnlyComposable
+        get() = LocalLightColors.current
+    val typography: BibleTypography
+        @Composable
+        @ReadOnlyComposable
+        get() = LocalTypography.current
+    val shapes: BibleShape
+        @Composable
+        @ReadOnlyComposable
+        get() = LocalShapes.current
+    val dimensions: BibleDimensions
+        @Composable
+        @ReadOnlyComposable
+        get() = LocalDimensions.current
+}
 
 @Composable
 fun BibleComposeTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
+    colors: BibleColors = MaterialBibleTheme.colors,
+    typography: BibleTypography = MaterialBibleTheme.typography,
+    dimensions: BibleDimensions = MaterialBibleTheme.dimensions,
+    shapes: BibleShape = MaterialBibleTheme.shapes,
     content: @Composable () -> Unit
 ) {
-    val colors = if (darkTheme) {
-        DarkColorPalette
-    } else {
-        LightColorPalette
-    }
 
-    MaterialTheme(
-        colors = colors,
-        content = content
-    )
+    val rememberedColors = remember { colors.copy() }.apply { updateColorsFrom(colors) }
+
+    CompositionLocalProvider(
+        LocalLightColors provides rememberedColors,
+        LocalDimensions provides dimensions,
+        LocalShapes provides shapes,
+        LocalTypography provides typography
+    ) {
+        content()
+    }
 }
