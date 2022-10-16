@@ -5,9 +5,10 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import com.ajcm.design.component.CardBookItem
+import com.ajcm.bible.ui.dashboard.sections.SectionsScreen
+import com.ajcm.bible.ui.navigation.DashboardActions
+import com.ajcm.design.rememberBibleAppState
 import com.ajcm.design.screen.BibleScreen
-import com.ajcm.design.theme.MaterialBibleTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -25,11 +26,6 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun PreviewComponent() {
     BibleScreen {
-        CardBookItem(
-            title = "asdasdfasdf",
-            realName = "sadfasdfasd",
-            background = MaterialBibleTheme.colors.primary,
-            image = 0
-        )
+        SectionsScreen(actions = DashboardActions(rememberBibleAppState().navController))
     }
 }

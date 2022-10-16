@@ -25,7 +25,7 @@ fun TextSections(text: String, onClick: () -> Unit) {
         Text(
             text = text,
             style = MaterialBibleTheme.typography.section,
-            color = MaterialBibleTheme.colors.textPrimary,
+            color = MaterialBibleTheme.colors.black,
             overflow = TextOverflow.Ellipsis,
             maxLines = 1,
             textAlign = TextAlign.Start,
@@ -42,7 +42,7 @@ fun TextSections(text: String, onClick: () -> Unit) {
         Text(
             text = "Ver más",
             style = MaterialBibleTheme.typography.subCaption,
-            color = MaterialBibleTheme.colors.textPrimary.copy(alpha = 0.7f),
+            color = MaterialBibleTheme.colors.green,
             modifier = Modifier
                 .constrainAs(seeMore) {
                     end.linkTo(parent.end, margin)

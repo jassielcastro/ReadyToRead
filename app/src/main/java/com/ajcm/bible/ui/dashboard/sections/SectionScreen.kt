@@ -51,7 +51,11 @@ val images = listOf(
 @Composable
 fun SectionsScreen(actions: DashboardActions) {
     Column {
-        SearchComponent {
+
+        CardInfoSection(
+            modifier = Modifier
+                .fillMaxWidth()
+        ) {
             actions.showSearchBy(type = SearchType.ALL)
         }
 
@@ -59,17 +63,6 @@ fun SectionsScreen(actions: DashboardActions) {
             modifier = Modifier
                 .fillMaxSize()
         ) {
-
-            mediumSpace()
-
-            item {
-                CardInfoSection(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                ) {
-                    actions.showSearchBy(type = SearchType.ALL)
-                }
-            }
 
             normalSpace()
 

@@ -7,31 +7,31 @@ import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 
 class BibleColors(
-    primary: Color,
-    secondary: Color,
-    textPrimary: Color,
-    textSecondary: Color,
-    error: Color,
-    background: Color,
+    blue: Color,
+    blueLight: Color,
+    black: Color,
+    green: Color,
+    red: Color,
+    greenLight: Color,
     gray: Color,
     orange: Color,
     orangeLight: Color,
     brownLight: Color,
-    button: Color,
+    brown: Color,
     white: Color,
     isLight: Boolean
 ) {
-    var primary by mutableStateOf(primary)
+    var blue by mutableStateOf(blue)
         private set
-    var secondary by mutableStateOf(secondary)
+    var blueLight by mutableStateOf(blueLight)
         private set
-    var textPrimary by mutableStateOf(textPrimary)
+    var black by mutableStateOf(black)
         private set
-    var textSecundary by mutableStateOf(textSecondary)
+    var green by mutableStateOf(green)
         private set
-    var error by mutableStateOf(error)
+    var red by mutableStateOf(red)
         private set
-    var background by mutableStateOf(background)
+    var greenLight by mutableStateOf(greenLight)
         private set
     var gray by mutableStateOf(gray)
         private set
@@ -41,7 +41,7 @@ class BibleColors(
         private set
     var brownLight by mutableStateOf(brownLight)
         private set
-    var button by mutableStateOf(button)
+    var brown by mutableStateOf(brown)
         private set
     var white by mutableStateOf(white)
         private set
@@ -50,59 +50,59 @@ class BibleColors(
 
     private val colors: List<Color> by lazy {
         listOf(
-            Orange,
-            OrangeLight,
-            Orange_1,
-            Orange_2,
-            Orange_3,
-            Orange_4,
-            Orange_5,
-            Orange_6
+            brown,
+            blue,
+            blueLight,
+            green,
+            red,
+            greenLight,
+            orange,
+            orangeLight
         )
     }
 
     fun copy(
-        primary: Color = this.primary,
-        secondary: Color = this.secondary,
-        textPrimary: Color = this.textPrimary,
-        textSecundary: Color = this.textSecundary,
-        error: Color = this.error,
-        background: Color = this.background,
+        blue: Color = this.blue,
+        blueLight: Color = this.blueLight,
+        black: Color = this.black,
+        green: Color = this.green,
+        red: Color = this.red,
+        greenLight: Color = this.greenLight,
         gray: Color = this.gray,
-        pink: Color = this.orange,
-        pinkLight: Color = this.orangeLight,
-        purple: Color = this.brownLight,
-        button: Color = this.button,
+        orange: Color = this.orange,
+        orangeLight: Color = this.orangeLight,
+        brownLight: Color = this.brownLight,
+        brown: Color = this.brown,
         white: Color = this.white,
         isLight: Boolean = this.isLight
     ): BibleColors = BibleColors(
-        primary,
-        secondary,
-        textPrimary,
-        textSecundary,
-        error,
-        background,
+        blue,
+        blueLight,
+        black,
+        green,
+        red,
+        greenLight,
         gray,
-        pink,
-        pinkLight,
-        purple,
-        button,
+        orange,
+        orangeLight,
+        brownLight,
+        brown,
         white,
         isLight
     )
 
     fun updateColorsFrom(other: BibleColors) {
-        primary = other.primary
-        secondary = other.secondary
-        textPrimary = other.textPrimary
-        textSecundary = other.textSecundary
-        background = other.background
-        error = other.error
+        blue = other.blue
+        blueLight = other.blueLight
+        black = other.black
+        green = other.green
+        greenLight = other.greenLight
+        red = other.red
         isLight = other.isLight
         gray = other.gray
         orange = other.orange
         orangeLight = other.orangeLight
-        button = other.button
+        brown = other.brown
         white = other.white
         brownLight = other.brownLight
     }
@@ -116,45 +116,41 @@ private val White = Color(0xFFFFFFFF)
 private val Black = Color(0xFF000000)
 private val Gray = Color(0xFFF5F5F5)
 
+private val Blue = Color(0xE84D94DF)
+private val BlueLight = Color(0xFC89C7FF)
 private val Brown = Color(0xFFB79F95)
-private val BrownDark = Color(0xFF877167)
-private val BrownLight = Color(0xFFEBE2DE)
+private val BrownLight = Color(0xFFECD8CF)
 private val Orange = Color(0xFFFFA000)
 private val OrangeLight = Color(0xFFFFD184)
-
-// items colors
-private val Orange_1 = Color(0xFFFFA000)
-private val Orange_2 = Color(0xFFFFD149)
-private val Orange_3 = Color(0xFFEEAC71)
-private val Orange_4 = Color(0xFFFFE0B2)
-private val Orange_5 = Color(0xFFFF833A)
-private val Orange_6 = Color(0xFFEC933B)
+private val Green = Color(0xFF58BE80)
+private val GreenLight = Color(0xFFA4ECC1)
+private val Red = Color(0xFFF8AFAF)
 
 fun lightColors(
-    primary: Color = BrownDark,
-    secondary: Color = Brown,
-    textPrimary: Color = Black,
-    textSecondary: Color = White,
-    error: Color = Black,
-    background: Color = White,
+    blue: Color = Blue,
+    blueLight: Color = BlueLight,
+    black: Color = Black,
+    green: Color = Green,
+    greenLight: Color = GreenLight,
+    red: Color = Red,
     gray: Color = Gray,
     orange: Color = Orange,
     orangeLight: Color = OrangeLight,
-    button: Color = Orange,
-    white: Color = White,
     brownLight: Color = BrownLight,
+    brown: Color = Brown,
+    white: Color = White,
 ): BibleColors = BibleColors(
-    primary = primary,
-    secondary = secondary,
-    textPrimary = textPrimary,
-    textSecondary = textSecondary,
-    background = background,
-    error = error,
+    blue = blue,
+    blueLight = blueLight,
+    black = black,
+    green = green,
+    greenLight = greenLight,
+    red = red,
     gray = gray,
     orange = orange,
     orangeLight = orangeLight,
     brownLight = brownLight,
-    button = button,
+    brown = brown,
     white = white,
     isLight = true
 )

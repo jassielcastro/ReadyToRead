@@ -40,7 +40,7 @@ fun ErrorScreen(arguments: Bundle? = null) {
 
         Text(
             text = title,
-            color = MaterialBibleTheme.colors.textPrimary,
+            color = MaterialBibleTheme.colors.black,
             style = MaterialBibleTheme.typography.title,
             textAlign = TextAlign.Center
         )
@@ -49,7 +49,7 @@ fun ErrorScreen(arguments: Bundle? = null) {
 
         Text(
             text = message,
-            color = MaterialBibleTheme.colors.primary,
+            color = MaterialBibleTheme.colors.blue,
             style = MaterialBibleTheme.typography.subtitle
         )
     }

@@ -12,6 +12,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import com.ajcm.design.R
@@ -21,18 +22,29 @@ import com.ajcm.design.theme.MaterialBibleTheme
 @Composable
 fun CardInfoSection(modifier: Modifier, onClick: () -> Unit) {
     Surface(
-        color = MaterialBibleTheme.colors.brownLight,
+        color = MaterialBibleTheme.colors.greenLight,
         modifier = modifier
     ) {
         ConstraintLayout(
             modifier = Modifier
                 .fillMaxWidth()
-                .fillMaxHeight()
+                .wrapContentHeight()
                 .padding(MaterialBibleTheme.dimensions.normal)
         ) {
-            val (imageBook, text, button) = createRefs()
+            val (imageBook, search, text, button) = createRefs()
 
-            Circle(color = MaterialBibleTheme.colors.white.copy(alpha = 0.2f))
+            //Circle(color = MaterialBibleTheme.colors.white.copy(alpha = 0.15f))
+
+            SearchComponent(
+                modifier = Modifier
+                    .constrainAs(search) {
+                        start.linkTo(parent.start)
+                        end.linkTo(parent.end)
+                        top.linkTo(parent.top)
+                    }
+            ) {
+                onClick()
+            }
 
             Image(
                 painter = painterResource(id = R.drawable.ic_bibliophile_rafiki),
@@ -42,14 +54,13 @@ fun CardInfoSection(modifier: Modifier, onClick: () -> Unit) {
                     .wrapContentHeight()
                     .constrainAs(imageBook) {
                         start.linkTo(parent.start)
-                        top.linkTo(parent.top)
-                        bottom.linkTo(parent.bottom)
+                        top.linkTo(search.bottom, 8.dp)
                     }
             )
 
             Text(
                 text = "Find the best book of your interest",
-                color = MaterialBibleTheme.colors.textPrimary,
+                color = MaterialBibleTheme.colors.black,
                 style = MaterialBibleTheme.typography.body,
                 textAlign = TextAlign.End,
                 maxLines = 3,
@@ -70,7 +81,7 @@ fun CardInfoSection(modifier: Modifier, onClick: () -> Unit) {
 
             Text(
                 text = "Ver todo",
-                color = MaterialBibleTheme.colors.textSecundary,
+                color = MaterialBibleTheme.colors.gray,
                 style = MaterialBibleTheme.typography.button,
                 modifier = Modifier
                     .padding(
@@ -78,12 +89,12 @@ fun CardInfoSection(modifier: Modifier, onClick: () -> Unit) {
                         bottom = MaterialBibleTheme.dimensions.normal
                     )
                     .constrainAs(button) {
-                        bottom.linkTo(parent.bottom)
+                        bottom.linkTo(imageBook.bottom)
                         end.linkTo(parent.end)
                     }
                     .bounceClick()
                     .clip(MaterialBibleTheme.shapes.shapeNormal)
-                    .background(MaterialBibleTheme.colors.button)
+                    .background(MaterialBibleTheme.colors.green)
                     .padding(
                         horizontal = MaterialBibleTheme.dimensions.large,
                         vertical = MaterialBibleTheme.dimensions.small

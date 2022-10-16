@@ -22,7 +22,7 @@ fun LanguageItem(title: String, onClick: (String) -> Unit) {
     ) {
         Text(
             text = title,
-            color = MaterialBibleTheme.colors.textPrimary,
+            color = MaterialBibleTheme.colors.black,
             style = MaterialBibleTheme.typography.caption,
             textAlign = TextAlign.Center,
             modifier = Modifier

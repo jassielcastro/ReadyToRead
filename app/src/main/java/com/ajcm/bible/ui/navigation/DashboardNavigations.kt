@@ -34,5 +34,5 @@ data class BottomItem(val route: String, @DrawableRes val icon: Int)
 val bottomNavigationItems = listOf(
     BottomItem(sectionsDestination, R.drawable.ic_home),
     BottomItem(searchDestinationArgs, R.drawable.ic_search),
-    BottomItem(favoritesDestination, R.drawable.ic_favorite)
+    BottomItem(favoritesDestination, R.drawable.ic_bookmarks)
 )

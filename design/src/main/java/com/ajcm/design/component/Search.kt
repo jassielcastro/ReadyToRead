@@ -17,8 +17,8 @@ import com.ajcm.design.theme.MaterialBibleTheme
 @Composable
 fun SearchComponent(modifier: Modifier = Modifier, onClick: () -> Unit) {
     Surface(
-        shape = MaterialBibleTheme.shapes.shapeMedium,
-        color = MaterialBibleTheme.colors.brownLight.copy(alpha = 0.3f),
+        shape = MaterialBibleTheme.shapes.shapeNormal,
+        color = MaterialBibleTheme.colors.white.copy(alpha = 0.9f),
         modifier = Modifier
             .padding(horizontal = MaterialBibleTheme.dimensions.medium)
             .padding(
@@ -37,7 +37,7 @@ fun SearchComponent(modifier: Modifier = Modifier, onClick: () -> Unit) {
             Image(
                 painter = painterResource(id = R.drawable.ic_search),
                 contentDescription = "",
-                colorFilter = ColorFilter.tint(MaterialBibleTheme.colors.primary),
+                colorFilter = ColorFilter.tint(MaterialBibleTheme.colors.black.copy(alpha = 0.7f)),
                 modifier = Modifier
                     .size(MaterialBibleTheme.dimensions.xxlarge)
                     .padding(MaterialBibleTheme.dimensions.medium)
@@ -45,7 +45,7 @@ fun SearchComponent(modifier: Modifier = Modifier, onClick: () -> Unit) {
             Text(
                 text = "Search by book, language, region...",
                 style = MaterialBibleTheme.typography.caption,
-                color = MaterialBibleTheme.colors.textPrimary.copy(alpha = 0.5f)
+                color = MaterialBibleTheme.colors.black.copy(alpha = 0.7f)
             )
         }
     }

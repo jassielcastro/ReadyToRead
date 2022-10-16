@@ -44,14 +44,13 @@ fun SplashScreen(
 fun SplashContent() {
     Column(
         modifier = Modifier
-            .background(MaterialBibleTheme.colors.background)
             .fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
             text = stringResource(id = R.string.app_name),
-            color = MaterialBibleTheme.colors.textPrimary,
+            color = MaterialBibleTheme.colors.black,
             style = MaterialBibleTheme.typography.h1
         )
 
@@ -62,15 +61,15 @@ fun SplashContent() {
                 .fillMaxWidth(0.7f)
                 .clip(MaterialBibleTheme.shapes.shapeSmall)
                 .height(MaterialBibleTheme.dimensions.small),
-            backgroundColor = MaterialBibleTheme.colors.secondary,
-            color = MaterialBibleTheme.colors.primary
+            backgroundColor = MaterialBibleTheme.colors.greenLight,
+            color = MaterialBibleTheme.colors.green
         )
 
         Spacer(modifier = Modifier.height(MaterialBibleTheme.dimensions.small))
 
         Text(
             text = "Cargando contenido...",
-            color = MaterialBibleTheme.colors.textPrimary,
+            color = MaterialBibleTheme.colors.black,
             style = MaterialBibleTheme.typography.caption
         )
     }
