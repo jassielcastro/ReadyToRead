@@ -24,6 +24,14 @@ fun NavController.safeNavigateTo(
     }
 }
 
+fun NavController.navigateTo(
+    route: NavigateBuilder,
+    navOptions: NavOptions? = null,
+    navigatorExtras: Navigator.Extras? = null
+) {
+    navigate(route = navigationRoute(route), navOptions, navigatorExtras)
+}
+
 fun navigationRoute(route: NavigateBuilder): String {
     return route.fullRoute
 }

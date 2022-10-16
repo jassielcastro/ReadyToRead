@@ -1,9 +1,9 @@
 package com.ajcm.design.theme
 
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.ReadOnlyComposable
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
+import androidx.compose.ui.graphics.Color
+import com.google.accompanist.systemuicontroller.SystemUiController
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 object MaterialBibleTheme {
     val colors: BibleColors
@@ -42,5 +42,15 @@ fun BibleComposeTheme(
         LocalTypography provides typography
     ) {
         content()
+    }
+}
+
+@Composable
+fun SetStatusBarColorEffect(
+    color: Color = MaterialBibleTheme.colors.white,
+    systemUiController: SystemUiController = rememberSystemUiController()
+) {
+    SideEffect {
+        systemUiController.setStatusBarColor(color)
     }
 }

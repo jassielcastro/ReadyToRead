@@ -12,22 +12,16 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import com.ajcm.bible.R
 import com.ajcm.bible.ui.error.ErrorType
-import com.ajcm.bible.ui.navigation.NavigationActions
+import com.ajcm.bible.ui.navigation.StartNavigationActions
 import com.ajcm.bible.ui.splash.viewmodel.SplashViewModel
 import com.ajcm.design.common.State
-import com.ajcm.design.navigation.NavigationItems
 import com.ajcm.design.navigation.collectAsStateLifecycleAware
-import com.ajcm.design.navigation.navigationRoute
 import com.ajcm.design.theme.MaterialBibleTheme
-
-val splashDestination = navigationRoute {
-    destination = NavigationItems.Item.SPLASH
-}
 
 @Composable
 fun SplashScreen(
     splashViewModel: SplashViewModel,
-    actions: NavigationActions
+    actions: StartNavigationActions
 ) {
     SplashContent()
 

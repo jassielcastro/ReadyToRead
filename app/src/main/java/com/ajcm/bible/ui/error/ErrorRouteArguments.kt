@@ -27,10 +27,3 @@ enum class ErrorType(val drawable: Int) {
     FAILED(R.drawable.ic_book_lover_pana),
     EMPTY(R.drawable.ic_book_lover_rafiki)
 }
-
-val errorscreenDestination = navigationRoute {
-    destination = NavigationItems.Item.ERROR
-    addArgumentParm(ERROR_TITLE_ARG_KEY)
-    addArgumentParm(ERROR_MESSAGE_ARG_KEY)
-    addArgumentParm(ERROR_TYPE_ARG_KEY)
-}

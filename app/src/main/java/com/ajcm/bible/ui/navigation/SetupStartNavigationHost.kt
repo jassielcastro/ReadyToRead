@@ -7,19 +7,17 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.ajcm.bible.ui.dashboard.view.DashboardScreen
-import com.ajcm.bible.ui.dashboard.view.dashboardDestination
+import com.ajcm.bible.ui.dashboard.DashboardScreen
 import com.ajcm.bible.ui.error.*
 import com.ajcm.bible.ui.splash.view.SplashScreen
-import com.ajcm.bible.ui.splash.view.splashDestination
 import com.ajcm.bible.ui.splash.viewmodel.SplashViewModel
 
 @Composable
-fun NavigationHost(
+fun SetupStartNavigationHost(
     navController: NavHostController,
     modifier: Modifier = Modifier
 ) {
-    val actions = remember(navController) { NavigationActions(navController) }
+    val actions = remember(navController) { StartNavigationActions(navController) }
     NavHost(
         modifier = modifier,
         navController = navController,

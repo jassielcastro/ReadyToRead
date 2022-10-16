@@ -6,6 +6,9 @@ class NavigationItems private constructor(val route: String) {
         SPLASH,
         ERROR,
         DASHBOARD,
+        SECTIONS,
+        FAVORITES,
+        SEARCH,
         NONE
     }
 

@@ -13,6 +13,7 @@ data class BibleShape(
     val shapeXLarge: Shape = RoundedCornerShape(32.dp),
     val startShape: Shape = RoundedCornerShape(topStart = 8.dp, bottomStart = 8.dp),
     val endShape: Shape = RoundedCornerShape(topEnd = 8.dp, bottomEnd = 8.dp),
+    val topShape: Shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp),
 )
 
 val LocalShapes = staticCompositionLocalOf { BibleShape() }

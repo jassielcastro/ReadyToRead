@@ -19,21 +19,20 @@ import com.ajcm.design.common.bounceClick
 import com.ajcm.design.theme.MaterialBibleTheme
 
 @Composable
-fun CardInfoSection(modifier: Modifier) {
+fun CardInfoSection(modifier: Modifier, onClick: () -> Unit) {
     Surface(
-        shape = MaterialBibleTheme.shapes.shapeLarge,
-        color = MaterialBibleTheme.colors.primary,
+        color = MaterialBibleTheme.colors.brownLight,
         modifier = modifier
     ) {
         ConstraintLayout(
             modifier = Modifier
                 .fillMaxWidth()
                 .fillMaxHeight()
-                .padding(MaterialBibleTheme.dimensions.medium)
+                .padding(MaterialBibleTheme.dimensions.normal)
         ) {
             val (imageBook, text, button) = createRefs()
 
-            Circle(color = MaterialBibleTheme.colors.secondary.copy(alpha = 0.8f))
+            Circle(color = MaterialBibleTheme.colors.white.copy(alpha = 0.2f))
 
             Image(
                 painter = painterResource(id = R.drawable.ic_bibliophile_rafiki),
@@ -90,7 +89,7 @@ fun CardInfoSection(modifier: Modifier) {
                         vertical = MaterialBibleTheme.dimensions.small
                     )
                     .clickable {
-
+                        onClick()
                     }
             )
         }

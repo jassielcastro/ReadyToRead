@@ -1,5 +1,6 @@
 package com.ajcm.design.component
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -10,13 +11,14 @@ import com.ajcm.design.common.bounceClick
 import com.ajcm.design.theme.MaterialBibleTheme
 
 @Composable
-fun LanguageItem(title: String) {
+fun LanguageItem(title: String, onClick: (String) -> Unit) {
     Surface(
         shape = MaterialBibleTheme.shapes.shapeSmall,
         elevation = MaterialBibleTheme.dimensions.zero,
         color = MaterialBibleTheme.colors.gray,
         modifier = Modifier
             .bounceClick()
+            .clickable { onClick(title) }
     ) {
         Text(
             text = title,

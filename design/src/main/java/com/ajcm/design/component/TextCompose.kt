@@ -1,5 +1,6 @@
 package com.ajcm.design.component
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Text
@@ -13,7 +14,7 @@ import com.ajcm.design.common.bounceClick
 import com.ajcm.design.theme.MaterialBibleTheme
 
 @Composable
-fun TextSections(text: String) {
+fun TextSections(text: String, onClick: () -> Unit) {
     val margin = MaterialBibleTheme.dimensions.normal
     ConstraintLayout(
         modifier = Modifier
@@ -49,6 +50,9 @@ fun TextSections(text: String) {
                     bottom.linkTo(parent.bottom)
                 }
                 .bounceClick()
+                .clickable {
+                    onClick()
+                }
         )
     }
 }

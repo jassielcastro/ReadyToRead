@@ -14,10 +14,11 @@ class BibleColors(
     error: Color,
     background: Color,
     gray: Color,
-    pink: Color,
-    pinkLight: Color,
-    purple: Color,
+    orange: Color,
+    orangeLight: Color,
+    brownLight: Color,
     button: Color,
+    white: Color,
     isLight: Boolean
 ) {
     var primary by mutableStateOf(primary)
@@ -34,19 +35,30 @@ class BibleColors(
         private set
     var gray by mutableStateOf(gray)
         private set
-    var pink by mutableStateOf(pink)
+    var orange by mutableStateOf(orange)
         private set
-    var pinkLight by mutableStateOf(pinkLight)
+    var orangeLight by mutableStateOf(orangeLight)
         private set
-    var purple by mutableStateOf(purple)
+    var brownLight by mutableStateOf(brownLight)
         private set
     var button by mutableStateOf(button)
+        private set
+    var white by mutableStateOf(white)
         private set
     var isLight by mutableStateOf(isLight)
         internal set
 
     private val colors: List<Color> by lazy {
-        listOf(Purple, Pink, PinkLight, BlueLight, Blue)
+        listOf(
+            Orange,
+            OrangeLight,
+            Orange_1,
+            Orange_2,
+            Orange_3,
+            Orange_4,
+            Orange_5,
+            Orange_6
+        )
     }
 
     fun copy(
@@ -57,10 +69,11 @@ class BibleColors(
         error: Color = this.error,
         background: Color = this.background,
         gray: Color = this.gray,
-        pink: Color = this.pink,
-        pinkLight: Color = this.pinkLight,
-        purple: Color = this.purple,
+        pink: Color = this.orange,
+        pinkLight: Color = this.orangeLight,
+        purple: Color = this.brownLight,
         button: Color = this.button,
+        white: Color = this.white,
         isLight: Boolean = this.isLight
     ): BibleColors = BibleColors(
         primary,
@@ -74,6 +87,7 @@ class BibleColors(
         pinkLight,
         purple,
         button,
+        white,
         isLight
     )
 
@@ -86,10 +100,11 @@ class BibleColors(
         error = other.error
         isLight = other.isLight
         gray = other.gray
-        pink = other.pink
-        pinkLight = other.pinkLight
+        orange = other.orange
+        orangeLight = other.orangeLight
         button = other.button
-        purple = other.purple
+        white = other.white
+        brownLight = other.brownLight
     }
 
     fun random(): Color {
@@ -98,27 +113,36 @@ class BibleColors(
 }
 
 private val White = Color(0xFFFFFFFF)
-private val Dark = Color(0xFF000000)
+private val Black = Color(0xFF000000)
 private val Gray = Color(0xFFF5F5F5)
 
-private val Purple = Color(0xFFC5ADED)
-private val Pink = Color(0xFFF8ABEB)
-private val PinkLight = Color(0xFFFFC8DD)
-private val BlueLight = Color(0xFFBCE0FF)
-private val Blue = Color(0xFFA2D2FF)
+private val Brown = Color(0xFFB79F95)
+private val BrownDark = Color(0xFF877167)
+private val BrownLight = Color(0xFFEBE2DE)
+private val Orange = Color(0xFFFFA000)
+private val OrangeLight = Color(0xFFFFD184)
+
+// items colors
+private val Orange_1 = Color(0xFFFFA000)
+private val Orange_2 = Color(0xFFFFD149)
+private val Orange_3 = Color(0xFFEEAC71)
+private val Orange_4 = Color(0xFFFFE0B2)
+private val Orange_5 = Color(0xFFFF833A)
+private val Orange_6 = Color(0xFFEC933B)
 
 fun lightColors(
-    primary: Color = BlueLight,
-    secondary: Color = Blue,
-    textPrimary: Color = Dark,
+    primary: Color = BrownDark,
+    secondary: Color = Brown,
+    textPrimary: Color = Black,
     textSecondary: Color = White,
-    error: Color = Dark,
+    error: Color = Black,
     background: Color = White,
     gray: Color = Gray,
-    pink: Color = Pink,
-    pinkLight: Color = PinkLight,
-    button: Color = Dark,
-    purple: Color = Purple,
+    orange: Color = Orange,
+    orangeLight: Color = OrangeLight,
+    button: Color = Orange,
+    white: Color = White,
+    brownLight: Color = BrownLight,
 ): BibleColors = BibleColors(
     primary = primary,
     secondary = secondary,
@@ -127,10 +151,11 @@ fun lightColors(
     background = background,
     error = error,
     gray = gray,
-    pink = pink,
-    pinkLight = pinkLight,
-    purple = purple,
+    orange = orange,
+    orangeLight = orangeLight,
+    brownLight = brownLight,
     button = button,
+    white = white,
     isLight = true
 )
 

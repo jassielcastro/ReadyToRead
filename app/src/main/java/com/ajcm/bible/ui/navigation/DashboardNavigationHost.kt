@@ -1,0 +1,38 @@
+package com.ajcm.bible.ui.navigation
+
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import com.ajcm.bible.ui.dashboard.favorite.FavoriteScreen
+import com.ajcm.bible.ui.dashboard.search.SearchScreen
+import com.ajcm.bible.ui.dashboard.search.allowedSearchArguments
+import com.ajcm.bible.ui.dashboard.sections.SectionsScreen
+
+@Composable
+fun DashboardNavigationHost(
+    navController: NavHostController,
+    modifier: Modifier = Modifier
+) {
+    val actions = remember(navController) { DashboardActions(navController) }
+    NavHost(
+        modifier = modifier,
+        navController = navController,
+        startDestination = sectionsDestination
+    ) {
+        composable(sectionsDestination) {
+            SectionsScreen(actions)
+        }
+        composable(
+            route = searchDestination,
+            arguments = allowedSearchArguments
+        ) {
+            SearchScreen(it.arguments)
+        }
+        composable(favoritesDestination) {
+            FavoriteScreen()
+        }
+    }
+}
