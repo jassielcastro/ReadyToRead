@@ -51,12 +51,13 @@ class BibleColors(
     private val colors: List<Color> by lazy {
         listOf(
             brown,
+            brown.copy(alpha = 0.5f),
             blue,
+            blue.copy(alpha = 0.5f),
             blueLight,
-            green,
-            red,
             greenLight,
             orange,
+            orange.copy(alpha = 0.5f),
             orangeLight
         )
     }
