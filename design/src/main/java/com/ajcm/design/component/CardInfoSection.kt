@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -33,8 +34,6 @@ fun CardInfoSection(modifier: Modifier, onClick: () -> Unit) {
         ) {
             val (imageBook, search, text, button) = createRefs()
 
-            //Circle(color = MaterialBibleTheme.colors.white.copy(alpha = 0.15f))
-
             SearchComponent(
                 modifier = Modifier
                     .constrainAs(search) {
@@ -48,7 +47,7 @@ fun CardInfoSection(modifier: Modifier, onClick: () -> Unit) {
 
             Image(
                 painter = painterResource(id = R.drawable.ic_bibliophile_rafiki),
-                contentDescription = "book",
+                contentDescription = "",
                 modifier = Modifier
                     .width(MaterialBibleTheme.dimensions.bookInfoWidth)
                     .wrapContentHeight()
@@ -59,7 +58,7 @@ fun CardInfoSection(modifier: Modifier, onClick: () -> Unit) {
             )
 
             Text(
-                text = "Find the best book of your interest",
+                text = stringResource(id = R.string.section_header),
                 color = MaterialBibleTheme.colors.black,
                 style = MaterialBibleTheme.typography.body,
                 textAlign = TextAlign.End,
@@ -80,7 +79,7 @@ fun CardInfoSection(modifier: Modifier, onClick: () -> Unit) {
             )
 
             Text(
-                text = "Ver todo",
+                text = stringResource(id = R.string.see_all),
                 color = MaterialBibleTheme.colors.gray,
                 style = MaterialBibleTheme.typography.button,
                 modifier = Modifier
@@ -92,16 +91,13 @@ fun CardInfoSection(modifier: Modifier, onClick: () -> Unit) {
                         bottom.linkTo(imageBook.bottom)
                         end.linkTo(parent.end)
                     }
-                    .bounceClick()
+                    .bounceClick(onClick)
                     .clip(MaterialBibleTheme.shapes.shapeNormal)
                     .background(MaterialBibleTheme.colors.green)
                     .padding(
                         horizontal = MaterialBibleTheme.dimensions.large,
                         vertical = MaterialBibleTheme.dimensions.small
                     )
-                    .clickable {
-                        onClick()
-                    }
             )
         }
     }

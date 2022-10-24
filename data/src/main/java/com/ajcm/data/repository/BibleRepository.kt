@@ -3,6 +3,9 @@ package com.ajcm.data.repository
 import com.ajcm.data.datasource.ILocalBibleDataSource
 import com.ajcm.data.datasource.IRemoteBibleDataSource
 import com.ajcm.domain.entity.Bible
+import com.ajcm.domain.entity.request.GetBibleRequest
+import com.ajcm.domain.ext.cut
+import com.ajcm.domain.ext.filterAndCut
 import com.ajcm.domain.repository.IBibleRepository
 import javax.inject.Inject
 
@@ -11,13 +14,26 @@ class BibleRepository @Inject constructor(
     private val remoteDataSource: IRemoteBibleDataSource
 ) : IBibleRepository {
 
-    override suspend fun getBibles(): List<Bible> {
+    override suspend fun getBibles(request: GetBibleRequest): List<Bible> {
         if (localDataSource.getBibles().isEmpty()) {
             val bibles = remoteDataSource.getBibles()
             localDataSource.saveBibles(bibles)
         }
 
-        return localDataSource.getBibles()
+        val bibles = localDataSource.getBibles()
+        val req = request.query
+
+        return if (req.isBlank()) {
+            bibles.cut(request.size)
+        } else {
+            bibles.filterAndCut(request.size) {
+                it.name.contains(req)
+                        || it.nameLocal.contains(req)
+                        || it.language.name.contains(req)
+                        || it.language.nameLocal.contains(req)
+                        || it.countries.map { c -> c.name.contains(req) || c.nameLocal.contains(req) }.isNotEmpty()
+            }
+        }
     }
 
     override suspend fun getFavouriteBibles(): List<Bible> {

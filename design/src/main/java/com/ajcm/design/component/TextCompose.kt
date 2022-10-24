@@ -6,10 +6,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
+import com.ajcm.design.R
 import com.ajcm.design.common.bounceClick
 import com.ajcm.design.theme.MaterialBibleTheme
 
@@ -40,7 +43,7 @@ fun TextSections(text: String, onClick: () -> Unit) {
         )
 
         Text(
-            text = "Ver más",
+            text = stringResource(id = R.string.see_more),
             style = MaterialBibleTheme.typography.subCaption,
             color = MaterialBibleTheme.colors.green,
             modifier = Modifier
@@ -49,10 +52,9 @@ fun TextSections(text: String, onClick: () -> Unit) {
                     top.linkTo(parent.top)
                     bottom.linkTo(parent.bottom)
                 }
-                .bounceClick()
-                .clickable {
-                    onClick()
-                }
+                .bounceClick(onClick)
+                .clip(MaterialBibleTheme.shapes.shapeSmall)
+                .padding(horizontal = MaterialBibleTheme.dimensions.medium, vertical = MaterialBibleTheme.dimensions.small)
         )
     }
 }

@@ -1,11 +1,11 @@
 package com.ajcm.design.component
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextAlign
 import com.ajcm.design.common.bounceClick
 import com.ajcm.design.theme.MaterialBibleTheme
@@ -17,8 +17,10 @@ fun LanguageItem(title: String, onClick: (String) -> Unit) {
         elevation = MaterialBibleTheme.dimensions.zero,
         color = MaterialBibleTheme.colors.gray,
         modifier = Modifier
-            .bounceClick()
-            .clickable { onClick(title) }
+            .clip(MaterialBibleTheme.shapes.shapeSmall)
+            .bounceClick {
+                onClick(title)
+            }
     ) {
         Text(
             text = title,

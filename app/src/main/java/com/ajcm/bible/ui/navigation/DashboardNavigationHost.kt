@@ -3,12 +3,14 @@ package com.ajcm.bible.ui.navigation
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.ajcm.bible.ui.dashboard.favorite.FavoriteScreen
 import com.ajcm.bible.ui.dashboard.search.SearchScreen
 import com.ajcm.bible.ui.dashboard.search.allowedSearchArguments
+import com.ajcm.bible.ui.dashboard.sections.SectionViewModel
 import com.ajcm.bible.ui.dashboard.sections.SectionsScreen
 
 @Composable
@@ -23,7 +25,8 @@ fun DashboardNavigationHost(
         startDestination = sectionsDestination
     ) {
         composable(sectionsDestination) {
-            SectionsScreen(actions)
+            val viewModel = hiltViewModel<SectionViewModel>(it)
+            SectionsScreen(actions, viewModel)
         }
         composable(
             route = searchDestination,

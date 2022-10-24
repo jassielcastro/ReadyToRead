@@ -8,8 +8,10 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import com.ajcm.design.R
 import com.ajcm.design.common.bounceClick
 import com.ajcm.design.theme.MaterialBibleTheme
@@ -28,10 +30,8 @@ fun SearchComponent(modifier: Modifier = Modifier, onClick: () -> Unit) {
             .fillMaxWidth()
             .wrapContentHeight()
             .then(modifier)
-            .bounceClick()
-            .clickable {
-                onClick()
-            }
+            .bounceClick(onClick)
+            .clip(MaterialBibleTheme.shapes.shapeNormal)
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Image(
@@ -43,7 +43,7 @@ fun SearchComponent(modifier: Modifier = Modifier, onClick: () -> Unit) {
                     .padding(MaterialBibleTheme.dimensions.medium)
             )
             Text(
-                text = "Search by book, language, region...",
+                text = stringResource(id = R.string.search_by_hint),
                 style = MaterialBibleTheme.typography.caption,
                 color = MaterialBibleTheme.colors.black.copy(alpha = 0.7f)
             )

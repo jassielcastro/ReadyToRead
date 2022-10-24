@@ -48,20 +48,6 @@ class BibleColors(
     var isLight by mutableStateOf(isLight)
         internal set
 
-    private val colors: List<Color> by lazy {
-        listOf(
-            brown,
-            brown.copy(alpha = 0.5f),
-            blue,
-            blue.copy(alpha = 0.5f),
-            blueLight,
-            greenLight,
-            orange,
-            orange.copy(alpha = 0.5f),
-            orangeLight
-        )
-    }
-
     fun copy(
         blue: Color = this.blue,
         blueLight: Color = this.blueLight,
@@ -107,10 +93,6 @@ class BibleColors(
         white = other.white
         brownLight = other.brownLight
     }
-
-    fun random(): Color {
-        return colors.random()
-    }
 }
 
 private val White = Color(0xFFFFFFFF)
@@ -126,6 +108,17 @@ private val OrangeLight = Color(0xFFFFD184)
 private val Green = Color(0xFF58BE80)
 private val GreenLight = Color(0xFFA4ECC1)
 private val Red = Color(0xFFF8AFAF)
+
+val randomColors: List<Color> = listOf(
+    Blue,
+    BlueLight.copy(alpha = 0.5f),
+    Brown,
+    BrownLight.copy(alpha = 0.5f),
+    Orange,
+    OrangeLight,
+    Green,
+    Red.copy(alpha = 0.5f)
+)
 
 fun lightColors(
     blue: Color = Blue,

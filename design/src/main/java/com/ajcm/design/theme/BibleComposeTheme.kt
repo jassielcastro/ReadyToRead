@@ -1,5 +1,6 @@
 package com.ajcm.design.theme
 
+import androidx.compose.material.ripple.LocalRippleTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.graphics.Color
 import com.google.accompanist.systemuicontroller.SystemUiController
@@ -39,7 +40,8 @@ fun BibleComposeTheme(
         LocalLightColors provides rememberedColors,
         LocalDimensions provides dimensions,
         LocalShapes provides shapes,
-        LocalTypography provides typography
+        LocalTypography provides typography,
+        LocalRippleTheme provides BibleRippleTheme
     ) {
         content()
     }

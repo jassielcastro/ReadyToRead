@@ -15,11 +15,15 @@ android {
 
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
-        //useIR = true
+        freeCompilerArgs += [
+                "-Xjvm-default=all"
+        ]
     }
 }
 
 dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
+
     api "androidx.compose.runtime:runtime:$composeVersion"
     api "androidx.compose.ui:ui:$composeVersion"
     api "androidx.compose.foundation:foundation-layout:$composeVersion"

@@ -1,3 +1,14 @@
 <resources>
-    <string name="app_name">Holy Bible</string>
+    <string name="load_content">Cargando contenido…</string>
+    <string name="section_language">Idiomas</string>
+    <string name="section_bibles">Selección de Biblias</string>
+    <string name="section_header">Encuentra el mejor libro de tu interés</string>
+    <string name="see_more">Ver más</string>
+    <string name="see_all">Ver todo</string>
+    <string name="search_by_hint">Buscar por nombre, idioma, región…</string>
+    <string name="search_by_hint_2">¿Qué quieres leer hoy?</string>
+
+    <string name="search_by_name">Nombre</string>
+    <string name="search_by_language">Idioma</string>
+    <string name="search_by_region">País</string>
 </resources>

@@ -5,9 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import com.ajcm.bible.ui.dashboard.sections.SectionsScreen
-import com.ajcm.bible.ui.navigation.DashboardActions
-import com.ajcm.design.rememberBibleAppState
+import com.ajcm.bible.ui.dashboard.search.SearchScreen
 import com.ajcm.design.screen.BibleScreen
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -26,6 +24,6 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun PreviewComponent() {
     BibleScreen {
-        SectionsScreen(actions = DashboardActions(rememberBibleAppState().navController))
+        SearchScreen(arguments = null)
     }
 }

@@ -17,7 +17,12 @@ class SplashViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val mDownloadBibles = MutableSharedFlow<State>()
-    val downloadBibles: Flow<State> = mDownloadBibles
+    val downloadBibles = mDownloadBibles
+        .stateIn(
+            viewModelScope,
+            SharingStarted.Eagerly,
+            State.Loading
+        )
 
     init {
         downloadBibles()
@@ -25,7 +30,7 @@ class SplashViewModel @Inject constructor(
 
     private fun downloadBibles() = viewModelScope.launch {
         val bibles = withContext(Dispatchers.IO) {
-            getBiblesUC()
+            getBiblesUC.getAll()
         }
         mDownloadBibles.emit(
             if (bibles.isNotEmpty()) {

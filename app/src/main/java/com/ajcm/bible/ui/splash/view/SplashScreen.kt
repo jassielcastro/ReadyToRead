@@ -1,10 +1,10 @@
 package com.ajcm.bible.ui.splash.view
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.LinearProgressIndicator
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -15,7 +15,6 @@ import com.ajcm.bible.ui.error.ErrorType
 import com.ajcm.bible.ui.navigation.StartNavigationActions
 import com.ajcm.bible.ui.splash.viewmodel.SplashViewModel
 import com.ajcm.design.common.State
-import com.ajcm.design.navigation.collectAsStateLifecycleAware
 import com.ajcm.design.theme.MaterialBibleTheme
 
 @Composable
@@ -25,7 +24,7 @@ fun SplashScreen(
 ) {
     SplashContent()
 
-    val downloadBibles by splashViewModel.downloadBibles.collectAsStateLifecycleAware(initial = State.Loading)
+    val downloadBibles by splashViewModel.downloadBibles.collectAsState()
     when (downloadBibles) {
         is State.Success<*> -> {
             actions.showDashboard()
@@ -68,7 +67,7 @@ fun SplashContent() {
         Spacer(modifier = Modifier.height(MaterialBibleTheme.dimensions.small))
 
         Text(
-            text = "Cargando contenido...",
+            text = stringResource(id = R.string.load_content),
             color = MaterialBibleTheme.colors.black,
             style = MaterialBibleTheme.typography.caption
         )
