@@ -16,8 +16,15 @@ data class Bible(
     val type: String,
     val updatedAt: String,
     val relatedDbl: String,
-    var isFavourite: Boolean
+    var isFavourite: Boolean,
+    var color: Int,
+    var image: String
 ) {
+
+    fun getRegions(): String =
+        countries.joinToString(separator = ", ") { it.name }
+            .plus(" - ${language.nameLocal}")
+
     class Builder {
         var id: String = ""
         var dblId: String = ""
@@ -35,6 +42,8 @@ data class Bible(
         var updatedAt: String = ""
         var relatedDbl: String = ""
         var isFavourite: Boolean = false
+        var color: Int = 0
+        var image: String = ""
 
         fun build() = Bible(
             id,
@@ -52,7 +61,9 @@ data class Bible(
             type,
             updatedAt,
             relatedDbl,
-            isFavourite
+            isFavourite,
+            color,
+            image
         )
     }
 }

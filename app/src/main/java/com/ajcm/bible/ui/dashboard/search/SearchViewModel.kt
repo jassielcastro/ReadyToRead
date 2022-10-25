@@ -6,12 +6,10 @@ import com.ajcm.domain.entity.Bible
 import com.ajcm.domain.entity.request.GetBibleRequest
 import com.ajcm.domain.usecase.bible.GetBiblesUc
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
@@ -27,14 +25,20 @@ class SearchViewModel @Inject constructor(
             emptyList()
         )
 
-    fun search(by: String) = viewModelScope.launch {
-        val bibles = withContext(Dispatchers.IO) {
-            getBiblesUC.getAll(
-                GetBibleRequest { query = by }
-            )
-        }
+    private var searchJob: Job? = null
 
-        mFoundBibles.emit(bibles)
+    fun search(by: String) {
+        searchJob?.cancel()
+        searchJob = viewModelScope.launch {
+            val bibles = withContext(Dispatchers.IO) {
+                delay(100L)
+                getBiblesUC.getAll(
+                    GetBibleRequest { query = by }
+                )
+            }
+
+            mFoundBibles.emit(bibles)
+        }
     }
 
 }

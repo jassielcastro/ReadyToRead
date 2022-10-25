@@ -109,6 +109,8 @@ private val Green = Color(0xFF58BE80)
 private val GreenLight = Color(0xFFA4ECC1)
 private val Red = Color(0xFFF8AFAF)
 
+fun Int.toColor() = Color(this)
+
 val randomColors: List<Color> = listOf(
     Blue,
     BlueLight.copy(alpha = 0.5f),

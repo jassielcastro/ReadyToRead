@@ -21,17 +21,17 @@ class BibleRepository @Inject constructor(
         }
 
         val bibles = localDataSource.getBibles()
-        val req = request.query
+        val req = request.query.lowercase()
 
         return if (req.isBlank()) {
             bibles.cut(request.size)
         } else {
             bibles.filterAndCut(request.size) {
-                it.name.contains(req, ignoreCase = true)
-                        || it.nameLocal.contains(req, ignoreCase = true)
-                        || it.language.name.contains(req, ignoreCase = true)
-                        || it.language.nameLocal.contains(req, ignoreCase = true)
-                        || it.countries.map { c -> c.name.contains(req) || c.nameLocal.contains(req) }.any { lang -> lang }
+                it.name.lowercase().contains(req)
+                        || it.nameLocal.lowercase().contains(req)
+                        || it.language.name.lowercase().contains(req)
+                        || it.language.nameLocal.lowercase().contains(req)
+                        || it.countries.map { c -> c.name.lowercase().contains(req) || c.nameLocal.lowercase().contains(req) }.any { lang -> lang }
             }
         }
     }

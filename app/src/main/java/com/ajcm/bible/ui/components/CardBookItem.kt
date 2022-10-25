@@ -14,13 +14,13 @@ import androidx.constraintlayout.compose.Dimension
 import com.ajcm.design.common.bounceClick
 import com.ajcm.design.component.Circle
 import com.ajcm.design.theme.MaterialBibleTheme
-import com.ajcm.design.theme.images
-import com.ajcm.design.theme.randomColors
+import com.ajcm.design.theme.toColor
+import com.ajcm.design.theme.transformToImage
 import com.ajcm.domain.entity.Bible
 
 @Composable
 fun CardBookItem(bible: Bible) {
-    val color = randomColors.random()
+    val color = bible.color.toColor()
     ConstraintLayout(
         modifier = Modifier
             .fillMaxWidth()
@@ -48,7 +48,7 @@ fun CardBookItem(bible: Bible) {
             Circle(color = color)
 
             Image(
-                painter = painterResource(id = images.random()),
+                painter = painterResource(id = bible.image.transformToImage().resource),
                 contentDescription = "",
                 modifier = Modifier
                     .fillMaxWidth()
@@ -80,10 +80,15 @@ fun CardBookItem(bible: Bible) {
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
-                Spacer(modifier = Modifier.size(MaterialBibleTheme.dimensions.small))
                 Text(
                     text = bible.name,
                     style = MaterialBibleTheme.typography.subCaption,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+                Text(
+                    text = bible.getRegions(),
+                    style = MaterialBibleTheme.typography.subCaption2,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )

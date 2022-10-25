@@ -1,7 +1,10 @@
 package com.ajcm.bibles.mappers
 
+import androidx.compose.ui.graphics.toArgb
 import com.ajcm.bibles.database.model.BibleDTO
 import com.ajcm.data.mapper.BaseMapper
+import com.ajcm.design.theme.randomColors
+import com.ajcm.design.theme.randomImage
 import com.ajcm.domain.entity.Bible
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -26,7 +29,9 @@ class BiblesMapper @Inject constructor() : BaseMapper<Bible, BibleDTO> {
             type = e.type ?: "",
             updatedAt = e.updatedAt ?: "",
             relatedDbl = e.relatedDbl ?: "",
-            isFavourite = e.isFavourite == 1
+            isFavourite = e.isFavourite == 1,
+            color = e.color,
+            image = e.image
         )
     }
 
@@ -47,8 +52,9 @@ class BiblesMapper @Inject constructor() : BaseMapper<Bible, BibleDTO> {
             type = t.type,
             updatedAt = t.updatedAt,
             relatedDbl = t.relatedDbl,
-            isFavourite = if (t.isFavourite) 1 else 0
+            isFavourite = if (t.isFavourite) 1 else 0,
+            color = randomColors.random().toArgb(),
+            image = randomImage()
         )
     }
-
 }
