@@ -27,11 +27,10 @@ class SearchViewModel @Inject constructor(
 
     private var searchJob: Job? = null
 
-    fun search(by: String) {
-        searchJob?.cancel()
+    fun search(by: String) = viewModelScope.launch {
+        searchJob?.cancelAndJoin()
         searchJob = viewModelScope.launch {
             val bibles = withContext(Dispatchers.IO) {
-                delay(100L)
                 getBiblesUC.getAll(
                     GetBibleRequest { query = by }
                 )
