@@ -26,7 +26,8 @@ fun ErrorScreen(arguments: Bundle? = null) {
 
     Column(
         modifier = Modifier
-            .fillMaxSize(),
+            .fillMaxSize()
+            .padding(horizontal = MaterialBibleTheme.dimensions.normal),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -41,7 +42,7 @@ fun ErrorScreen(arguments: Bundle? = null) {
         Text(
             text = title,
             color = MaterialBibleTheme.colors.black,
-            style = MaterialBibleTheme.typography.title,
+            style = MaterialBibleTheme.typography.subtitle,
             textAlign = TextAlign.Center
         )
 
@@ -49,8 +50,8 @@ fun ErrorScreen(arguments: Bundle? = null) {
 
         Text(
             text = message,
-            color = MaterialBibleTheme.colors.blue,
-            style = MaterialBibleTheme.typography.subtitle
+            color = MaterialBibleTheme.colors.black.copy(alpha = 0.6f),
+            style = MaterialBibleTheme.typography.caption
         )
     }
 }

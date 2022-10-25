@@ -1,23 +1,26 @@
-package com.ajcm.design.component
+package com.ajcm.bible.ui.components
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import com.ajcm.design.common.bounceClick
+import com.ajcm.design.component.Circle
 import com.ajcm.design.theme.MaterialBibleTheme
+import com.ajcm.design.theme.images
+import com.ajcm.design.theme.randomColors
+import com.ajcm.domain.entity.Bible
 
 @Composable
-fun CardBookItem(title: String, realName: String, background: Color, image: Int) {
+fun CardBookItem(bible: Bible) {
+    val color = randomColors.random()
     ConstraintLayout(
         modifier = Modifier
             .fillMaxWidth()
@@ -31,7 +34,7 @@ fun CardBookItem(title: String, realName: String, background: Color, image: Int)
     ) {
         val (imageBook, content) = createRefs()
         Surface(
-            color = background.copy(alpha = 0.7f),
+            color = color.copy(alpha = 0.7f),
             shape = MaterialBibleTheme.shapes.startShape,
             modifier = Modifier
                 .width(MaterialBibleTheme.dimensions.cardInfo)
@@ -42,10 +45,10 @@ fun CardBookItem(title: String, realName: String, background: Color, image: Int)
                     height = Dimension.fillToConstraints
                 }
         ) {
-            Circle(color = background)
+            Circle(color = color)
 
             Image(
-                painter = painterResource(id = image),
+                painter = painterResource(id = images.random()),
                 contentDescription = "",
                 modifier = Modifier
                     .fillMaxWidth()
@@ -72,14 +75,14 @@ fun CardBookItem(title: String, realName: String, background: Color, image: Int)
                     .padding(MaterialBibleTheme.dimensions.normal)
             ) {
                 Text(
-                    text = title,
+                    text = bible.nameLocal,
                     style = MaterialBibleTheme.typography.caption,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
                 Spacer(modifier = Modifier.size(MaterialBibleTheme.dimensions.small))
                 Text(
-                    text = realName,
+                    text = bible.name,
                     style = MaterialBibleTheme.typography.subCaption,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis

@@ -20,4 +20,8 @@ class DashboardActions(
             }
         )
     }
+
+    fun upPress() {
+        navController.navigateUp()
+    }
 }

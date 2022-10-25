@@ -27,11 +27,11 @@ class BibleRepository @Inject constructor(
             bibles.cut(request.size)
         } else {
             bibles.filterAndCut(request.size) {
-                it.name.contains(req)
-                        || it.nameLocal.contains(req)
-                        || it.language.name.contains(req)
-                        || it.language.nameLocal.contains(req)
-                        || it.countries.map { c -> c.name.contains(req) || c.nameLocal.contains(req) }.isNotEmpty()
+                it.name.contains(req, ignoreCase = true)
+                        || it.nameLocal.contains(req, ignoreCase = true)
+                        || it.language.name.contains(req, ignoreCase = true)
+                        || it.language.nameLocal.contains(req, ignoreCase = true)
+                        || it.countries.map { c -> c.name.contains(req) || c.nameLocal.contains(req) }.any { lang -> lang }
             }
         }
     }

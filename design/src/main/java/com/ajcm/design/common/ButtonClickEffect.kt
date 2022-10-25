@@ -28,8 +28,7 @@ fun Modifier.bounceClick(onCLicked: () -> Unit) = composed {
         .clickable(
             interactionSource = remember { MutableInteractionSource() },
             indication = rememberRipple(
-                color = MaterialBibleTheme.colors.green,
-                bounded = false
+                color = MaterialBibleTheme.colors.green
             ),
             onClick = { onCLicked() }
         )

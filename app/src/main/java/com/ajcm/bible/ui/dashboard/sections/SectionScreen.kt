@@ -12,6 +12,7 @@ import com.ajcm.bible.ui.navigation.DashboardActions
 import com.ajcm.design.component.*
 import com.ajcm.design.theme.MaterialBibleTheme
 import com.ajcm.bible.R
+import com.ajcm.bible.ui.components.CardBookItem
 
 @Composable
 fun SectionsScreen(
@@ -74,13 +75,7 @@ fun SectionsScreen(
             }
 
             items(bibles.size) { index ->
-                val bibleUI = bibles[index]
-                CardBookItem(
-                    title = bibleUI.bible.name,
-                    realName = bibleUI.bible.nameLocal,
-                    background = bibleUI.color,
-                    image = bibleUI.image
-                )
+                CardBookItem(bibles[index])
             }
         }
     }

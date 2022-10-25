@@ -24,6 +24,6 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun PreviewComponent() {
     BibleScreen {
-        SearchScreen(arguments = null)
+
     }
 }

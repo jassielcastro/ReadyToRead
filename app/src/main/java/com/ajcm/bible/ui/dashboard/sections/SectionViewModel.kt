@@ -2,14 +2,14 @@ package com.ajcm.bible.ui.dashboard.sections
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.ajcm.bible.R
-import com.ajcm.design.theme.randomColors
 import com.ajcm.domain.entity.Bible
 import com.ajcm.domain.entity.request.GetBibleRequest
 import com.ajcm.domain.usecase.bible.GetBiblesUc
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -27,21 +27,13 @@ class SectionViewModel @Inject constructor(
             emptyList()
         )
 
-    private val mSelectedBibles = MutableSharedFlow<List<SectionBibleUIModel>>()
+    private val mSelectedBibles = MutableSharedFlow<List<Bible>>()
     val selectedBibles = mSelectedBibles
         .stateIn(
             viewModelScope,
             SharingStarted.Eagerly,
             emptyList()
         )
-
-    private val images = listOf(
-        R.drawable.ic_bibliophile_amico,
-        R.drawable.ic_book_lover_pana,
-        R.drawable.ic_book_lover_rafiki,
-        R.drawable.ic_ebook_pana,
-        R.drawable.ic_ebook_rafiki
-    )
 
     companion object {
         const val LANGUAGE_SIZE = 7
@@ -61,17 +53,7 @@ class SectionViewModel @Inject constructor(
         }
 
         mLanguages.emit(languages)
-        mSelectedBibles.emit(bibles.mapToSectionBibleUIList())
+        mSelectedBibles.emit(bibles)
     }
 
-    private fun List<Bible>.mapToSectionBibleUIList(): List<SectionBibleUIModel> {
-        return this
-            .map {
-                SectionBibleUIModel(
-                    bible = it,
-                    image = images.random(),
-                    color = randomColors.random()
-                )
-            }
-    }
 }

@@ -19,8 +19,9 @@ import com.ajcm.design.common.bounceClick
 import com.ajcm.design.theme.MaterialBibleTheme
 
 @Composable
-fun SearchBar(initialSearch: String, onTextChange: (String) -> Unit) {
+fun SearchBar(initialSearch: String, onTextChange: (String) -> Unit, onBack: () -> Unit) {
     var text by rememberSaveable { mutableStateOf(initialSearch) }
+    onTextChange(text)
     val grayColor = MaterialBibleTheme.colors.black.copy(alpha = 0.5f)
     Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -37,9 +38,7 @@ fun SearchBar(initialSearch: String, onTextChange: (String) -> Unit) {
                 .padding(top = MaterialBibleTheme.dimensions.small)
                 .size(MaterialBibleTheme.dimensions.xxlarge)
                 .padding(MaterialBibleTheme.dimensions.medium)
-                .bounceClick {
-
-                }
+                .bounceClick(onBack)
         )
         TextField(
             value = text,
