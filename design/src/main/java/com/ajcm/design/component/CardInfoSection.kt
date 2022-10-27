@@ -2,7 +2,6 @@ package com.ajcm.design.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -32,7 +31,18 @@ fun CardInfoSection(modifier: Modifier, onClick: () -> Unit) {
                 .wrapContentHeight()
                 .padding(MaterialBibleTheme.dimensions.normal)
         ) {
-            val (imageBook, search, text, button) = createRefs()
+            val (circle, imageBook, search, text, button) = createRefs()
+
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth(0.75f)
+                    .constrainAs(circle) {
+                        start.linkTo(parent.start)
+                        bottom.linkTo(button.bottom)
+                    }
+            ) {
+                Circle(color = MaterialBibleTheme.colors.green.copy(alpha = 0.5f))
+            }
 
             SearchComponent(
                 modifier = Modifier
