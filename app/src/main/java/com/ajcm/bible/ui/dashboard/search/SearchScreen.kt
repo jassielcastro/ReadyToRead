@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.Surface
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -90,10 +91,12 @@ fun SearchScreen(viewModel: SearchViewModel, arguments: Bundle?, actions: Dashbo
 
 @Composable
 private fun ShowBibles(modifier: Modifier, bibles: List<Bible>) {
+    val listState = rememberLazyListState()
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
-            .then(modifier)
+            .then(modifier),
+        state = listState
     ) {
 
         normalSpace()
