@@ -53,4 +53,16 @@ class BibleRepository @Inject constructor(
 
         return localDataSource.getBible(bibleId)
     }
+
+    override suspend fun toggleFavorite(bibleId: String): Bible {
+        val bible = getBible(bibleId)
+        val newBible = bible.copy(
+            isFavourite = !bible.isFavourite,
+            color = bible.color,
+            image = bible.image
+        )
+
+        localDataSource.saveBible(newBible)
+        return newBible
+    }
 }

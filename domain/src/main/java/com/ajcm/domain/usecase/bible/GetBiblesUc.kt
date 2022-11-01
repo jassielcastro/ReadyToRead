@@ -27,4 +27,8 @@ class GetBiblesUc @Inject constructor(private val repository: IBibleRepository) 
         }
         return currentlanguages.reversed()
     }
+
+    suspend fun toggleFavorite(bibleId: String): Bible {
+        return repository.toggleFavorite(bibleId)
+    }
 }

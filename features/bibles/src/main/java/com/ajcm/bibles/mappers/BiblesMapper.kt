@@ -53,8 +53,8 @@ class BiblesMapper @Inject constructor() : BaseMapper<Bible, BibleDTO> {
             updatedAt = t.updatedAt,
             relatedDbl = t.relatedDbl,
             isFavourite = if (t.isFavourite) 1 else 0,
-            color = randomColors.random().toArgb(),
-            image = randomImage()
+            color = if (t.color == 0) randomColors.random().toArgb() else t.color,
+            image = if (t.image.isNullOrEmpty()) randomImage() else t.image
         )
     }
 }

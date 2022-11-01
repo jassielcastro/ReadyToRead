@@ -79,59 +79,15 @@ fun SectionsScreen(
         }
 
         items(bibles.size) { index ->
-            CardBookItem(bibles[index])
+            CardBookItem(
+                bible = bibles[index],
+                onCardClicked = {
+
+                },
+                onFavClicked = {
+                    viewModel.toggleFavorite(it)
+                }
+            )
         }
     }
-
-    /*Column {
-
-
-        LazyColumn(
-            modifier = Modifier
-                .fillMaxSize()
-        ) {
-
-            normalSpace()
-
-            item {
-                TextSections(text = stringResource(id = R.string.section_language)) {
-                    actions.showSearchBy()
-                }
-            }
-
-            item {
-                LazyRow(
-                    horizontalArrangement = Arrangement.spacedBy(MaterialBibleTheme.dimensions.medium),
-                    modifier = Modifier
-                        .padding(
-                            top = MaterialBibleTheme.dimensions.medium,
-                            bottom = MaterialBibleTheme.dimensions.normal
-                        )
-                        .fillMaxWidth()
-                ) {
-                    mediumSpace()
-
-                    items(languages.size) { index ->
-                        LanguageItem(title = languages[index]) { lang ->
-                            actions.showSearchBy(lang)
-                        }
-                    }
-
-                    mediumSpace()
-                }
-            }
-
-            normalSpace()
-
-            item {
-                TextSections(text = stringResource(id = R.string.section_bibles)) {
-                    actions.showSearchBy()
-                }
-            }
-
-            items(bibles.size) { index ->
-                CardBookItem(bibles[index])
-            }
-        }
-    }*/
 }

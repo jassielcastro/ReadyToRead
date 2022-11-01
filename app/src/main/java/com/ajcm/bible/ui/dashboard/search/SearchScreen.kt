@@ -79,7 +79,8 @@ fun SearchScreen(viewModel: SearchViewModel, arguments: Bundle?, actions: Dashbo
                         .constrainAs(list) {
                             top.linkTo(searchComponent.bottom)
                         },
-                    bibles = (foundBibles as State.Success<*>).value as List<Bible>
+                    bibles = (foundBibles as State.Success<*>).value as List<Bible>,
+                    viewModel
                 )
             }
             State.Empty, is State.Failure -> {
@@ -90,7 +91,7 @@ fun SearchScreen(viewModel: SearchViewModel, arguments: Bundle?, actions: Dashbo
 }
 
 @Composable
-private fun ShowBibles(modifier: Modifier, bibles: List<Bible>) {
+private fun ShowBibles(modifier: Modifier, bibles: List<Bible>, viewModel: SearchViewModel) {
     val listState = rememberLazyListState()
     LazyColumn(
         modifier = Modifier
@@ -107,7 +108,15 @@ private fun ShowBibles(modifier: Modifier, bibles: List<Bible>) {
                 bible.id
             }
         ) { bible ->
-            CardBookItem(bible)
+            CardBookItem(
+                bible = bible,
+                onCardClicked = {
+
+                },
+                onFavClicked = {
+                    viewModel.toggleFavorite(it)
+                }
+            )
         }
 
         largeSpace()

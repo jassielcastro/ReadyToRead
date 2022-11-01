@@ -8,11 +8,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import com.ajcm.design.common.bounceClick
+import com.ajcm.design.R
 import com.ajcm.design.component.Circle
 import com.ajcm.design.theme.MaterialBibleTheme
 import com.ajcm.design.theme.toColor
@@ -20,8 +23,15 @@ import com.ajcm.design.theme.transformToImage
 import com.ajcm.domain.entity.Bible
 
 @Composable
-fun CardBookItem(bible: Bible) {
+fun CardBookItem(
+    bible: Bible,
+    onCardClicked: (bibleId: String) -> Unit,
+    onFavClicked: (bibleId: String) -> Unit
+) {
     val color = bible.color.toColor()
+    val bookMark =
+        if (bible.isFavourite) R.drawable.ic_bookmark_fill else R.drawable.ic_bookmark_line
+
     ConstraintLayout(
         modifier = Modifier
             .fillMaxWidth()
@@ -29,11 +39,11 @@ fun CardBookItem(bible: Bible) {
             .padding(bottom = MaterialBibleTheme.dimensions.normal)
             .padding(horizontal = MaterialBibleTheme.dimensions.normal)
             .bounceClick {
-
+                onCardClicked(bible.id)
             }
             .clip(MaterialBibleTheme.shapes.shapeMedium)
     ) {
-        val (imageBook, content) = createRefs()
+        val (imageBook, content, button) = createRefs()
         Surface(
             color = color.copy(alpha = 0.7f),
             shape = MaterialBibleTheme.shapes.startShape,
@@ -79,7 +89,9 @@ fun CardBookItem(bible: Bible) {
                     text = bible.nameLocal,
                     style = MaterialBibleTheme.typography.caption,
                     maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
+                    overflow = TextOverflow.Ellipsis,
+                    modifier = Modifier
+                        .fillMaxWidth(0.9f)
                 )
                 Text(
                     text = bible.name,
@@ -95,5 +107,21 @@ fun CardBookItem(bible: Bible) {
                 )
             }
         }
+
+        Image(
+            painter = painterResource(id = bookMark),
+            contentDescription = "",
+            modifier = Modifier
+                .padding(horizontal = MaterialBibleTheme.dimensions.medium)
+                .size(MaterialBibleTheme.dimensions.xlarge)
+                .constrainAs(button) {
+                    top.linkTo(parent.top, (-6).dp)
+                    end.linkTo(parent.end)
+                }
+                .padding(MaterialBibleTheme.dimensions.xsmall)
+                .bounceClick {
+                    onFavClicked(bible.id)
+                }
+        )
     }
 }
