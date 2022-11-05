@@ -8,6 +8,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.ajcm.bible.ui.dashboard.favorite.FavoriteScreen
+import com.ajcm.bible.ui.dashboard.favorite.FavoriteViewModel
 import com.ajcm.bible.ui.dashboard.search.SearchScreen
 import com.ajcm.bible.ui.dashboard.search.SearchViewModel
 import com.ajcm.bible.ui.dashboard.search.allowedSearchArguments
@@ -37,7 +38,8 @@ fun DashboardNavigationHost(
             SearchScreen(viewModel, it.arguments, actions)
         }
         composable(favoritesDestination) {
-            FavoriteScreen()
+            val viewModel = hiltViewModel<FavoriteViewModel>(it)
+            FavoriteScreen(viewModel)
         }
     }
 }

@@ -23,7 +23,7 @@ class BibleRepository @Inject constructor(
         val bibles = localDataSource.getBibles()
         val req = request.query.lowercase()
 
-        return if (req.isBlank()) {
+        val sorted = if (req.isBlank()) {
             bibles.cut(request.size)
         } else {
             bibles.filterAndCut(request.size) {
@@ -34,6 +34,12 @@ class BibleRepository @Inject constructor(
                         || it.countries.map { c -> c.name.lowercase().contains(req) || c.nameLocal.lowercase().contains(req) }.any { lang -> lang }
             }
         }
+
+        if (request.favorite == GetBibleRequest.Favorite.TRUE) {
+            return sorted.filter { it.isFavourite }
+        }
+
+        return sorted
     }
 
     override suspend fun getFavouriteBibles(): List<Bible> {
