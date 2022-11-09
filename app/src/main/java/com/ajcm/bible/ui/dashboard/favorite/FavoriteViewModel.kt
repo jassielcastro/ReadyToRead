@@ -27,10 +27,6 @@ class FavoriteViewModel @Inject constructor(
             emptyList()
         )
 
-    init {
-        //downloadFavorites()
-    }
-
     fun downloadFavorites() = viewModelScope.launch {
         val bibles = withContext(Dispatchers.IO) {
             getBiblesUC.getAll(

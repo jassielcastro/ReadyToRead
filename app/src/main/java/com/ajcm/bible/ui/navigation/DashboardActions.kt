@@ -21,11 +21,8 @@ class DashboardActions(
                 addArgumentValue(value)
             },
             navOptions = navOptions {
-                popUpTo(navController.graph.findStartDestination().id) {
-                    saveState = true
-                }
+                popUpTo(navController.graph.findStartDestination().id)
                 launchSingleTop = true
-                restoreState = true
             }
         )
     }

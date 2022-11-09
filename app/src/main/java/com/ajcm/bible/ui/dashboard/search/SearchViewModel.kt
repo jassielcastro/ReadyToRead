@@ -37,7 +37,6 @@ class SearchViewModel @Inject constructor(
         searchJob?.cancelAndJoin()
         searchJob = viewModelScope.launch {
             mFoundBibles.emit(State.Loading)
-            delay(200L)
             val bibles = withContext(Dispatchers.IO) {
                 getBiblesUC.getAll(
                     GetBibleRequest { query = by }

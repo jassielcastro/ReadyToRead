@@ -32,8 +32,10 @@ fun BottomNavigationBar(navController: NavController) {
                 Color.Transparent
             }
 
+            val icon = if (isSelected) item.iconSelected else item.iconNormal
+
             BottomNavigationItem(
-                icon = { Icon(painterResource(id = item.icon), contentDescription = "") },
+                icon = { Icon(painterResource(id = icon), contentDescription = "") },
                 selectedContentColor = MaterialBibleTheme.colors.white,
                 unselectedContentColor = MaterialBibleTheme.colors.black.copy(alpha = 0.5f),
                 alwaysShowLabel = false,
