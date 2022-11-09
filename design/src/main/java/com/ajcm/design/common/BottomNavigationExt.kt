@@ -10,12 +10,14 @@ import androidx.compose.ui.unit.Dp
 
 fun Modifier.drawRectBehind(
     backgroundColor: Color,
-    cornerRadius: Dp
+    cornerRadius: Dp,
+    withMultiplier: Float,
+    heightMultiplier: Float
 ) = drawBehind {
     drawRoundRect(
         topLeft = Offset(size.width * 0.255f, size.height * 0.2f),
         color = backgroundColor,
-        size = Size(width = size.width / 2, height = size.height * 0.65f),
+        size = Size(width = size.width / withMultiplier, height = size.height * heightMultiplier),
         cornerRadius = CornerRadius(x = cornerRadius.toPx(), cornerRadius.toPx())
     )
 }

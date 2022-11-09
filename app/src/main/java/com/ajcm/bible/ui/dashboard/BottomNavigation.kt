@@ -1,12 +1,12 @@
 package com.ajcm.bible.ui.dashboard
 
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -26,24 +26,23 @@ fun BottomNavigationBar(navController: NavController) {
 
         bottomNavigationItems.forEach { item ->
             val isSelected = currentRoute == item.route.cleanRoute()
-            val shapeColor = if (isSelected) {
-                MaterialBibleTheme.colors.green.copy(alpha = 0.7f)
-            } else {
-                Color.Transparent
-            }
-
+            val heightMultiplier: Float by animateFloatAsState(if (isSelected) 0.65f else 0f)
+            val alpha: Float by animateFloatAsState(if (isSelected) 0.7f else 0f)
+            val shapeColor = MaterialBibleTheme.colors.green.copy(alpha = alpha)
             val icon = if (isSelected) item.iconSelected else item.iconNormal
 
             BottomNavigationItem(
                 icon = { Icon(painterResource(id = icon), contentDescription = "") },
                 selectedContentColor = MaterialBibleTheme.colors.white,
-                unselectedContentColor = MaterialBibleTheme.colors.black.copy(alpha = 0.5f),
+                unselectedContentColor = MaterialBibleTheme.colors.black.copy(alpha = 0.35f),
                 alwaysShowLabel = false,
                 selected = isSelected,
                 modifier = Modifier
                     .drawRectBehind(
                         backgroundColor = shapeColor,
-                        cornerRadius = 40.dp
+                        cornerRadius = 40.dp,
+                        withMultiplier = 2f,
+                        heightMultiplier = heightMultiplier
                     ),
                 onClick = {
                     navController.navigate(item.route) {
