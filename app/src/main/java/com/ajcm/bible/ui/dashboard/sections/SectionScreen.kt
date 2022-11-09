@@ -83,9 +83,6 @@ fun SectionsScreen(
                 bible = bibles[index],
                 onCardClicked = {
 
-                },
-                onFavClicked = {
-                    viewModel.toggleFavorite(it)
                 }
             )
         }

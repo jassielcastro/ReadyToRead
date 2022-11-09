@@ -8,14 +8,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import com.ajcm.design.common.bounceClick
-import com.ajcm.design.R
 import com.ajcm.design.component.Circle
 import com.ajcm.design.theme.MaterialBibleTheme
 import com.ajcm.design.theme.toColor
@@ -25,12 +22,9 @@ import com.ajcm.domain.entity.Bible
 @Composable
 fun CardBookItem(
     bible: Bible,
-    onCardClicked: (bibleId: String) -> Unit,
-    onFavClicked: (bibleId: String) -> Unit
+    onCardClicked: (bibleId: String) -> Unit
 ) {
     val color = bible.color.toColor()
-    val bookMark =
-        if (bible.isFavourite) R.drawable.ic_bookmark_fill else R.drawable.ic_bookmark_line
 
     ConstraintLayout(
         modifier = Modifier
@@ -107,21 +101,5 @@ fun CardBookItem(
                 )
             }
         }
-
-        Image(
-            painter = painterResource(id = bookMark),
-            contentDescription = "",
-            modifier = Modifier
-                .padding(horizontal = MaterialBibleTheme.dimensions.medium)
-                .size(MaterialBibleTheme.dimensions.xlarge)
-                .constrainAs(button) {
-                    top.linkTo(parent.top, (-6).dp)
-                    end.linkTo(parent.end)
-                }
-                .padding(MaterialBibleTheme.dimensions.xsmall)
-                .bounceClick {
-                    onFavClicked(bible.id)
-                }
-        )
     }
 }

@@ -52,14 +52,4 @@ class SearchViewModel @Inject constructor(
             }
         }
     }
-
-    fun toggleFavorite(bibleId: String) = viewModelScope.launch {
-        val bible = withContext(Dispatchers.IO) {
-            getBiblesUC.toggleFavorite(bibleId)
-        }
-
-        val bibles = fBibles.value.map { if (it.id == bibleId) bible else it }
-
-        mFoundBibles.emit(State.Success(bibles))
-    }
 }

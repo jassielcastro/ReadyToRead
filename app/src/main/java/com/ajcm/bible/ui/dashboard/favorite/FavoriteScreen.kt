@@ -1,37 +1,40 @@
 package com.ajcm.bible.ui.dashboard.favorite
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.Surface
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import androidx.core.os.bundleOf
 import com.ajcm.bible.ui.components.CardBookItem
 import com.ajcm.bible.ui.error.*
+import com.ajcm.bible.ui.navigation.DashboardActions
 import com.ajcm.design.R
-import com.ajcm.design.common.bounceClick
+import com.ajcm.design.component.SearchBar
 import com.ajcm.design.component.largeSpace
 import com.ajcm.design.component.normalSpace
 import com.ajcm.design.theme.MaterialBibleTheme
 import com.ajcm.domain.entity.Bible
 
 @Composable
-fun FavoriteScreen(viewModel: FavoriteViewModel) {
+fun FavoriteScreen(
+    viewModel: FavoriteViewModel,
+    actions: DashboardActions
+) {
 
     val foundBibles by viewModel.foundBibles.collectAsState()
-    val grayColor = MaterialBibleTheme.colors.black.copy(alpha = 0.5f)
+
+    LaunchedEffect(Unit) {
+        viewModel.downloadFavorites()
+    }
 
     ConstraintLayout(
         modifier = Modifier
@@ -50,33 +53,13 @@ fun FavoriteScreen(viewModel: FavoriteViewModel) {
                     width = Dimension.fillToConstraints
                 }
         ) {
-
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .wrapContentHeight()
-                    .padding(horizontal = MaterialBibleTheme.dimensions.medium)
-            ) {
-                Image(
-                    painter = painterResource(id = R.drawable.ic_arrow_back),
-                    contentDescription = "",
-                    colorFilter = ColorFilter.tint(grayColor),
-                    modifier = Modifier
-                        .padding(top = MaterialBibleTheme.dimensions.small)
-                        .size(MaterialBibleTheme.dimensions.xxlarge)
-                        .padding(MaterialBibleTheme.dimensions.medium)
-                        .bounceClick {
-
-                        }
-                )
-
-                Text(
-                    text = stringResource(id = R.string.favorites_title),
-                    style = MaterialBibleTheme.typography.subCaption,
-                    color = grayColor.copy(alpha = 0.7f)
-                )
-            }
+            SearchBar(
+                label = stringResource(id = R.string.favorites_title),
+                readOnly = true,
+                onBack = {
+                    actions.upPress()
+                }
+            )
         }
 
         if (foundBibles.isNotEmpty()) {
@@ -116,9 +99,6 @@ private fun ShowBibles(modifier: Modifier, bibles: List<Bible>, viewModel: Favor
                 bible = bible,
                 onCardClicked = {
 
-                },
-                onFavClicked = {
-                    viewModel.toggleFavorite(it)
                 }
             )
         }

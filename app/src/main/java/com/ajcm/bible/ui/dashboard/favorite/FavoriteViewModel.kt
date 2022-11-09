@@ -28,27 +28,15 @@ class FavoriteViewModel @Inject constructor(
         )
 
     init {
-        downloadFavorites()
+        //downloadFavorites()
     }
 
-    private fun downloadFavorites() = viewModelScope.launch {
+    fun downloadFavorites() = viewModelScope.launch {
         val bibles = withContext(Dispatchers.IO) {
             getBiblesUC.getAll(
                 GetBibleRequest { favorite = GetBibleRequest.Favorite.TRUE }
             )
         }
-
-        mFoundBibles.emit(bibles)
-    }
-
-    fun toggleFavorite(bibleId: String) = viewModelScope.launch {
-        val bible = withContext(Dispatchers.IO) {
-            getBiblesUC.toggleFavorite(bibleId)
-        }
-
-        val bibles = foundBibles.value
-            .map { if (it.id == bibleId) bible else it }
-            .filter { it.isFavourite }
 
         mFoundBibles.emit(bibles)
     }

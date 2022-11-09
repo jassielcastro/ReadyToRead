@@ -39,7 +39,7 @@ fun DashboardNavigationHost(
         }
         composable(favoritesDestination) {
             val viewModel = hiltViewModel<FavoriteViewModel>(it)
-            FavoriteScreen(viewModel)
+            FavoriteScreen(viewModel, actions)
         }
     }
 }

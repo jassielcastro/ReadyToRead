@@ -19,7 +19,14 @@ import com.ajcm.design.common.bounceClick
 import com.ajcm.design.theme.MaterialBibleTheme
 
 @Composable
-fun SearchBar(initialSearch: String, onTextChange: (String) -> Unit, onBack: () -> Unit) {
+fun SearchBar(
+    initialSearch: String = "",
+    label: String,
+    hint: String = "",
+    readOnly: Boolean = false,
+    onTextChange: (String) -> Unit = {},
+    onBack: () -> Unit
+) {
     var text by rememberSaveable { mutableStateOf(initialSearch) }
     onTextChange(text)
     val grayColor = MaterialBibleTheme.colors.black.copy(alpha = 0.5f)
@@ -42,6 +49,7 @@ fun SearchBar(initialSearch: String, onTextChange: (String) -> Unit, onBack: () 
         )
         TextField(
             value = text,
+            readOnly = readOnly,
             onValueChange = {
                 text = it
                 onTextChange(it)
@@ -57,14 +65,14 @@ fun SearchBar(initialSearch: String, onTextChange: (String) -> Unit, onBack: () 
             ),
             label = {
                 Text(
-                    text = stringResource(id = R.string.search_by_hint_2),
+                    text = label,
                     style = MaterialBibleTheme.typography.subCaption,
                     color = grayColor.copy(alpha = 0.7f)
                 )
             },
             placeholder = {
                 Text(
-                    text = stringResource(id = R.string.search_by_hint),
+                    text = hint,
                     style = MaterialBibleTheme.typography.caption,
                     color = grayColor.copy(alpha = 0.7f)
                 )

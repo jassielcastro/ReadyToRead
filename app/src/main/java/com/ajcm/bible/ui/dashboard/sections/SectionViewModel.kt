@@ -55,14 +55,4 @@ class SectionViewModel @Inject constructor(
         mLanguages.emit(languages)
         mSelectedBibles.emit(bibles)
     }
-
-    fun toggleFavorite(bibleId: String) = viewModelScope.launch {
-        val bible = withContext(Dispatchers.IO) {
-            getBiblesUC.toggleFavorite(bibleId)
-        }
-
-        val bibles = selectedBibles.value.map { if (it.id == bibleId) bible else it }
-
-        mSelectedBibles.emit(bibles)
-    }
 }

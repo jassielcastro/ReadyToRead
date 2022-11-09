@@ -10,12 +10,14 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.Surface
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import androidx.core.os.bundleOf
 import com.ajcm.bible.ui.components.CardBookItem
 import com.ajcm.bible.ui.error.*
 import com.ajcm.bible.ui.navigation.DashboardActions
+import com.ajcm.design.R
 import com.ajcm.design.common.State
 import com.ajcm.design.component.LoadBiblesShimmer
 import com.ajcm.design.component.SearchBar
@@ -54,7 +56,9 @@ fun SearchScreen(viewModel: SearchViewModel, arguments: Bundle?, actions: Dashbo
                 }
         ) {
             SearchBar(
-                initialSearch.value,
+                initialSearch = initialSearch.value,
+                label = stringResource(id = R.string.search_by_hint_2),
+                hint = stringResource(id = R.string.search_by_hint),
                 onTextChange = {
                     viewModel.search(it)
                 },
@@ -112,9 +116,6 @@ private fun ShowBibles(modifier: Modifier, bibles: List<Bible>, viewModel: Searc
                 bible = bible,
                 onCardClicked = {
 
-                },
-                onFavClicked = {
-                    viewModel.toggleFavorite(it)
                 }
             )
         }
