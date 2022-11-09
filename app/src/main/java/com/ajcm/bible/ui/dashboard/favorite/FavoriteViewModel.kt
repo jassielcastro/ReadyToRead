@@ -46,7 +46,9 @@ class FavoriteViewModel @Inject constructor(
             getBiblesUC.toggleFavorite(bibleId)
         }
 
-        val bibles = foundBibles.value.map { if (it.id == bibleId) bible else it }
+        val bibles = foundBibles.value
+            .map { if (it.id == bibleId) bible else it }
+            .filter { it.isFavourite }
 
         mFoundBibles.emit(bibles)
     }

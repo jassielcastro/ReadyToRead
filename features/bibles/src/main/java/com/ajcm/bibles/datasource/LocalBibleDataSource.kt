@@ -33,4 +33,8 @@ class LocalBibleDataSource @Inject constructor(
     override suspend fun getBible(bibleId: String): Bible {
         return bibleMapper.from(bibleDAO.getBible(bibleId))
     }
+
+    override suspend fun toggleFavorite(bibleId: String): Bible {
+        return bibleMapper.from(bibleDAO.toggleFavoriteAndGet(bibleId))
+    }
 }

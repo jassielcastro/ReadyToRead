@@ -35,8 +35,6 @@ class SectionViewModel @Inject constructor(
             emptyList()
         )
 
-
-
     companion object {
         const val LANGUAGE_SIZE = 7
         const val BIBLES_SIZE = 5

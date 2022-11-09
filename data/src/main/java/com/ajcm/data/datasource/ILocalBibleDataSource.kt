@@ -9,4 +9,6 @@ interface ILocalBibleDataSource {
     suspend fun getBibles(): List<Bible>
     suspend fun getFavouriteBibles(): List<Bible>
     suspend fun getBible(bibleId: String): Bible
+
+    suspend fun toggleFavorite(bibleId: String): Bible
 }
