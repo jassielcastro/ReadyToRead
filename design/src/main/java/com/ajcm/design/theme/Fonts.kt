@@ -55,7 +55,7 @@ data class BibleTypography(
     val button: TextStyle = TextStyle(
         fontFamily = poppinsFamily,
         fontWeight = FontWeight.Normal,
-        fontSize = smallTextSize
+        fontSize = xSmallTextSize
     ),
     val caption: TextStyle = TextStyle(
         fontFamily = poppinsFamily,
