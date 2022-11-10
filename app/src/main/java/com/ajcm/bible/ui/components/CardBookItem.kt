@@ -54,7 +54,7 @@ fun CardBookItem(
                 }
         ) {
             Image(
-                imageVector = ImageVector.vectorResource(id = R.drawable.ic_bottom_circle),
+                imageVector = ImageVector.vectorResource(id = R.drawable.ic_bottom_waves),
                 alignment = Alignment.BottomStart,
                 contentScale = ContentScale.Crop,
                 colorFilter = ColorFilter.tint(color),

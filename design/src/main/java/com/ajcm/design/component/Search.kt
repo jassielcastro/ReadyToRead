@@ -18,9 +18,10 @@ import com.ajcm.design.theme.MaterialBibleTheme
 
 @Composable
 fun SearchComponent(modifier: Modifier = Modifier, onClick: () -> Unit) {
+    val color = MaterialBibleTheme.colors.black.copy(alpha = 0.7f)
     Surface(
         shape = MaterialBibleTheme.shapes.shapeNormal,
-        color = MaterialBibleTheme.colors.white.copy(alpha = 0.9f),
+        color = MaterialBibleTheme.colors.white,
         modifier = Modifier
             .padding(horizontal = MaterialBibleTheme.dimensions.medium)
             .padding(
@@ -37,7 +38,7 @@ fun SearchComponent(modifier: Modifier = Modifier, onClick: () -> Unit) {
             Image(
                 painter = painterResource(id = R.drawable.ic_search),
                 contentDescription = "",
-                colorFilter = ColorFilter.tint(MaterialBibleTheme.colors.black.copy(alpha = 0.7f)),
+                colorFilter = ColorFilter.tint(color),
                 modifier = Modifier
                     .size(MaterialBibleTheme.dimensions.xxlarge)
                     .padding(MaterialBibleTheme.dimensions.medium)
@@ -45,7 +46,7 @@ fun SearchComponent(modifier: Modifier = Modifier, onClick: () -> Unit) {
             Text(
                 text = stringResource(id = R.string.search_by_hint),
                 style = MaterialBibleTheme.typography.caption,
-                color = MaterialBibleTheme.colors.black.copy(alpha = 0.7f)
+                color = color
             )
         }
     }
