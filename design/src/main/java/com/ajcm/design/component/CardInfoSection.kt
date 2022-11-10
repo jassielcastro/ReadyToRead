@@ -41,7 +41,7 @@ fun CardInfoSection(modifier: Modifier, onClick: () -> Unit) {
                         bottom.linkTo(button.bottom)
                     }
             ) {
-                Circle(color = MaterialBibleTheme.colors.green.copy(alpha = 0.5f))
+                Circle(color = MaterialBibleTheme.colors.green.copy(alpha = 0.3f))
             }
 
             SearchComponent(

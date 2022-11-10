@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import com.ajcm.bible.ui.navigation.DashboardActions
 import com.ajcm.design.component.*
@@ -37,6 +38,7 @@ fun SectionsScreen(
             CardInfoSection(
                 modifier = Modifier
                     .fillMaxWidth()
+                    .clip(MaterialBibleTheme.shapes.bottomShape)
             ) { actions.showSearchBy() }
         }
 

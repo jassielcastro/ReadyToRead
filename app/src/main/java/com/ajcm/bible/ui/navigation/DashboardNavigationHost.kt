@@ -18,7 +18,8 @@ import com.ajcm.bible.ui.dashboard.sections.SectionsScreen
 @Composable
 fun DashboardNavigationHost(
     navController: NavHostController,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    isInSections: (Boolean) -> Unit
 ) {
     val actions = remember(navController) { DashboardActions(navController) }
     NavHost(
@@ -27,6 +28,7 @@ fun DashboardNavigationHost(
         startDestination = sectionsDestination
     ) {
         composable(sectionsDestination) {
+            isInSections(true)
             val viewModel = hiltViewModel<SectionViewModel>(it)
             SectionsScreen(actions, viewModel)
         }
@@ -34,10 +36,12 @@ fun DashboardNavigationHost(
             route = searchDestination,
             arguments = allowedSearchArguments
         ) {
+            isInSections(false)
             val viewModel = hiltViewModel<SearchViewModel>(it)
             SearchScreen(viewModel, it.arguments, actions)
         }
         composable(favoritesDestination) {
+            isInSections(false)
             val viewModel = hiltViewModel<FavoriteViewModel>(it)
             FavoriteScreen(viewModel, actions)
         }
