@@ -15,6 +15,8 @@ import com.ajcm.bible.ui.error.ErrorType
 import com.ajcm.bible.ui.navigation.StartNavigationActions
 import com.ajcm.bible.ui.splash.viewmodel.SplashViewModel
 import com.ajcm.design.common.State
+import com.ajcm.design.component.MediumSpacer
+import com.ajcm.design.component.SmallSpacer
 import com.ajcm.design.theme.MaterialBibleTheme
 
 @Composable
@@ -53,7 +55,7 @@ fun SplashContent() {
             style = MaterialBibleTheme.typography.h1
         )
 
-        Spacer(modifier = Modifier.height(MaterialBibleTheme.dimensions.medium))
+        MediumSpacer()
 
         LinearProgressIndicator(
             modifier = Modifier
@@ -64,7 +66,7 @@ fun SplashContent() {
             color = MaterialBibleTheme.colors.green
         )
 
-        Spacer(modifier = Modifier.height(MaterialBibleTheme.dimensions.small))
+        SmallSpacer()
 
         Text(
             text = stringResource(id = R.string.load_content),

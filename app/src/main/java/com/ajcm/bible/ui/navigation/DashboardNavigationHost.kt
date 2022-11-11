@@ -7,6 +7,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.ajcm.bible.ui.dashboard.detail.BibleDetailViewModel
 import com.ajcm.bible.ui.dashboard.favorite.FavoriteScreen
 import com.ajcm.bible.ui.dashboard.favorite.FavoriteViewModel
 import com.ajcm.bible.ui.dashboard.search.SearchScreen
@@ -30,7 +31,8 @@ fun DashboardNavigationHost(
         composable(sectionsDestination) {
             isInSections(true)
             val viewModel = hiltViewModel<SectionViewModel>(it)
-            SectionsScreen(actions, viewModel)
+            val detailViewModel = hiltViewModel<BibleDetailViewModel>(it)
+            SectionsScreen(actions, viewModel, detailViewModel)
         }
         composable(
             route = searchDestination,

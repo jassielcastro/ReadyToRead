@@ -77,7 +77,7 @@ fun LoadBiblesShimmer(modifier: Modifier) {
                 .then(modifier)
         ) {
 
-            Spacer(modifier = Modifier.size(MaterialBibleTheme.dimensions.normal))
+            NormalSpacer()
 
             repeat(8) {
                 Spacer(
@@ -91,7 +91,7 @@ fun LoadBiblesShimmer(modifier: Modifier) {
                         .background(brush)
                 )
 
-                Spacer(modifier = Modifier.size(MaterialBibleTheme.dimensions.normal))
+                NormalSpacer()
             }
         }
     }

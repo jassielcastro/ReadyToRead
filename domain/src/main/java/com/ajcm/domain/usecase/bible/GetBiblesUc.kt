@@ -3,6 +3,7 @@ package com.ajcm.domain.usecase.bible
 import com.ajcm.domain.entity.Bible
 import com.ajcm.domain.entity.request.GetBibleRequest
 import com.ajcm.domain.repository.IBibleRepository
+import java.lang.NullPointerException
 import javax.inject.Inject
 
 class GetBiblesUc @Inject constructor(private val repository: IBibleRepository) {
@@ -26,6 +27,11 @@ class GetBiblesUc @Inject constructor(private val repository: IBibleRepository) 
             }
         }
         return currentlanguages.reversed()
+    }
+
+    suspend fun getBible(bibleId: String?): Bible {
+        if (bibleId == null) throw NullPointerException()
+        return repository.getBible(bibleId)
     }
 
     suspend fun toggleFavorite(bibleId: String): Bible {

@@ -46,6 +46,8 @@ dependencies {
     api "androidx.navigation:navigation-compose:$navigationComposeVersion"
     api "androidx.hilt:hilt-navigation-compose:$hiltNavigationComposeVersion"
     kapt "androidx.hilt:hilt-compiler:$hiltNavigationComposeVersion"
+
+    api "de.charlex.compose:html-text:$htmlText"
 }
 
 tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {

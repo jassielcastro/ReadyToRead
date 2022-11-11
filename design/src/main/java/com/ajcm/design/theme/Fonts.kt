@@ -62,6 +62,11 @@ data class BibleTypography(
         fontWeight = FontWeight.Normal,
         fontSize = smallTextSize
     ),
+    val captionBold: TextStyle = TextStyle(
+        fontFamily = poppinsFamily,
+        fontWeight = FontWeight.Bold,
+        fontSize = smallTextSize
+    ),
     val subCaption: TextStyle = TextStyle(
         fontFamily = poppinsFamily,
         fontWeight = FontWeight.SemiBold,

@@ -25,6 +25,10 @@ data class Bible(
         countries.joinToString(separator = ", ") { it.name }
             .plus(" - ${language.nameLocal}")
 
+    fun fullInformation(): String {
+        return "$info \n $descriptionLocal"
+    }
+
     class Builder {
         var id: String = ""
         var dblId: String = ""

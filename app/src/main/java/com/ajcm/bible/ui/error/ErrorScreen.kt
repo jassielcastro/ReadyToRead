@@ -9,6 +9,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
+import com.ajcm.design.component.MediumSpacer
 import com.ajcm.design.theme.MaterialBibleTheme
 
 @Composable
@@ -46,7 +47,7 @@ fun ErrorScreen(arguments: Bundle? = null) {
             textAlign = TextAlign.Center
         )
 
-        Spacer(modifier = Modifier.size(MaterialBibleTheme.dimensions.medium))
+        MediumSpacer()
 
         Text(
             text = message,

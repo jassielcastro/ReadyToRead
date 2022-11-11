@@ -1,5 +1,6 @@
 package com.ajcm.design.component
 
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -11,16 +12,18 @@ import com.ajcm.design.common.bounceClick
 import com.ajcm.design.theme.MaterialBibleTheme
 
 @Composable
-fun LanguageItem(title: String, onClick: (String) -> Unit) {
+fun FullRoundedItem(modifier: Modifier, title: String, onClick: (String) -> Unit = {}) {
     Surface(
         shape = MaterialBibleTheme.shapes.shapeSmall,
         elevation = MaterialBibleTheme.dimensions.zero,
         color = MaterialBibleTheme.colors.gray,
         modifier = Modifier
+            .fillMaxWidth()
             .clip(MaterialBibleTheme.shapes.shapeSmall)
             .bounceClick {
                 onClick(title)
             }
+            .then(modifier)
     ) {
         Text(
             text = title,
