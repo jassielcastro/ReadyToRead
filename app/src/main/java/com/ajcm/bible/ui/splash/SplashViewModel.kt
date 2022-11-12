@@ -3,7 +3,7 @@ package com.ajcm.bible.ui.splash
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ajcm.design.common.State
-import com.ajcm.domain.usecase.bible.GetBiblesUc
+import com.ajcm.domain.usecase.bible.BiblesUc
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SplashViewModel @Inject constructor(
-    private val getBiblesUC: GetBiblesUc
+    private val getBiblesUC: BiblesUc
 ) : ViewModel() {
 
     private val mDownloadBibles = MutableSharedFlow<State>()

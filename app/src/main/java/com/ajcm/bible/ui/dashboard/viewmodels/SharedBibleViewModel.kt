@@ -5,18 +5,15 @@ import androidx.lifecycle.viewModelScope
 import com.ajcm.design.common.State
 import com.ajcm.domain.entity.Bible
 import com.ajcm.domain.entity.request.GetBibleRequest
-import com.ajcm.domain.usecase.bible.GetBiblesUc
+import com.ajcm.domain.usecase.bible.BiblesUc
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
 @HiltViewModel
 class SharedBibleViewModel @Inject constructor(
-    private val getBiblesUC: GetBiblesUc
+    private val biblesUC: BiblesUc
 ) : ViewModel() {
 
     private val mLanguages = MutableSharedFlow<List<String>>()
@@ -64,7 +61,7 @@ class SharedBibleViewModel @Inject constructor(
     fun buildBibleSections() = viewModelScope.launch {
         val bibles = withContext(Dispatchers.IO) {
             recomendedBibles.value.ifEmpty {
-                getBiblesUC.getAll(
+                biblesUC.getAll(
                     GetBibleRequest {
                         size = BIBLES_SIZE
                         ortedBy = GetBibleRequest.OrderType.RANDOM
@@ -75,7 +72,7 @@ class SharedBibleViewModel @Inject constructor(
 
         val languages = withContext(Dispatchers.IO) {
             languages.value.ifEmpty {
-                getBiblesUC.getBibleLanguages(LANGUAGE_SIZE)
+                biblesUC.getBibleLanguages(LANGUAGE_SIZE)
             }
         }
 
@@ -87,7 +84,7 @@ class SharedBibleViewModel @Inject constructor(
         mBibleDetail.emit(null)
         runCatching {
             withContext(Dispatchers.IO) {
-                getBiblesUC.getBible(bibleId)
+                biblesUC.getBible(bibleId)
             }
         }.onSuccess {
             mBibleDetail.emit(it)
@@ -97,13 +94,11 @@ class SharedBibleViewModel @Inject constructor(
     }
 
     fun downloadFavorites() = viewModelScope.launch {
-        val bibles = withContext(Dispatchers.IO) {
-            getBiblesUC.getAll(
-                GetBibleRequest { favorite = GetBibleRequest.Favorite.TRUE }
-            )
+        withContext(Dispatchers.IO) {
+            biblesUC.getFavorites().collect {
+                mFavoriteBibles.emit(it)
+            }
         }
-
-        mFavoriteBibles.emit(bibles)
     }
 
     fun search(by: String) = viewModelScope.launch {
@@ -113,7 +108,7 @@ class SharedBibleViewModel @Inject constructor(
         searchJob = viewModelScope.launch {
             mFoundBibles.emit(State.Loading)
             val bibles = withContext(Dispatchers.IO) {
-                getBiblesUC.getAll(
+                biblesUC.getAll(
                     GetBibleRequest { query = by }
                 )
             }
@@ -126,9 +121,21 @@ class SharedBibleViewModel @Inject constructor(
         }
     }
 
+    fun toggleFavorite(bibleId: String) = viewModelScope.launch {
+        mBibleDetail.value = withContext(Dispatchers.IO) {
+            biblesUC.toggleFavorite(bibleId)
+        }
+    }
+
+    fun runWithDelay(block: () -> Unit) = viewModelScope.launch {
+        delay(DELAY)
+        block()
+    }
+
     private companion object {
         const val LANGUAGE_SIZE = 7
         const val BIBLES_SIZE = 5
+        const val DELAY = 200L
     }
 
 }

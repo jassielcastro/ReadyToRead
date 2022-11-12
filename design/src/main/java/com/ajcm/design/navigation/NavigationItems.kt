@@ -8,6 +8,7 @@ class NavigationItems private constructor(val route: String) {
         DASHBOARD,
         SECTIONS,
         FAVORITES,
+        READING,
         SEARCH,
         NONE
     }

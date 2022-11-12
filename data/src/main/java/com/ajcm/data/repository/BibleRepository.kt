@@ -7,6 +7,7 @@ import com.ajcm.domain.entity.request.GetBibleRequest
 import com.ajcm.domain.ext.cut
 import com.ajcm.domain.ext.filterAndCut
 import com.ajcm.domain.repository.IBibleRepository
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class BibleRepository @Inject constructor(
@@ -35,14 +36,10 @@ class BibleRepository @Inject constructor(
             }
         }
 
-        if (request.favorite == GetBibleRequest.Favorite.TRUE) {
-            return sorted.filter { it.isFavourite }
-        }
-
         return sorted
     }
 
-    override suspend fun getFavouriteBibles(): List<Bible> {
+    override suspend fun getFavouriteBibles(): Flow<List<Bible>> {
         return localDataSource.getFavouriteBibles()
     }
 

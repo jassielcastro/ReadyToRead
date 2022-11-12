@@ -3,10 +3,11 @@ package com.ajcm.domain.usecase.bible
 import com.ajcm.domain.entity.Bible
 import com.ajcm.domain.entity.request.GetBibleRequest
 import com.ajcm.domain.repository.IBibleRepository
+import kotlinx.coroutines.flow.Flow
 import java.lang.NullPointerException
 import javax.inject.Inject
 
-class GetBiblesUc @Inject constructor(private val repository: IBibleRepository) {
+class BiblesUc @Inject constructor(private val repository: IBibleRepository) {
 
     private val neededLanguages = listOf("English", "Español")
 
@@ -32,6 +33,10 @@ class GetBiblesUc @Inject constructor(private val repository: IBibleRepository) 
     suspend fun getBible(bibleId: String?): Bible {
         if (bibleId == null) throw NullPointerException()
         return repository.getBible(bibleId)
+    }
+
+    suspend fun getFavorites(): Flow<List<Bible>> {
+        return repository.getFavouriteBibles()
     }
 
     suspend fun toggleFavorite(bibleId: String): Bible {

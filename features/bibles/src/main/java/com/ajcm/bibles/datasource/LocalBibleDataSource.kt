@@ -5,6 +5,8 @@ import com.ajcm.bibles.database.model.BibleDTO
 import com.ajcm.data.datasource.ILocalBibleDataSource
 import com.ajcm.data.mapper.BaseMapper
 import com.ajcm.domain.entity.Bible
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -26,8 +28,10 @@ class LocalBibleDataSource @Inject constructor(
         return bibleDAO.getAllBibles().map { bibleMapper.from(it) }
     }
 
-    override suspend fun getFavouriteBibles(): List<Bible> {
-        return bibleDAO.getFavouriteBibles().map { bibleMapper.from(it) }
+    override suspend fun getFavouriteBibles(): Flow<List<Bible>> {
+        return bibleDAO.getFavouriteBibles().map {
+            it.map { b -> bibleMapper.from(b) }
+        }
     }
 
     override suspend fun getBible(bibleId: String): Bible {

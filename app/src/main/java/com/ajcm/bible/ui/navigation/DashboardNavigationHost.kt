@@ -12,12 +12,13 @@ import com.ajcm.bible.ui.dashboard.search.SearchScreen
 import com.ajcm.bible.ui.dashboard.search.allowedSearchArguments
 import com.ajcm.bible.ui.dashboard.sections.SectionsScreen
 import com.ajcm.bible.ui.dashboard.viewmodels.SharedBibleViewModel
+import com.ajcm.bible.ui.reading.ReadingScreen
+import com.ajcm.bible.ui.reading.readingDestination
 
 @Composable
 fun DashboardNavigationHost(
     navController: NavHostController,
     modifier: Modifier = Modifier,
-    isInSections: (Boolean) -> Unit
 ) {
     val actions = remember(navController) { DashboardActions(navController) }
     NavHost(
@@ -26,7 +27,6 @@ fun DashboardNavigationHost(
         startDestination = sectionsDestination
     ) {
         composable(sectionsDestination) {
-            isInSections(true)
             val viewModel = hiltViewModel<SharedBibleViewModel>(it)
             SectionsScreen(actions, viewModel)
         }
@@ -34,14 +34,15 @@ fun DashboardNavigationHost(
             route = searchDestination,
             arguments = allowedSearchArguments
         ) {
-            isInSections(false)
             val viewModel = hiltViewModel<SharedBibleViewModel>(it)
             SearchScreen(viewModel, it.arguments, actions)
         }
         composable(favoritesDestination) {
-            isInSections(false)
             val viewModel = hiltViewModel<SharedBibleViewModel>(it)
             FavoriteScreen(viewModel, actions)
+        }
+        composable(readingDestination) {
+            ReadingScreen()
         }
     }
 }

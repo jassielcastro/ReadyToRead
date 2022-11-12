@@ -7,10 +7,7 @@ import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Divider
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -53,7 +50,7 @@ fun BibleDetail(
     }
 
     if (bibleDetail != null) {
-        BibleDetailContent(bibleDetail!!)
+        BibleDetailContent(bibleDetail!!, viewModel, actions)
     } else {
         Box(
             contentAlignment = Alignment.Center,
@@ -72,9 +69,14 @@ fun BibleDetail(
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun BibleDetailContent(bible: Bible) {
+fun BibleDetailContent(
+    bible: Bible,
+    viewModel: SharedBibleViewModel,
+    actions: DashboardActions
+) {
     val color = bible.color.toColor()
     val colorButtonBG = MaterialBibleTheme.colors.gray
+    val favoriteIcon = if (bible.isFavourite) R.drawable.ic_bookmark_fill else R.drawable.ic_bookmark_line
 
     Column(
         modifier = Modifier
@@ -114,12 +116,12 @@ fun BibleDetailContent(bible: Bible) {
                         top.linkTo(parent.top)
                         end.linkTo(parent.end)
                     }
-                    .bounceClick {  }
+                    .bounceClick { actions.onBack() }
                     .padding(MaterialBibleTheme.dimensions.small)
             )
 
             Image(
-                painter = painterResource(id = R.drawable.ic_bookmark_line),
+                painter = painterResource(id = favoriteIcon),
                 contentDescription = "",
                 modifier = Modifier
                     .padding(top = MaterialBibleTheme.dimensions.medium)
@@ -130,7 +132,9 @@ fun BibleDetailContent(bible: Bible) {
                         top.linkTo(closeButton.bottom)
                         end.linkTo(parent.end)
                     }
-                    .bounceClick {  }
+                    .bounceClick {
+                        viewModel.toggleFavorite(bible.id)
+                    }
                     .padding(MaterialBibleTheme.dimensions.small)
             )
 
@@ -166,11 +170,14 @@ fun BibleDetailContent(bible: Bible) {
                 title = "Comenzar a leer",
                 modifier = Modifier
                     .constrainAs(readButton) {
-                        top.linkTo(imageBook.bottom, 12.dp)
+                        top.linkTo(imageBook.bottom, 24.dp)
                         start.linkTo(parent.start)
                         end.linkTo(parent.end)
                     }
-            )
+            ) {
+                actions.onBack()
+                viewModel.runWithDelay { actions.showReading() }
+            }
         }
 
         Column(

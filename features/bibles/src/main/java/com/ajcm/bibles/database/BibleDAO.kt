@@ -7,6 +7,7 @@ import androidx.room.Query
 import androidx.room.Transaction
 import androidx.room.Update
 import com.ajcm.bibles.database.model.BibleDTO
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface BibleDAO {
@@ -35,7 +36,7 @@ interface BibleDAO {
     fun getAllBibles(): List<BibleDTO>
 
     @Query("SELECT * FROM ${BibleDTO.TABLE_NAME} WHERE isFavourite == 1")
-    fun getFavouriteBibles(): List<BibleDTO>
+    fun getFavouriteBibles(): Flow<List<BibleDTO>>
 
     @Query("SELECT * FROM ${BibleDTO.TABLE_NAME} WHERE id = :bibleId")
     fun getBible(bibleId: String): BibleDTO

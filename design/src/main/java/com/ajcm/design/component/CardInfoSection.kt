@@ -65,7 +65,7 @@ fun CardInfoSection(modifier: Modifier, onClick: () -> Unit) {
                 painter = painterResource(id = R.drawable.ic_bibliophile_rafiki),
                 contentDescription = "",
                 modifier = Modifier
-                    .width(MaterialBibleTheme.dimensions.bookInfoWidth)
+                    .width(MaterialBibleTheme.dimensions.bookInfo)
                     .wrapContentHeight()
                     .constrainAs(imageBook) {
                         start.linkTo(parent.start)
