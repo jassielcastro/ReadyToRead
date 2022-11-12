@@ -25,6 +25,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
+import com.ajcm.bible.ui.dashboard.viewmodels.SharedBibleViewModel
 import com.ajcm.design.R
 import com.ajcm.design.common.bounceClick
 import com.ajcm.design.component.*
@@ -37,13 +38,13 @@ import de.charlex.compose.HtmlText
 const val BIBLE_ID_KEY = "bible_id_key"
 
 @Composable
-fun BibleDetail(bundle: Bundle, bibleDetailViewModel: BibleDetailViewModel) {
+fun BibleDetail(bundle: Bundle, viewModel: SharedBibleViewModel) {
     val id = bundle.getString(BIBLE_ID_KEY)
 
-    val bibleDetail by bibleDetailViewModel.bibleDetail.collectAsState()
+    val bibleDetail by viewModel.bibleDetail.collectAsState()
 
     LaunchedEffect(id) {
-        bibleDetailViewModel.getBibleDetail(id)
+        viewModel.getBibleDetail(id)
     }
 
     if (bibleDetail != null) {

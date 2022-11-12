@@ -15,6 +15,7 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import androidx.core.os.bundleOf
 import com.ajcm.bible.ui.components.CardBookItem
+import com.ajcm.bible.ui.dashboard.viewmodels.SharedBibleViewModel
 import com.ajcm.bible.ui.error.*
 import com.ajcm.bible.ui.navigation.DashboardActions
 import com.ajcm.design.R
@@ -26,11 +27,11 @@ import com.ajcm.domain.entity.Bible
 
 @Composable
 fun FavoriteScreen(
-    viewModel: FavoriteViewModel,
+    viewModel: SharedBibleViewModel,
     actions: DashboardActions
 ) {
 
-    val foundBibles by viewModel.foundBibles.collectAsState()
+    val foundBibles by viewModel.favoriteBibles.collectAsState()
 
     LaunchedEffect(Unit) {
         viewModel.downloadFavorites()
@@ -68,8 +69,7 @@ fun FavoriteScreen(
                     .constrainAs(list) {
                         top.linkTo(toolbar.bottom)
                     },
-                bibles = foundBibles,
-                viewModel
+                bibles = foundBibles
             )
         } else {
             ShowEmptyState()
@@ -78,7 +78,7 @@ fun FavoriteScreen(
 }
 
 @Composable
-private fun ShowBibles(modifier: Modifier, bibles: List<Bible>, viewModel: FavoriteViewModel) {
+private fun ShowBibles(modifier: Modifier, bibles: List<Bible>) {
     val listState = rememberLazyListState()
     LazyColumn(
         modifier = Modifier

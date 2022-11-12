@@ -1,4 +1,4 @@
-package com.ajcm.bible.ui.splash.viewmodel
+package com.ajcm.bible.ui.splash
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

@@ -15,6 +15,7 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import androidx.core.os.bundleOf
 import com.ajcm.bible.ui.components.CardBookItem
+import com.ajcm.bible.ui.dashboard.viewmodels.SharedBibleViewModel
 import com.ajcm.bible.ui.error.*
 import com.ajcm.bible.ui.navigation.DashboardActions
 import com.ajcm.design.R
@@ -27,7 +28,7 @@ import com.ajcm.design.theme.MaterialBibleTheme
 import com.ajcm.domain.entity.Bible
 
 @Composable
-fun SearchScreen(viewModel: SearchViewModel, arguments: Bundle?, actions: DashboardActions) {
+fun SearchScreen(viewModel: SharedBibleViewModel, arguments: Bundle?, actions: DashboardActions) {
     val initialSearch = remember {
         mutableStateOf(
             arguments?.getString(SEARCH_WITH_ARG_KEY)?.takeIf {
@@ -83,8 +84,7 @@ fun SearchScreen(viewModel: SearchViewModel, arguments: Bundle?, actions: Dashbo
                         .constrainAs(list) {
                             top.linkTo(searchComponent.bottom)
                         },
-                    bibles = (foundBibles as State.Success<*>).value as List<Bible>,
-                    viewModel
+                    bibles = (foundBibles as State.Success<*>).value as List<Bible>
                 )
             }
             State.Empty, is State.Failure -> {
@@ -95,7 +95,7 @@ fun SearchScreen(viewModel: SearchViewModel, arguments: Bundle?, actions: Dashbo
 }
 
 @Composable
-private fun ShowBibles(modifier: Modifier, bibles: List<Bible>, viewModel: SearchViewModel) {
+private fun ShowBibles(modifier: Modifier, bibles: List<Bible>) {
     val listState = rememberLazyListState()
     LazyColumn(
         modifier = Modifier

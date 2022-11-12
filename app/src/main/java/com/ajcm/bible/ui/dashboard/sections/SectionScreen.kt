@@ -10,6 +10,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -20,7 +21,7 @@ import com.ajcm.bible.R
 import com.ajcm.bible.ui.dashboard.detail.BIBLE_ID_KEY
 import com.ajcm.bible.ui.dashboard.detail.BibleDetail
 import com.ajcm.bible.ui.components.CardBookItem
-import com.ajcm.bible.ui.dashboard.detail.BibleDetailViewModel
+import com.ajcm.bible.ui.dashboard.viewmodels.SharedBibleViewModel
 import com.ajcm.bible.ui.navigation.DashboardActions
 import com.ajcm.design.component.*
 import com.ajcm.design.theme.MaterialBibleTheme
@@ -29,12 +30,11 @@ import com.ajcm.design.theme.MaterialBibleTheme
 @Composable
 fun SectionsScreen(
     actions: DashboardActions,
-    viewModel: SectionViewModel,
-    bibleDetailViewModel: BibleDetailViewModel
+    viewModel: SharedBibleViewModel
 ) {
     BottomSheetContainer(
         sheetContent = { bundle ->
-            BibleDetail(bundle, bibleDetailViewModel)
+            BibleDetail(bundle, viewModel)
         },
         content = { showBibleSheet ->
             SectionListScreen(actions = actions, viewModel = viewModel, showBibleSheet = showBibleSheet)
@@ -46,12 +46,16 @@ fun SectionsScreen(
 @Composable
 private fun SectionListScreen(
     actions: DashboardActions,
-    viewModel: SectionViewModel,
+    viewModel: SharedBibleViewModel,
     showBibleSheet: (Bundle) -> Unit
 ) {
     val languages by viewModel.languages.collectAsState()
-    val bibles by viewModel.selectedBibles.collectAsState()
+    val bibles by viewModel.recomendedBibles.collectAsState()
     val listState = rememberLazyListState()
+
+    LaunchedEffect(Unit) {
+        viewModel.buildBibleSections()
+    }
 
     LazyColumn(
         modifier = Modifier

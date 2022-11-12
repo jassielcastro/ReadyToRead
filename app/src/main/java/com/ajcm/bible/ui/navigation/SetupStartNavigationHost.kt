@@ -10,7 +10,7 @@ import androidx.navigation.compose.composable
 import com.ajcm.bible.ui.dashboard.DashboardScreen
 import com.ajcm.bible.ui.error.*
 import com.ajcm.bible.ui.splash.view.SplashScreen
-import com.ajcm.bible.ui.splash.viewmodel.SplashViewModel
+import com.ajcm.bible.ui.splash.SplashViewModel
 
 @Composable
 fun SetupStartNavigationHost(

@@ -7,14 +7,11 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.ajcm.bible.ui.dashboard.detail.BibleDetailViewModel
 import com.ajcm.bible.ui.dashboard.favorite.FavoriteScreen
-import com.ajcm.bible.ui.dashboard.favorite.FavoriteViewModel
 import com.ajcm.bible.ui.dashboard.search.SearchScreen
-import com.ajcm.bible.ui.dashboard.search.SearchViewModel
 import com.ajcm.bible.ui.dashboard.search.allowedSearchArguments
-import com.ajcm.bible.ui.dashboard.sections.SectionViewModel
 import com.ajcm.bible.ui.dashboard.sections.SectionsScreen
+import com.ajcm.bible.ui.dashboard.viewmodels.SharedBibleViewModel
 
 @Composable
 fun DashboardNavigationHost(
@@ -30,21 +27,20 @@ fun DashboardNavigationHost(
     ) {
         composable(sectionsDestination) {
             isInSections(true)
-            val viewModel = hiltViewModel<SectionViewModel>(it)
-            val detailViewModel = hiltViewModel<BibleDetailViewModel>(it)
-            SectionsScreen(actions, viewModel, detailViewModel)
+            val viewModel = hiltViewModel<SharedBibleViewModel>(it)
+            SectionsScreen(actions, viewModel)
         }
         composable(
             route = searchDestination,
             arguments = allowedSearchArguments
         ) {
             isInSections(false)
-            val viewModel = hiltViewModel<SearchViewModel>(it)
+            val viewModel = hiltViewModel<SharedBibleViewModel>(it)
             SearchScreen(viewModel, it.arguments, actions)
         }
         composable(favoritesDestination) {
             isInSections(false)
-            val viewModel = hiltViewModel<FavoriteViewModel>(it)
+            val viewModel = hiltViewModel<SharedBibleViewModel>(it)
             FavoriteScreen(viewModel, actions)
         }
     }
