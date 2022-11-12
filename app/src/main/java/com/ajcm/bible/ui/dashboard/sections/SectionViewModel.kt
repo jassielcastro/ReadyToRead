@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ajcm.domain.entity.Bible
 import com.ajcm.domain.entity.request.GetBibleRequest
+import com.ajcm.domain.entity.request.GetBibleRequest.OrderType
 import com.ajcm.domain.usecase.bible.GetBiblesUc
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -46,7 +47,12 @@ class SectionViewModel @Inject constructor(
 
     private fun downloadBibles() = viewModelScope.launch {
         val bibles = withContext(Dispatchers.IO) {
-            getBiblesUC.getAll(GetBibleRequest { size = BIBLES_SIZE })
+            getBiblesUC.getAll(
+                GetBibleRequest {
+                    size = BIBLES_SIZE
+                    ortedBy = OrderType.RANDOM
+                }
+            )
         }
         val languages = withContext(Dispatchers.IO) {
             getBiblesUC.getBibleLanguages(LANGUAGE_SIZE)
