@@ -34,7 +34,7 @@ fun SectionsScreen(
 ) {
     BottomSheetContainer(
         sheetContent = { bundle ->
-            BibleDetail(bundle, viewModel)
+            BibleDetail(bundle, viewModel, actions)
         },
         content = { showBibleSheet ->
             SectionListScreen(actions = actions, viewModel = viewModel, showBibleSheet = showBibleSheet)

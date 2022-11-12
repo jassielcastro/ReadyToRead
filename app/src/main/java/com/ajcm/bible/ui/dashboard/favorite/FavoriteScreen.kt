@@ -1,5 +1,6 @@
 package com.ajcm.bible.ui.dashboard.favorite
 
+import android.os.Bundle
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -15,10 +16,14 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import androidx.core.os.bundleOf
 import com.ajcm.bible.ui.components.CardBookItem
+import com.ajcm.bible.ui.dashboard.detail.BIBLE_ID_KEY
+import com.ajcm.bible.ui.dashboard.detail.BibleDetail
+import com.ajcm.bible.ui.dashboard.search.SearchListScreen
 import com.ajcm.bible.ui.dashboard.viewmodels.SharedBibleViewModel
 import com.ajcm.bible.ui.error.*
 import com.ajcm.bible.ui.navigation.DashboardActions
 import com.ajcm.design.R
+import com.ajcm.design.component.BottomSheetContainer
 import com.ajcm.design.component.SearchBar
 import com.ajcm.design.component.largeSpace
 import com.ajcm.design.component.normalSpace
@@ -30,7 +35,22 @@ fun FavoriteScreen(
     viewModel: SharedBibleViewModel,
     actions: DashboardActions
 ) {
+    BottomSheetContainer(
+        sheetContent = { bundle ->
+            BibleDetail(bundle, viewModel, actions)
+        },
+        content = { showBibleSheet ->
+            FavoriteListScreen(viewModel, actions, showBibleSheet)
+        }
+    )
+}
 
+@Composable
+fun FavoriteListScreen(
+    viewModel: SharedBibleViewModel,
+    actions: DashboardActions,
+    showBibleSheet: (Bundle) -> Unit
+) {
     val foundBibles by viewModel.favoriteBibles.collectAsState()
 
     LaunchedEffect(Unit) {
@@ -69,7 +89,8 @@ fun FavoriteScreen(
                     .constrainAs(list) {
                         top.linkTo(toolbar.bottom)
                     },
-                bibles = foundBibles
+                bibles = foundBibles,
+                showBibleSheet = showBibleSheet
             )
         } else {
             ShowEmptyState()
@@ -78,7 +99,7 @@ fun FavoriteScreen(
 }
 
 @Composable
-private fun ShowBibles(modifier: Modifier, bibles: List<Bible>) {
+private fun ShowBibles(modifier: Modifier, bibles: List<Bible>, showBibleSheet: (Bundle) -> Unit) {
     val listState = rememberLazyListState()
     LazyColumn(
         modifier = Modifier
@@ -98,7 +119,7 @@ private fun ShowBibles(modifier: Modifier, bibles: List<Bible>) {
             CardBookItem(
                 bible = bible,
                 onCardClicked = {
-
+                    showBibleSheet(bundleOf(BIBLE_ID_KEY to it))
                 }
             )
         }

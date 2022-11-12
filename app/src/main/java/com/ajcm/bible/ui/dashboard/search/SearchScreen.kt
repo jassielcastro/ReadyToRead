@@ -15,20 +15,36 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import androidx.core.os.bundleOf
 import com.ajcm.bible.ui.components.CardBookItem
+import com.ajcm.bible.ui.dashboard.detail.BIBLE_ID_KEY
+import com.ajcm.bible.ui.dashboard.detail.BibleDetail
 import com.ajcm.bible.ui.dashboard.viewmodels.SharedBibleViewModel
 import com.ajcm.bible.ui.error.*
 import com.ajcm.bible.ui.navigation.DashboardActions
 import com.ajcm.design.R
 import com.ajcm.design.common.State
-import com.ajcm.design.component.LoadBiblesShimmer
-import com.ajcm.design.component.SearchBar
-import com.ajcm.design.component.largeSpace
-import com.ajcm.design.component.normalSpace
+import com.ajcm.design.component.*
 import com.ajcm.design.theme.MaterialBibleTheme
 import com.ajcm.domain.entity.Bible
 
 @Composable
 fun SearchScreen(viewModel: SharedBibleViewModel, arguments: Bundle?, actions: DashboardActions) {
+    BottomSheetContainer(
+        sheetContent = { bundle ->
+            BibleDetail(bundle, viewModel, actions)
+        },
+        content = { showBibleSheet ->
+            SearchListScreen(viewModel, arguments, actions, showBibleSheet)
+        }
+    )
+}
+
+@Composable
+fun SearchListScreen(
+    viewModel: SharedBibleViewModel,
+    arguments: Bundle?,
+    actions: DashboardActions,
+    showBibleSheet: (Bundle) -> Unit
+) {
     val initialSearch = remember {
         mutableStateOf(
             arguments?.getString(SEARCH_WITH_ARG_KEY)?.takeIf {
@@ -84,7 +100,8 @@ fun SearchScreen(viewModel: SharedBibleViewModel, arguments: Bundle?, actions: D
                         .constrainAs(list) {
                             top.linkTo(searchComponent.bottom)
                         },
-                    bibles = (foundBibles as State.Success<*>).value as List<Bible>
+                    bibles = (foundBibles as State.Success<*>).value as List<Bible>,
+                    showBibleSheet = showBibleSheet
                 )
             }
             State.Empty, is State.Failure -> {
@@ -95,7 +112,7 @@ fun SearchScreen(viewModel: SharedBibleViewModel, arguments: Bundle?, actions: D
 }
 
 @Composable
-private fun ShowBibles(modifier: Modifier, bibles: List<Bible>) {
+private fun ShowBibles(modifier: Modifier, bibles: List<Bible>, showBibleSheet: (Bundle) -> Unit) {
     val listState = rememberLazyListState()
     LazyColumn(
         modifier = Modifier
@@ -115,7 +132,7 @@ private fun ShowBibles(modifier: Modifier, bibles: List<Bible>) {
             CardBookItem(
                 bible = bible,
                 onCardClicked = {
-
+                    showBibleSheet(bundleOf(BIBLE_ID_KEY to it))
                 }
             )
         }
