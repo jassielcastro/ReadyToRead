@@ -1,6 +1,7 @@
 package com.ajcm.design.component
 
 import android.os.Bundle
+import androidx.activity.compose.BackHandler
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ModalBottomSheetLayout
 import androidx.compose.material.ModalBottomSheetValue
@@ -20,17 +21,25 @@ fun BottomSheetContainer(
     val scope = rememberCoroutineScope()
     var bundle by remember { mutableStateOf(bundleOf()) }
 
+    BackHandler(enabled = state.isVisible) {
+        scope.launch {
+            state.hide()
+        }
+    }
+
     ModalBottomSheetLayout(
         sheetState = state,
         sheetContent = { sheetContent(bundle) },
         sheetShape = MaterialBibleTheme.shapes.topShape,
         sheetBackgroundColor = MaterialBibleTheme.colors.white,
     ) {
-        content(showBibleSheet = { data ->
-            scope.launch {
-                bundle = data
-                state.show()
+        content(
+            showBibleSheet = { data ->
+                scope.launch {
+                    bundle = data
+                    state.show()
+                }
             }
-        })
+        )
     }
 }
