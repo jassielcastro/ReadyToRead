@@ -26,6 +26,10 @@ task clean(type: Delete) {
 subprojects {
     afterEvaluate { project ->
         if (project.hasProperty('android')) {
+            def keystorePropertiesFile = rootProject.file("local.properties")
+            def keystoreProperties = new Properties()
+            keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+
             android {
                 compileSdk 32
 
@@ -41,10 +45,23 @@ subprojects {
                     vectorDrawables.useSupportLibrary = true
                 }
 
+                signingConfigs {
+                    release {
+                        keyAlias keystoreProperties['keyAlias']
+                        keyPassword keystoreProperties['keyPassword']
+                        storeFile file(keystoreProperties['storeFile'])
+                        storePassword keystoreProperties['storePassword']
+                    }
+                }
+
                 buildTypes {
+                    debug {
+                        versionNameSuffix "-dev"
+                    }
                     release {
                         minifyEnabled false
                         proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+                        signingConfig signingConfigs.release
                     }
                 }
 
