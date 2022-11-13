@@ -1,6 +1,5 @@
 package com.ajcm.bible.ui.dashboard
 
-import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.*
@@ -14,14 +13,11 @@ import com.ajcm.design.BibleAppState
 import com.ajcm.design.common.cleanRoute
 import com.ajcm.design.rememberBibleAppState
 import com.ajcm.design.screen.BibleScreen
-import com.ajcm.design.theme.MaterialBibleTheme
 import com.ajcm.design.theme.SetStatusBarColorEffect
 
 @Composable
 fun DashboardScreen(appState: BibleAppState = rememberBibleAppState()) {
     BibleScreen {
-        var isInSections by remember { mutableStateOf(true) }
-        val statusBarColor by animateColorAsState(if (isInSections) MaterialBibleTheme.colors.greenLight else MaterialBibleTheme.colors.white)
         var bottomBarState by remember { (mutableStateOf(true)) }
 
         val navBackStackEntry by appState.navController.currentBackStackEntryAsState()
@@ -30,11 +26,6 @@ fun DashboardScreen(appState: BibleAppState = rememberBibleAppState()) {
             sectionsDestination.cleanRoute() -> true
             searchDestination.cleanRoute() -> true
             favoritesDestination.cleanRoute() -> true
-            else -> false
-        }
-
-        isInSections = when (currentRoute) {
-            sectionsDestination.cleanRoute() -> true
             else -> false
         }
 
@@ -47,6 +38,6 @@ fun DashboardScreen(appState: BibleAppState = rememberBibleAppState()) {
                 modifier = Modifier.padding(padding)
             )
         }
-        SetStatusBarColorEffect(color = statusBarColor)
+        SetStatusBarColorEffect()
     }
 }
