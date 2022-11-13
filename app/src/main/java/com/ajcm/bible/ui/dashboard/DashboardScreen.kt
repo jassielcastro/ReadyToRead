@@ -18,11 +18,11 @@ import com.ajcm.design.theme.SetStatusBarColorEffect
 @Composable
 fun DashboardScreen(appState: BibleAppState = rememberBibleAppState()) {
     BibleScreen {
-        var bottomBarState by remember { (mutableStateOf(true)) }
+        var showBottomBar by remember { (mutableStateOf(true)) }
 
         val navBackStackEntry by appState.navController.currentBackStackEntryAsState()
         val currentRoute = navBackStackEntry?.destination?.route?.cleanRoute()
-        bottomBarState = when (currentRoute) {
+        showBottomBar = when (currentRoute) {
             sectionsDestination.cleanRoute() -> true
             searchDestination.cleanRoute() -> true
             favoritesDestination.cleanRoute() -> true
@@ -31,7 +31,7 @@ fun DashboardScreen(appState: BibleAppState = rememberBibleAppState()) {
 
         Scaffold(
             scaffoldState = appState.scaffoldState,
-            bottomBar = { BottomNavigationBar(appState.navController, bottomBarState) }
+            bottomBar = { BottomNavigationBar(appState.navController, showBottomBar) }
         ) { padding ->
             DashboardNavigationHost(
                 navController = appState.navController,
