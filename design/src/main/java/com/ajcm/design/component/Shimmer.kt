@@ -96,3 +96,74 @@ fun LoadBiblesShimmer(modifier: Modifier) {
         }
     }
 }
+
+@Composable
+fun LoadBibleDetailShimmer() {
+    ShimmerEfect { brush ->
+        Column {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .wrapContentHeight()
+                    .padding(MaterialBibleTheme.dimensions.normal)
+            ) {
+
+                Spacer(
+                    modifier = Modifier
+                        .size(MaterialBibleTheme.dimensions.cardInfo)
+                        .background(brush)
+                )
+
+                SmallSpacer()
+
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .wrapContentHeight(),
+                    verticalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Spacer(
+                        modifier = Modifier
+                            .padding(horizontal = MaterialBibleTheme.dimensions.medium)
+                            .fillMaxWidth()
+                            .height(MaterialBibleTheme.dimensions.large)
+                            .background(brush)
+                    )
+
+                    MediumSpacer()
+
+                    Spacer(
+                        modifier = Modifier
+                            .padding(horizontal = MaterialBibleTheme.dimensions.medium)
+                            .fillMaxWidth()
+                            .height(MaterialBibleTheme.dimensions.large)
+                            .background(brush)
+                    )
+
+                }
+            }
+
+            SmallSpacer()
+
+            Spacer(
+                modifier = Modifier
+                    .padding(horizontal = MaterialBibleTheme.dimensions.normal)
+                    .fillMaxWidth()
+                    .height(MaterialBibleTheme.dimensions.large)
+                    .background(brush)
+            )
+
+            MediumSpacer()
+
+            Spacer(
+                modifier = Modifier
+                    .padding(horizontal = MaterialBibleTheme.dimensions.normal)
+                    .fillMaxWidth()
+                    .height(MaterialBibleTheme.dimensions.large)
+                    .background(brush)
+            )
+
+            NormalSpacer()
+        }
+    }
+}
