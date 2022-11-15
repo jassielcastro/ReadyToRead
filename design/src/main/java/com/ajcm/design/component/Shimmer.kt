@@ -112,6 +112,7 @@ fun LoadBibleDetailShimmer() {
                     modifier = Modifier
                         .size(MaterialBibleTheme.dimensions.cardInfo)
                         .background(brush)
+                        .clip(MaterialBibleTheme.shapes.shapeNormal)
                 )
 
                 SmallSpacer()
@@ -128,6 +129,7 @@ fun LoadBibleDetailShimmer() {
                             .fillMaxWidth()
                             .height(MaterialBibleTheme.dimensions.large)
                             .background(brush)
+                            .clip(MaterialBibleTheme.shapes.shapeNormal)
                     )
 
                     MediumSpacer()
@@ -138,6 +140,7 @@ fun LoadBibleDetailShimmer() {
                             .fillMaxWidth()
                             .height(MaterialBibleTheme.dimensions.large)
                             .background(brush)
+                            .clip(MaterialBibleTheme.shapes.shapeNormal)
                     )
 
                 }
@@ -151,6 +154,7 @@ fun LoadBibleDetailShimmer() {
                     .fillMaxWidth()
                     .height(MaterialBibleTheme.dimensions.large)
                     .background(brush)
+                    .clip(MaterialBibleTheme.shapes.shapeNormal)
             )
 
             MediumSpacer()
@@ -161,6 +165,7 @@ fun LoadBibleDetailShimmer() {
                     .fillMaxWidth()
                     .height(MaterialBibleTheme.dimensions.large)
                     .background(brush)
+                    .clip(MaterialBibleTheme.shapes.shapeNormal)
             )
 
             NormalSpacer()
