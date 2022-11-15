@@ -153,27 +153,27 @@ fun DashboardNavigationHost(
 
 @OptIn(ExperimentalAnimationApi::class)
 private fun AnimatedContentScope<NavBackStackEntry>.slideIntoContainerLeft() =
-    slideIntoContainer(AnimatedContentScope.SlideDirection.Left, animationSpec = tween(700))
+    slideIntoContainer(AnimatedContentScope.SlideDirection.Left, animationSpec = tween(400)) + fadeIn()
 
 @OptIn(ExperimentalAnimationApi::class)
 private fun AnimatedContentScope<NavBackStackEntry>.slideOutOfContainerLeft() =
-    slideOutOfContainer(AnimatedContentScope.SlideDirection.Left, animationSpec = tween(700))
+    slideOutOfContainer(AnimatedContentScope.SlideDirection.Left, animationSpec = tween(400)) + fadeOut()
 
 @OptIn(ExperimentalAnimationApi::class)
 private fun AnimatedContentScope<NavBackStackEntry>.slideIntoContainerRigth() =
-    slideIntoContainer(AnimatedContentScope.SlideDirection.Right, animationSpec = tween(700))
+    slideIntoContainer(AnimatedContentScope.SlideDirection.Right, animationSpec = tween(400)) + fadeIn()
 
 @OptIn(ExperimentalAnimationApi::class)
 private fun AnimatedContentScope<NavBackStackEntry>.slideOutOfContainerRight() =
-    slideOutOfContainer(AnimatedContentScope.SlideDirection.Right, animationSpec = tween(700))
+    slideOutOfContainer(AnimatedContentScope.SlideDirection.Right, animationSpec = tween(400)) + fadeOut()
 
 @OptIn(ExperimentalAnimationApi::class)
-private fun AnimatedContentScope<NavBackStackEntry>.slideIntoContainerUp() =
-    slideIntoContainer(AnimatedContentScope.SlideDirection.Down, animationSpec = tween(700))
+private fun slideIntoContainerUp() =
+    slideInVertically(animationSpec = tween(400))
 
 @OptIn(ExperimentalAnimationApi::class)
-private fun AnimatedContentScope<NavBackStackEntry>.slideOutOfContainerDown() =
-    slideOutOfContainer(AnimatedContentScope.SlideDirection.Up, animationSpec = tween(700))
+private fun slideOutOfContainerDown() =
+    slideOutVertically(animationSpec = tween(400))
 
 @OptIn(ExperimentalAnimationApi::class)
 private fun AnimatedContentScope<NavBackStackEntry>.animateEnterDestination(

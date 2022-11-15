@@ -22,8 +22,13 @@ class DashboardActions(
                 addArgumentValue(value)
             },
             navOptions = navOptions {
-                popUpTo(navController.graph.findStartDestination().id)
+                navController.graph.startDestinationRoute?.let { screen_route ->
+                    popUpTo(screen_route) {
+                        saveState = true
+                    }
+                }
                 launchSingleTop = true
+                restoreState = true
             }
         )
     }
