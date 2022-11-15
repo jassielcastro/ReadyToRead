@@ -37,6 +37,7 @@ dependencies {
     debugImplementation "androidx.compose.ui:ui-tooling:$composeVersion"
 
     api "com.google.accompanist:accompanist-systemuicontroller:$accompanistVersion"
+    api "com.google.accompanist:accompanist-navigation-animation:$accompanistVersion"
 
     api "androidx.lifecycle:lifecycle-viewmodel-ktx:$viewModelVersion"
     api "androidx.lifecycle:lifecycle-viewmodel-savedstate:$viewModelVersion"

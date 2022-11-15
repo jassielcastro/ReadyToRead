@@ -2,11 +2,14 @@ package com.ajcm.design.component
 
 import android.os.Bundle
 import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ModalBottomSheetLayout
 import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.runtime.*
+import androidx.compose.ui.Modifier
 import androidx.core.os.bundleOf
 import com.ajcm.design.theme.MaterialBibleTheme
 import kotlinx.coroutines.launch
@@ -32,6 +35,9 @@ fun BottomSheetContainer(
         sheetContent = { sheetContent(bundle) },
         sheetShape = MaterialBibleTheme.shapes.topShape,
         sheetBackgroundColor = MaterialBibleTheme.colors.white,
+        modifier = Modifier
+            .fillMaxSize()
+            .background(MaterialBibleTheme.colors.white)
     ) {
         content(
             showBibleSheet = { data ->
