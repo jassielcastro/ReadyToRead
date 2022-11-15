@@ -11,14 +11,15 @@ import com.ajcm.bible.ui.navigation.searchDestination
 import com.ajcm.bible.ui.navigation.sectionsDestination
 import com.ajcm.design.BibleAppState
 import com.ajcm.design.common.cleanRoute
+import com.ajcm.design.rememberAnimatedBibleAppState
 import com.ajcm.design.rememberBibleAppState
 import com.ajcm.design.screen.BibleScreen
 import com.ajcm.design.theme.SetStatusBarColorEffect
 
 @Composable
-fun DashboardScreen(appState: BibleAppState = rememberBibleAppState()) {
+fun DashboardScreen(appState: BibleAppState = rememberAnimatedBibleAppState()) {
     BibleScreen {
-        var showBottomBar by remember { (mutableStateOf(true)) }
+        var showBottomBar by remember { (mutableStateOf(false)) }
 
         val navBackStackEntry by appState.navController.currentBackStackEntryAsState()
         val currentRoute = navBackStackEntry?.destination?.route?.cleanRoute()

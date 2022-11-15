@@ -52,7 +52,8 @@ fun SetStatusBarColorEffect(
     color: Color = MaterialBibleTheme.colors.white,
     systemUiController: SystemUiController = rememberSystemUiController()
 ) {
-    SideEffect {
+    DisposableEffect(systemUiController) {
         systemUiController.setStatusBarColor(color)
+        onDispose {  }
     }
 }

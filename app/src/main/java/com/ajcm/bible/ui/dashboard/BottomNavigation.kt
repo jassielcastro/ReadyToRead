@@ -1,6 +1,7 @@
 package com.ajcm.bible.ui.dashboard
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.SpringSpec
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
@@ -34,10 +35,14 @@ fun BottomNavigationBar(navController: NavController, showBottomBar: Boolean) {
             val currentRoute = navBackStackEntry?.destination?.route?.cleanRoute()
             val shapeColor = MaterialBibleTheme.colors.green.copy(alpha = 0.7f)
             val unselectedColor = MaterialBibleTheme.colors.black.copy(alpha = 0.35f)
+            val springSpec = SpringSpec<Float>(
+                stiffness = 200f,
+                dampingRatio = 0.8f
+            )
 
             bottomNavigationItems.forEach { item ->
                 val isSelected = currentRoute == item.route.cleanRoute()
-                val heightMultiplier: Float by animateFloatAsState(if (isSelected) 0.65f else 0f)
+                val heightMultiplier: Float by animateFloatAsState(if (isSelected) 0.65f else 0f, springSpec)
                 val icon = if (isSelected) item.iconSelected else item.iconNormal
 
                 BottomNavigationItem(
@@ -48,6 +53,7 @@ fun BottomNavigationBar(navController: NavController, showBottomBar: Boolean) {
                     selected = isSelected,
                     modifier = Modifier
                         .drawRectBehind(
+                            isSelected = isSelected,
                             backgroundColor = shapeColor,
                             cornerRadius = 40.dp,
                             withMultiplier = 2f,

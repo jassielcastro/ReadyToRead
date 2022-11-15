@@ -1,5 +1,6 @@
 package com.ajcm.design.common
 
+import androidx.compose.animation.core.SpringSpec
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.awaitFirstDown
@@ -18,7 +19,11 @@ import com.ajcm.design.theme.MaterialBibleTheme
 
 fun Modifier.bounceClick(onCLicked: () -> Unit) = composed {
     var buttonState by remember { mutableStateOf(false) }
-    val scale by animateFloatAsState(if (buttonState) 0.9f else 1f)
+    val springSpec = SpringSpec<Float>(
+        stiffness = 200f,
+        dampingRatio = 0.8f
+    )
+    val scale by animateFloatAsState(if (buttonState) 0.9f else 1f, springSpec)
 
     this
         .graphicsLayer {

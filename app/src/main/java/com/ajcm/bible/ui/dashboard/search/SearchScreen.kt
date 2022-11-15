@@ -53,7 +53,7 @@ fun SearchListScreen(
         )
     }
 
-    val foundBibles by viewModel.foundBibles.collectAsState()
+    val foundBibles by viewModel.foundBibles.collectAsState(State.Loading)
 
     ConstraintLayout(
         modifier = Modifier

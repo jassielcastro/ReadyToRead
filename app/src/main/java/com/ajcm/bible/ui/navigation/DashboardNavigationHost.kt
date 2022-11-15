@@ -1,11 +1,13 @@
 package com.ajcm.bible.ui.navigation
 
+import androidx.compose.animation.*
+import androidx.compose.animation.core.tween
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.ajcm.bible.ui.dashboard.favorite.FavoriteScreen
 import com.ajcm.bible.ui.dashboard.search.SearchScreen
@@ -14,35 +16,187 @@ import com.ajcm.bible.ui.dashboard.sections.SectionsScreen
 import com.ajcm.bible.ui.dashboard.viewmodels.SharedBibleViewModel
 import com.ajcm.bible.ui.reading.ReadingScreen
 import com.ajcm.bible.ui.reading.readingDestination
+import com.ajcm.design.common.cleanRoute
+import com.google.accompanist.navigation.animation.AnimatedNavHost
+import com.google.accompanist.navigation.animation.composable
 
+@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun DashboardNavigationHost(
     navController: NavHostController,
     modifier: Modifier = Modifier,
 ) {
     val actions = remember(navController) { DashboardActions(navController) }
-    NavHost(
+    AnimatedNavHost(
         modifier = modifier,
         navController = navController,
         startDestination = sectionsDestination
     ) {
-        composable(sectionsDestination) {
+        composable(
+            route = sectionsDestination,
+            enterTransition = {
+                animateEnterDestination(
+                    searchAnimation = slideIntoContainerLeft(),
+                    favoriteAnimation = slideIntoContainerLeft()
+                )
+            },
+            exitTransition = {
+                animateExitDestination(
+                    searchAnimation = slideOutOfContainerLeft(),
+                    favoriteAnimation = slideOutOfContainerLeft()
+                )
+            },
+            popEnterTransition = {
+                animateEnterDestination(
+                    searchAnimation = slideIntoContainerRigth(),
+                    favoriteAnimation = slideIntoContainerRigth()
+                )
+            },
+            popExitTransition = {
+                animateExitDestination(
+                    searchAnimation = slideOutOfContainerRight(),
+                    favoriteAnimation = slideOutOfContainerRight()
+                )
+            }
+        ) {
             val viewModel = hiltViewModel<SharedBibleViewModel>(it)
             SectionsScreen(actions, viewModel)
         }
         composable(
             route = searchDestination,
-            arguments = allowedSearchArguments
+            arguments = allowedSearchArguments,
+            enterTransition = {
+                animateEnterDestination(
+                    sectionAnimation = slideIntoContainerLeft(),
+                    favoriteAnimation = slideIntoContainerRigth()
+                )
+            },
+            exitTransition = {
+                animateExitDestination(
+                    sectionAnimation = slideOutOfContainerLeft(),
+                    favoriteAnimation = slideOutOfContainerRight()
+                )
+            },
+            popEnterTransition = {
+                animateEnterDestination(
+                    sectionAnimation = slideIntoContainerRigth(),
+                    favoriteAnimation = slideIntoContainerLeft()
+                )
+            },
+            popExitTransition = {
+                animateExitDestination(
+                    sectionAnimation = slideOutOfContainerRight(),
+                    favoriteAnimation = slideOutOfContainerLeft()
+                )
+            }
         ) {
             val viewModel = hiltViewModel<SharedBibleViewModel>(it)
             SearchScreen(viewModel, it.arguments, actions)
         }
-        composable(favoritesDestination) {
+        composable(
+            favoritesDestination,
+            enterTransition = {
+                animateEnterDestination(
+                    sectionAnimation = slideIntoContainerLeft(),
+                    searchAnimation = slideIntoContainerLeft()
+                )
+            },
+            exitTransition = {
+                animateExitDestination(
+                    sectionAnimation = slideOutOfContainerLeft(),
+                    searchAnimation = slideOutOfContainerLeft()
+                )
+            },
+            popEnterTransition = {
+                animateEnterDestination(
+                    sectionAnimation = slideIntoContainerRigth(),
+                    searchAnimation = slideIntoContainerRigth()
+                )
+            },
+            popExitTransition = {
+                animateExitDestination(
+                    sectionAnimation = slideOutOfContainerRight(),
+                    searchAnimation = slideOutOfContainerRight()
+                )
+            }
+        ) {
             val viewModel = hiltViewModel<SharedBibleViewModel>(it)
             FavoriteScreen(viewModel, actions)
         }
-        composable(readingDestination) {
+        composable(
+            readingDestination,
+            enterTransition = {
+                animateEnterDestination(
+                    all = slideIntoContainerUp()
+                )
+            },
+            exitTransition = {
+                animateExitDestination(
+                    all = slideOutOfContainerDown()
+                )
+            },
+            popEnterTransition = {
+                animateEnterDestination(
+                    all = slideIntoContainerUp()
+                )
+            },
+            popExitTransition = {
+                animateExitDestination(
+                    all = slideOutOfContainerDown()
+                )
+            }
+        ) {
             ReadingScreen()
         }
     }
+}
+
+@OptIn(ExperimentalAnimationApi::class)
+private fun AnimatedContentScope<NavBackStackEntry>.slideIntoContainerLeft() =
+    slideIntoContainer(AnimatedContentScope.SlideDirection.Left, animationSpec = tween(700))
+
+@OptIn(ExperimentalAnimationApi::class)
+private fun AnimatedContentScope<NavBackStackEntry>.slideOutOfContainerLeft() =
+    slideOutOfContainer(AnimatedContentScope.SlideDirection.Left, animationSpec = tween(700))
+
+@OptIn(ExperimentalAnimationApi::class)
+private fun AnimatedContentScope<NavBackStackEntry>.slideIntoContainerRigth() =
+    slideIntoContainer(AnimatedContentScope.SlideDirection.Right, animationSpec = tween(700))
+
+@OptIn(ExperimentalAnimationApi::class)
+private fun AnimatedContentScope<NavBackStackEntry>.slideOutOfContainerRight() =
+    slideOutOfContainer(AnimatedContentScope.SlideDirection.Right, animationSpec = tween(700))
+
+@OptIn(ExperimentalAnimationApi::class)
+private fun AnimatedContentScope<NavBackStackEntry>.slideIntoContainerUp() =
+    slideIntoContainer(AnimatedContentScope.SlideDirection.Down, animationSpec = tween(700))
+
+@OptIn(ExperimentalAnimationApi::class)
+private fun AnimatedContentScope<NavBackStackEntry>.slideOutOfContainerDown() =
+    slideOutOfContainer(AnimatedContentScope.SlideDirection.Up, animationSpec = tween(700))
+
+@OptIn(ExperimentalAnimationApi::class)
+private fun AnimatedContentScope<NavBackStackEntry>.animateEnterDestination(
+    all: EnterTransition? = null,
+    sectionAnimation: EnterTransition? = all,
+    searchAnimation: EnterTransition? = all,
+    favoriteAnimation: EnterTransition? = all,
+) = when (this.initialState.destination.route?.cleanRoute()) {
+    sectionsDestination.cleanRoute() -> sectionAnimation
+    searchDestination.cleanRoute() -> searchAnimation
+    favoritesDestination.cleanRoute() -> favoriteAnimation
+    else -> null
+}
+
+@OptIn(ExperimentalAnimationApi::class)
+private fun AnimatedContentScope<NavBackStackEntry>.animateExitDestination(
+    all: ExitTransition? = null,
+    sectionAnimation: ExitTransition? = all,
+    searchAnimation: ExitTransition? = all,
+    favoriteAnimation: ExitTransition? = all,
+) = when (this.initialState.destination.route?.cleanRoute()) {
+    sectionsDestination.cleanRoute() -> sectionAnimation
+    searchDestination.cleanRoute() -> searchAnimation
+    favoritesDestination.cleanRoute() -> favoriteAnimation
+    else -> null
 }
