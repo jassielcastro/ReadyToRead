@@ -86,7 +86,9 @@ fun SearchBar(
                             tint = grayColor
                         )
                     }
-            }
+            },
+            modifier = Modifier
+                .fillMaxWidth()
         )
     }
 }
