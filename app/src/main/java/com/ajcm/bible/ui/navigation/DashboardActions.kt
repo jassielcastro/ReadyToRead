@@ -1,6 +1,5 @@
 package com.ajcm.bible.ui.navigation
 
-import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.navOptions
 import com.ajcm.bible.ui.MainActivity
@@ -33,10 +32,11 @@ class DashboardActions(
         )
     }
 
-    fun showReading() {
+    fun showReading(bibleId: String) {
         navController.navigateTo(
             route = {
                 destination = NavigationItems.Item.READING
+                addArgumentValue(bibleId)
             }
         )
     }

@@ -1,0 +1,20 @@
+package com.ajcm.bible.ui.reading
+
+import androidx.navigation.NavType
+import androidx.navigation.navArgument
+import com.ajcm.design.navigation.NavigationItems
+import com.ajcm.design.navigation.navigationRoute
+
+const val BIBLE_ID_ARG_KEY = "BIBLE_ID_ARG_KEY"
+
+val readingDestination = navigationRoute {
+    destination = NavigationItems.Item.READING
+    addArgumentParm(BIBLE_ID_ARG_KEY)
+}
+
+val allowedReadingBibleArguments = listOf(
+    navArgument(BIBLE_ID_ARG_KEY) {
+        type = NavType.StringType
+        nullable = true
+    }
+)

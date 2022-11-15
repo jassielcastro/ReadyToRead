@@ -8,13 +8,13 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.composable
 import com.ajcm.bible.ui.dashboard.favorite.FavoriteScreen
 import com.ajcm.bible.ui.dashboard.search.SearchScreen
 import com.ajcm.bible.ui.dashboard.search.allowedSearchArguments
 import com.ajcm.bible.ui.dashboard.sections.SectionsScreen
 import com.ajcm.bible.ui.dashboard.viewmodels.SharedBibleViewModel
 import com.ajcm.bible.ui.reading.ReadingScreen
+import com.ajcm.bible.ui.reading.allowedReadingBibleArguments
 import com.ajcm.bible.ui.reading.readingDestination
 import com.ajcm.design.common.cleanRoute
 import com.google.accompanist.navigation.animation.AnimatedNavHost
@@ -94,7 +94,7 @@ fun DashboardNavigationHost(
             SearchScreen(viewModel, it.arguments, actions)
         }
         composable(
-            favoritesDestination,
+            route = favoritesDestination,
             enterTransition = {
                 animateEnterDestination(
                     sectionAnimation = slideIntoContainerLeft(),
@@ -124,7 +124,8 @@ fun DashboardNavigationHost(
             FavoriteScreen(viewModel, actions)
         }
         composable(
-            readingDestination,
+            route = readingDestination,
+            arguments = allowedReadingBibleArguments,
             enterTransition = {
                 animateEnterDestination(
                     all = slideIntoContainerUp()
@@ -146,7 +147,7 @@ fun DashboardNavigationHost(
                 )
             }
         ) {
-            ReadingScreen()
+            ReadingScreen(it.arguments)
         }
     }
 }
