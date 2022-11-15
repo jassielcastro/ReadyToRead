@@ -1,11 +1,12 @@
 package com.ajcm.bible.ui.dashboard.favorite
 
 import android.os.Bundle
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -18,7 +19,6 @@ import androidx.core.os.bundleOf
 import com.ajcm.bible.ui.components.CardBookItem
 import com.ajcm.bible.ui.dashboard.detail.BIBLE_ID_KEY
 import com.ajcm.bible.ui.dashboard.detail.BibleDetail
-import com.ajcm.bible.ui.dashboard.search.SearchListScreen
 import com.ajcm.bible.ui.dashboard.viewmodels.SharedBibleViewModel
 import com.ajcm.bible.ui.error.*
 import com.ajcm.bible.ui.navigation.DashboardActions
@@ -27,7 +27,6 @@ import com.ajcm.design.component.BottomSheetContainer
 import com.ajcm.design.component.SearchBar
 import com.ajcm.design.component.largeSpace
 import com.ajcm.design.component.normalSpace
-import com.ajcm.design.theme.MaterialBibleTheme
 import com.ajcm.domain.entity.Bible
 
 @Composable
@@ -63,9 +62,12 @@ fun FavoriteListScreen(
     ) {
         val (toolbar, list) = createRefs()
 
-        Surface(
-            color = MaterialBibleTheme.colors.white,
-            elevation = MaterialBibleTheme.dimensions.elevationSmall,
+        SearchBar(
+            label = stringResource(id = R.string.favorites_title),
+            readOnly = true,
+            onBack = {
+                actions.upPress()
+            },
             modifier = Modifier
                 .fillMaxWidth()
                 .wrapContentHeight()
@@ -73,15 +75,7 @@ fun FavoriteListScreen(
                     top.linkTo(parent.top)
                     width = Dimension.fillToConstraints
                 }
-        ) {
-            SearchBar(
-                label = stringResource(id = R.string.favorites_title),
-                readOnly = true,
-                onBack = {
-                    actions.upPress()
-                }
-            )
-        }
+        )
 
         if (foundBibles.isNotEmpty()) {
             ShowBibles(

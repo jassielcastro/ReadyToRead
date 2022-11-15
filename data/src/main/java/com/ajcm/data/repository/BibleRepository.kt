@@ -25,9 +25,9 @@ class BibleRepository @Inject constructor(
         val req = request.query.lowercase()
 
         val sorted = if (req.isBlank()) {
-            bibles.cut(request.size, request.sortedBy)
+            bibles.cut(request.size, request.orderBy)
         } else {
-            bibles.filterAndCut(request.size, request.sortedBy) {
+            bibles.filterAndCut(request.size, request.orderBy) {
                 it.name.lowercase().contains(req)
                         || it.nameLocal.lowercase().contains(req)
                         || it.language.name.lowercase().contains(req)

@@ -11,7 +11,7 @@ fun List<Bible>.filterAndCut(size: Int, orderType: GetBibleRequest.OrderType, fi
 fun List<Bible>.cut(size: Int, orderType: GetBibleRequest.OrderType): List<Bible> {
     val sortedBibles = when (orderType) {
         GetBibleRequest.OrderType.DESC -> {
-            this.sortedBy { it.name }
+            this.sortedBy { it.nameLocal }
         }
         GetBibleRequest.OrderType.RANDOM -> {
             this.shuffled()

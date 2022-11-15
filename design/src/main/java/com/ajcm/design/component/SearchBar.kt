@@ -22,7 +22,8 @@ fun SearchBar(
     hint: String = "",
     readOnly: Boolean = false,
     onTextChange: (String) -> Unit = {},
-    onBack: () -> Unit
+    onBack: () -> Unit,
+    modifier: Modifier
 ) {
     var text by rememberSaveable { mutableStateOf(initialSearch) }
     LaunchedEffect(Unit) {
@@ -30,65 +31,74 @@ fun SearchBar(
         onTextChange(text)
     }
     val grayColor = MaterialBibleTheme.colors.black.copy(alpha = 0.5f)
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
+    Surface(
+        color = MaterialBibleTheme.colors.white,
+        elevation = MaterialBibleTheme.dimensions.elevationSmall,
         modifier = Modifier
             .fillMaxWidth()
             .wrapContentHeight()
-            .padding(horizontal = MaterialBibleTheme.dimensions.medium)
+            .then(modifier)
     ) {
-        Image(
-            painter = painterResource(id = R.drawable.ic_arrow_back),
-            contentDescription = "",
-            colorFilter = ColorFilter.tint(grayColor),
-            modifier = Modifier
-                .padding(top = MaterialBibleTheme.dimensions.small)
-                .size(MaterialBibleTheme.dimensions.xxlarge)
-                .padding(MaterialBibleTheme.dimensions.medium)
-                .bounceClick(onBack)
-        )
-        TextField(
-            value = text,
-            readOnly = readOnly,
-            onValueChange = {
-                text = it
-                onTextChange(it)
-            },
-            textStyle = MaterialBibleTheme.typography.caption,
-            singleLine = true,
-            colors = TextFieldDefaults.textFieldColors(
-                textColor = grayColor,
-                backgroundColor = Color.Transparent,
-                focusedIndicatorColor = MaterialBibleTheme.colors.white,
-                unfocusedIndicatorColor = MaterialBibleTheme.colors.white,
-                cursorColor = MaterialBibleTheme.colors.green
-            ),
-            label = {
-                Text(
-                    text = label,
-                    style = MaterialBibleTheme.typography.subCaption,
-                    color = grayColor.copy(alpha = 0.7f)
-                )
-            },
-            placeholder = {
-                Text(
-                    text = hint,
-                    style = MaterialBibleTheme.typography.caption,
-                    color = grayColor.copy(alpha = 0.7f)
-                )
-            },
-            trailingIcon = {
-                if (text.isNotBlank())
-                    IconButton(onClick = { text = "" }) {
-                        Icon(
-                            painter = painterResource(id = R.drawable.ic_clear),
-                            contentDescription = "Limpiar campo de nombre",
-                            tint = grayColor
-                        )
-                    }
-            },
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
                 .fillMaxWidth()
-        )
+                .wrapContentHeight()
+                .padding(horizontal = MaterialBibleTheme.dimensions.medium)
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.ic_arrow_back),
+                contentDescription = "",
+                colorFilter = ColorFilter.tint(grayColor),
+                modifier = Modifier
+                    .padding(top = MaterialBibleTheme.dimensions.small)
+                    .size(MaterialBibleTheme.dimensions.xxlarge)
+                    .padding(MaterialBibleTheme.dimensions.medium)
+                    .bounceClick(onBack)
+            )
+            TextField(
+                value = text,
+                readOnly = readOnly,
+                onValueChange = {
+                    text = it
+                    onTextChange(it)
+                },
+                textStyle = MaterialBibleTheme.typography.caption,
+                singleLine = true,
+                colors = TextFieldDefaults.textFieldColors(
+                    textColor = grayColor,
+                    backgroundColor = Color.Transparent,
+                    focusedIndicatorColor = MaterialBibleTheme.colors.white,
+                    unfocusedIndicatorColor = MaterialBibleTheme.colors.white,
+                    cursorColor = MaterialBibleTheme.colors.green
+                ),
+                label = {
+                    Text(
+                        text = label,
+                        style = MaterialBibleTheme.typography.subCaption,
+                        color = grayColor.copy(alpha = 0.7f)
+                    )
+                },
+                placeholder = {
+                    Text(
+                        text = hint,
+                        style = MaterialBibleTheme.typography.caption,
+                        color = grayColor.copy(alpha = 0.7f)
+                    )
+                },
+                trailingIcon = {
+                    if (text.isNotBlank())
+                        IconButton(onClick = { text = "" }) {
+                            Icon(
+                                painter = painterResource(id = R.drawable.ic_clear),
+                                contentDescription = "Limpiar campo de nombre",
+                                tint = grayColor
+                            )
+                        }
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+            )
+        }
     }
 }
