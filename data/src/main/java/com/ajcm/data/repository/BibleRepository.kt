@@ -16,12 +16,12 @@ class BibleRepository @Inject constructor(
 ) : IBibleRepository {
 
     override suspend fun getBibles(request: GetBibleRequest): List<Bible> {
-        if (localDataSource.getBibles().isEmpty()) {
-            val bibles = remoteDataSource.getBibles()
-            localDataSource.saveBibles(bibles)
+        var bibles = localDataSource.getBibles()
+        if (bibles.isEmpty()) {
+            localDataSource.saveBibles(remoteDataSource.getBibles())
+            bibles = localDataSource.getBibles()
         }
 
-        val bibles = localDataSource.getBibles()
         val req = request.query.lowercase()
 
         val sorted = if (req.isBlank()) {
@@ -44,7 +44,7 @@ class BibleRepository @Inject constructor(
     }
 
     override suspend fun getBible(bibleId: String): Bible {
-        val bible = try {
+        var bible = try {
             localDataSource.getBible(bibleId)
         } catch (e: Exception) {
             remoteDataSource.getBible(bibleId)
@@ -56,9 +56,10 @@ class BibleRepository @Inject constructor(
                 color = bible.color
             }
             localDataSource.saveBible(completeBible)
+            bible = localDataSource.getBible(bibleId)
         }
 
-        return localDataSource.getBible(bibleId)
+        return bible
     }
 
     override suspend fun toggleFavorite(bibleId: String): Bible {

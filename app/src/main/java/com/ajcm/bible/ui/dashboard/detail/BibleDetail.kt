@@ -167,7 +167,7 @@ fun BibleDetailContent(
                     }
             ) {
                 actions.onBack()
-                viewModel.runWithDelay { actions.showReading(bible.id) }
+                viewModel.runWithDelay { actions.showReading(bible) }
             }
         }
 

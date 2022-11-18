@@ -5,6 +5,7 @@ import androidx.navigation.navOptions
 import com.ajcm.bible.ui.MainActivity
 import com.ajcm.design.navigation.NavigationItems
 import com.ajcm.design.navigation.navigateTo
+import com.ajcm.domain.entity.Bible
 
 class DashboardActions(
     private val navController: NavHostController
@@ -32,11 +33,13 @@ class DashboardActions(
         )
     }
 
-    fun showReading(bibleId: String) {
+    fun showReading(bible: Bible) {
         navController.navigateTo(
             route = {
                 destination = NavigationItems.Item.READING
-                addArgumentValue(bibleId)
+                addArgumentValue(bible.id)
+                addArgumentValue(bible.nameLocal)
+                addArgumentValue(bible.name)
             }
         )
     }

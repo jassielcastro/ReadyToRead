@@ -16,6 +16,7 @@ import com.ajcm.bible.ui.dashboard.viewmodels.SharedBibleViewModel
 import com.ajcm.bible.ui.reading.ReadingScreen
 import com.ajcm.bible.ui.reading.allowedReadingBibleArguments
 import com.ajcm.bible.ui.reading.readingDestination
+import com.ajcm.bible.ui.reading.viewmodel.ReadingViewModel
 import com.ajcm.design.common.cleanRoute
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
@@ -128,26 +129,27 @@ fun DashboardNavigationHost(
             arguments = allowedReadingBibleArguments,
             enterTransition = {
                 animateEnterDestination(
-                    all = slideIntoContainerUp()
+                    all = slideIntoContainerLeft()
                 )
             },
             exitTransition = {
                 animateExitDestination(
-                    all = slideOutOfContainerDown()
+                    all = slideOutOfContainerLeft()
                 )
             },
             popEnterTransition = {
                 animateEnterDestination(
-                    all = slideIntoContainerUp()
+                    all = slideIntoContainerRigth()
                 )
             },
             popExitTransition = {
                 animateExitDestination(
-                    all = slideOutOfContainerDown()
+                    all = slideOutOfContainerRight()
                 )
             }
         ) {
-            ReadingScreen(it.arguments)
+            val viewModel = hiltViewModel<ReadingViewModel>(it)
+            ReadingScreen(viewModel, it.arguments)
         }
     }
 }
@@ -167,14 +169,6 @@ private fun AnimatedContentScope<NavBackStackEntry>.slideIntoContainerRigth() =
 @OptIn(ExperimentalAnimationApi::class)
 private fun AnimatedContentScope<NavBackStackEntry>.slideOutOfContainerRight() =
     slideOutOfContainer(AnimatedContentScope.SlideDirection.Right, animationSpec = tween(400)) + fadeOut()
-
-@OptIn(ExperimentalAnimationApi::class)
-private fun slideIntoContainerUp() =
-    slideInVertically(animationSpec = tween(400))
-
-@OptIn(ExperimentalAnimationApi::class)
-private fun slideOutOfContainerDown() =
-    slideOutVertically(animationSpec = tween(400))
 
 @OptIn(ExperimentalAnimationApi::class)
 private fun AnimatedContentScope<NavBackStackEntry>.animateEnterDestination(
