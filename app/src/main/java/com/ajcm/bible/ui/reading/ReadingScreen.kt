@@ -22,37 +22,48 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
-import androidx.compose.ui.text.*
+import androidx.compose.ui.text.ParagraphStyle
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.BaselineShift
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.sp
 import com.ajcm.bible.R
+import com.ajcm.bible.ui.navigation.DashboardActions
 import com.ajcm.bible.ui.reading.viewmodel.ReadingViewModel
 import com.ajcm.design.common.bounceClick
-import com.ajcm.design.component.MediumSpacer
-import com.ajcm.design.component.NormalSpacer
 import com.ajcm.design.component.SmallSpacer
 import com.ajcm.design.component.normalSpace
 import com.ajcm.design.theme.MaterialBibleTheme
-import kotlinx.coroutines.launch
-import java.util.*
 
 sealed class ReadingStep(val step: Int) {
     data class Books(val bibleId: String) : ReadingStep(1)
-    data class Chapters(val bibleId: String, val bookId: String) : ReadingStep(2)
-    data class Verses(val bibleId: String, val bookId: String, val chapterId: String) : ReadingStep(3)
+    data class Chapters(
+        val bibleId: String,
+        val bookId: String,
+        val bookName: String
+    ) : ReadingStep(2)
+
+    data class Verses(
+        val bibleId: String,
+        val bookId: String,
+        val chapterId: String,
+        val bookName: String,
+        val chapterName: String
+    ) : ReadingStep(3)
 }
 
 data class BookToRead(
-    val id: String,
-    val title: String,
-    val subTitle: String
+    val id: String = "",
+    val title: String = "",
+    val subTitle: String = ""
 )
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
-fun ReadingScreen(viewModel: ReadingViewModel, arguments: Bundle?) {
+fun ReadingScreen(viewModel: ReadingViewModel, arguments: Bundle?, actions: DashboardActions) {
     val bookToRead by remember {
         mutableStateOf(
             BookToRead(
@@ -63,13 +74,14 @@ fun ReadingScreen(viewModel: ReadingViewModel, arguments: Bundle?) {
         )
     }
 
+    val title by remember { mutableStateOf(bookToRead.title) }
     var subTitle by remember { mutableStateOf(bookToRead.subTitle) }
     var step by remember { mutableStateOf<ReadingStep>(ReadingStep.Books(bookToRead.id)) }
 
     BackHandler(enabled = step.step > 1) {
         if (step is ReadingStep.Verses) {
             val versesStep = (step as ReadingStep.Verses)
-            step = ReadingStep.Chapters(versesStep.bibleId, versesStep.bookId)
+            step = ReadingStep.Chapters(versesStep.bibleId, versesStep.bookId, versesStep.bookName)
         } else if (step is ReadingStep.Chapters) {
             val chaptersStep = (step as ReadingStep.Chapters)
             step = ReadingStep.Books(chaptersStep.bibleId)
@@ -81,57 +93,7 @@ fun ReadingScreen(viewModel: ReadingViewModel, arguments: Bundle?) {
             .fillMaxSize()
             .background(MaterialBibleTheme.colors.white)
     ) {
-
-        Surface(
-            elevation = MaterialBibleTheme.dimensions.elevationSmall,
-            color = MaterialBibleTheme.colors.white,
-            modifier = Modifier
-                .fillMaxWidth()
-        ) {
-
-            Row(
-                horizontalArrangement = Arrangement.Start,
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier
-                    .padding(top = MaterialBibleTheme.dimensions.normal)
-            ) {
-
-                Icon(
-                    imageVector = ImageVector.vectorResource(id = R.drawable.ic_arrow_back),
-                    contentDescription = "",
-                    modifier = Modifier
-                        .weight(1.5f)
-                        .bounceClick { }
-                        .padding(MaterialBibleTheme.dimensions.medium)
-                        .clip(MaterialBibleTheme.shapes.shapeLarge)
-                )
-
-                Column(
-                    modifier = Modifier
-                        .weight(7f)
-                ) {
-                    Text(
-                        text = bookToRead.title,
-                        style = MaterialBibleTheme.typography.section,
-                    )
-
-                    Text(
-                        text = subTitle,
-                        style = MaterialBibleTheme.typography.caption,
-                    )
-                }
-
-                Icon(
-                    imageVector = ImageVector.vectorResource(id = R.drawable.ic_search),
-                    contentDescription = "",
-                    modifier = Modifier
-                        .weight(1.5f)
-                        .bounceClick { }
-                        .padding(MaterialBibleTheme.dimensions.medium)
-                        .clip(MaterialBibleTheme.shapes.shapeLarge)
-                )
-            }
-        }
+        BibleDetailsAppBar(title = title, subTitle = subTitle, actions = actions)
 
         AnimatedContent(
             targetState = step,
@@ -139,16 +101,16 @@ fun ReadingScreen(viewModel: ReadingViewModel, arguments: Bundle?) {
                 if (targetState.step > initialState.step) {
                     slideIntoContainer(
                         towards = AnimatedContentScope.SlideDirection.Left,
-                        animationSpec = tween(600),
+                        animationSpec = tween(300),
                     ) with fadeOut(
-                        animationSpec = tween(600)
+                        animationSpec = tween(300)
                     )
                 } else {
                     fadeIn(
-                        animationSpec = tween(600),
+                        animationSpec = tween(300),
                     ) with slideOutOfContainer(
                         towards = AnimatedContentScope.SlideDirection.Right,
-                        animationSpec = tween(600)
+                        animationSpec = tween(300)
                     )
                 }.apply {
                     targetContentZIndex = targetState.step.toFloat()
@@ -157,22 +119,29 @@ fun ReadingScreen(viewModel: ReadingViewModel, arguments: Bundle?) {
         ) { screen ->
             when (screen) {
                 is ReadingStep.Books -> {
-                    BookListScreen(screen.bibleId, viewModel) { bookId ->
-                        step = ReadingStep.Chapters(screen.bibleId, bookId)
+                    subTitle = bookToRead.subTitle
+                    BookListScreen(screen.bibleId, viewModel) { bookId, bookName ->
+                        step = ReadingStep.Chapters(screen.bibleId, bookId, bookName)
                     }
                 }
                 is ReadingStep.Chapters -> {
-                    subTitle = screen.bookId
+                    subTitle = screen.bookName
                     ChaptersListScreen(
                         bibleId = screen.bibleId,
                         bookId = screen.bookId,
                         viewModel
-                    ) { chapterId ->
-                        step = ReadingStep.Verses(screen.bibleId, screen.bookId, chapterId)
+                    ) { chapterId, chapterNumber ->
+                        step = ReadingStep.Verses(
+                            screen.bibleId,
+                            screen.bookId,
+                            chapterId,
+                            screen.bookName,
+                            chapterNumber
+                        )
                     }
                 }
                 is ReadingStep.Verses -> {
-                    subTitle = screen.chapterId
+                    subTitle = "${screen.bookName}: ${screen.chapterName}"
                     VersesListScreen(
                         bibleId = screen.bibleId,
                         chapterId = screen.chapterId,
@@ -184,11 +153,62 @@ fun ReadingScreen(viewModel: ReadingViewModel, arguments: Bundle?) {
     }
 }
 
+@OptIn(ExperimentalAnimationApi::class)
+@Composable
+fun BibleDetailsAppBar(title: String, subTitle: String, actions: DashboardActions) {
+    Surface(
+        color = MaterialBibleTheme.colors.white,
+        elevation = MaterialBibleTheme.dimensions.elevationSmall,
+        modifier = Modifier
+            .fillMaxWidth()
+    ) {
+
+        Row(
+            horizontalArrangement = Arrangement.Start,
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = MaterialBibleTheme.dimensions.normal)
+        ) {
+
+            Icon(
+                imageVector = ImageVector.vectorResource(id = R.drawable.ic_arrow_back),
+                contentDescription = "",
+                tint = MaterialBibleTheme.colors.black.copy(alpha = 0.5f),
+                modifier = Modifier
+                    .padding(horizontal = MaterialBibleTheme.dimensions.medium)
+                    .size(MaterialBibleTheme.dimensions.xxlarge)
+                    .bounceClick { actions.onBack() }
+                    .padding(vertical = MaterialBibleTheme.dimensions.medium)
+                    .clip(MaterialBibleTheme.shapes.shapeLarge)
+            )
+
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(end = MaterialBibleTheme.dimensions.normal)
+            ) {
+                Text(
+                    text = title,
+                    style = MaterialBibleTheme.typography.section,
+                )
+
+                AnimatedContent(targetState = subTitle) { text ->
+                    Text(
+                        text = text,
+                        style = MaterialBibleTheme.typography.caption,
+                    )
+                }
+            }
+        }
+    }
+}
+
 @Composable
 fun BookListScreen(
     bibleId: String,
     viewModel: ReadingViewModel,
-    showChapters: (bookId: String) -> Unit
+    showChapters: (bookId: String, bookName: String) -> Unit
 ) {
     val books by viewModel.books.collectAsState()
 
@@ -198,7 +218,8 @@ fun BookListScreen(
 
     Column(
         modifier = Modifier
-            .fillMaxWidth()
+            .padding(top = MaterialBibleTheme.dimensions.xsmall)
+            .background(MaterialBibleTheme.colors.white)
             .verticalScroll(rememberScrollState())
     ) {
 
@@ -206,11 +227,11 @@ fun BookListScreen(
 
         books.forEach { book ->
             Text(
-                text = book.nameLong,
+                text = book.name,
                 style = MaterialBibleTheme.typography.caption,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .bounceClick { showChapters(book.id) }
+                    .bounceClick { showChapters(book.id, book.name) }
                     .padding(MaterialBibleTheme.dimensions.normal)
             )
         }
@@ -224,7 +245,7 @@ fun ChaptersListScreen(
     bibleId: String,
     bookId: String,
     viewModel: ReadingViewModel,
-    showVerses: (chapterId: String) -> Unit
+    showVerses: (chapterId: String, chapterNumber: String) -> Unit
 ) {
     val chapters by viewModel.chapters.collectAsState()
 
@@ -237,15 +258,16 @@ fun ChaptersListScreen(
         verticalArrangement = Arrangement.SpaceBetween,
         horizontalArrangement = Arrangement.Center,
         modifier = Modifier
-            .fillMaxWidth()
+            .padding(top = MaterialBibleTheme.dimensions.xsmall)
+            .background(MaterialBibleTheme.colors.white)
     ) {
         items(chapters) { chapter ->
             Text(
-                text = chapter.number.capitalize(Locale.getDefault()),
+                text = chapter.number,
                 style = MaterialBibleTheme.typography.caption,
                 textAlign = TextAlign.Center,
                 modifier = Modifier
-                    .bounceClick { showVerses(chapter.id) }
+                    .bounceClick { showVerses(chapter.id, chapter.number) }
                     .clip(MaterialBibleTheme.shapes.shapeXLarge)
                     .padding(
                         horizontal = MaterialBibleTheme.dimensions.medium,
@@ -264,11 +286,15 @@ fun VersesListScreen(bibleId: String, chapterId: String, viewModel: ReadingViewM
         viewModel.downloadChapter(bibleId, chapterId)
     }
 
-    LazyColumn {
+    LazyColumn(
+        modifier = Modifier
+            .padding(top = MaterialBibleTheme.dimensions.xsmall)
+            .background(MaterialBibleTheme.colors.white)
+    ) {
 
         normalSpace()
 
-        itemsIndexed(chapter.content.split("\n".toRegex())) { index: Int, verse: String ->
+        itemsIndexed(chapter.getVerses()) { index: Int, verse: String ->
             if (verse.isNotEmpty()) {
                 VerseText(verse, index + 1)
             }
@@ -281,6 +307,7 @@ fun VersesListScreen(bibleId: String, chapterId: String, viewModel: ReadingViewM
 @Composable
 fun VerseText(verse: String, number: Int) {
     val textColor = MaterialBibleTheme.colors.black
+    val fontTitle = MaterialBibleTheme.typography.h1.fontFamily
     val font = MaterialBibleTheme.typography.caption.fontFamily
 
     Text(
@@ -297,20 +324,56 @@ fun VerseText(verse: String, number: Int) {
                 ) {
                     append("$number ")
                 }
-                withStyle(
-                    style = SpanStyle(
-                        color = textColor,
-                        fontSize = 14.sp,
-                        fontFamily = font
-                    )
-                ) {
-                    append(verse)
+
+                if (number == 1) {
+                    val verseSplited = verse.split("\\s".toRegex()).filter { it.isNotEmpty() }
+                    val firstWord = verseSplited.first { it.trim().isNotEmpty() }
+                    val completeVerse = verseSplited.filterIndexed { index, _ -> index != 0 }.joinToString(" ")
+                    withStyle(
+                        style = SpanStyle(
+                            color = textColor,
+                            fontSize = 32.sp,
+                            fontFamily = fontTitle,
+                            fontWeight = FontWeight.Bold,
+                        )
+                    ) {
+                        append(firstWord.first())
+                    }
+                    withStyle(
+                        style = SpanStyle(
+                            color = textColor,
+                            fontSize = 14.sp,
+                            fontFamily = font
+                        )
+                    ) {
+                        append(firstWord.removeRange(0, 1))
+                        append(" ")
+                    }
+                    withStyle(
+                        style = SpanStyle(
+                            color = textColor,
+                            fontSize = 14.sp,
+                            fontFamily = font
+                        )
+                    ) {
+                        append(completeVerse)
+                    }
+                } else {
+                    withStyle(
+                        style = SpanStyle(
+                            color = textColor,
+                            fontSize = 14.sp,
+                            fontFamily = font
+                        )
+                    ) {
+                        append(verse)
+                    }
                 }
             }
         }, modifier = Modifier
             .padding(
                 horizontal = MaterialBibleTheme.dimensions.normal,
-                vertical = MaterialBibleTheme.dimensions.medium
+                vertical = MaterialBibleTheme.dimensions.xsmall
             )
     )
 }

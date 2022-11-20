@@ -21,7 +21,11 @@ class LocalChapterDataSource @Inject constructor(
 ) : ILocalChapterDataSource {
 
     override suspend fun saveChapters(chapters: List<Chapter>) {
-        chapterDAO.insertChapters(chapters.map { chapterMapper.to(it) })
+        chapterDAO.insertChapters(
+            chapters
+                .filterNot { it.number.contentEquals("intro") }
+                .map { chapterMapper.to(it) }
+        )
     }
 
     override suspend fun saveChapter(chapter: Chapter) {

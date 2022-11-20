@@ -13,7 +13,7 @@ interface ChapterService {
         @Path("bookId") bookId: String
     ): Response<List<Chapter>>
 
-    @GET("/v1/bibles/{bibleId}/chapters/{chapterId}?content-type=text&include-notes=false&include-titles=false&include-chapter-numbers=false&include-verse-numbers=false&include-verse-spans=false")
+    @GET("/v1/bibles/{bibleId}/chapters/{chapterId}?content-type=text&include-notes=false&include-titles=false&include-chapter-numbers=false&include-verse-numbers=true&include-verse-spans=false")
     suspend fun getChapter(
         @Path("bibleId") bibleId: String,
         @Path("chapterId") chapterId: String

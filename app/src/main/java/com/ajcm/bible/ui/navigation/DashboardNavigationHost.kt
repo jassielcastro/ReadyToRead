@@ -149,7 +149,7 @@ fun DashboardNavigationHost(
             }
         ) {
             val viewModel = hiltViewModel<ReadingViewModel>(it)
-            ReadingScreen(viewModel, it.arguments)
+            ReadingScreen(viewModel, it.arguments, actions)
         }
     }
 }

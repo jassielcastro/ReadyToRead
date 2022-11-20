@@ -1,7 +1,12 @@
 package com.ajcm.bible.ui.reading.viewmodel
 
+import android.os.Bundle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.ajcm.bible.ui.reading.BIBLE_ID_ARG_KEY
+import com.ajcm.bible.ui.reading.BIBLE_SUBTITLE_ARG_KEY
+import com.ajcm.bible.ui.reading.BIBLE_TITLE_ARG_KEY
+import com.ajcm.bible.ui.reading.BookToRead
 import com.ajcm.domain.entity.Book
 import com.ajcm.domain.entity.Chapter
 import com.ajcm.domain.usecase.book.BooksUc
@@ -25,7 +30,7 @@ class ReadingViewModel @Inject constructor(
     val books = mBooks
         .stateIn(
             viewModelScope,
-            SharingStarted.Lazily,
+            SharingStarted.Eagerly,
             emptyList()
         )
 
@@ -33,7 +38,7 @@ class ReadingViewModel @Inject constructor(
     val chapters = mChapters
         .stateIn(
             viewModelScope,
-            SharingStarted.Lazily,
+            SharingStarted.Eagerly,
             emptyList()
         )
 
@@ -41,18 +46,21 @@ class ReadingViewModel @Inject constructor(
     val chapter = mChapter
         .stateIn(
             viewModelScope,
-            SharingStarted.Lazily,
-            Chapter {  }
+            SharingStarted.Eagerly,
+            Chapter { }
         )
 
     fun downloadBooks(bibleId: String) = viewModelScope.launch {
-        val books = withContext(Dispatchers.IO) {
-            booksUc.getBooksOf(bibleId)
+        val downloadedBooks = books.value.ifEmpty {
+            withContext(Dispatchers.IO) {
+                booksUc.getBooksOf(bibleId)
+            }
         }
-        mBooks.emit(books)
+        mBooks.emit(downloadedBooks)
     }
 
     fun downloadChapters(bibleId: String, bookId: String) = viewModelScope.launch {
+        mChapters.emit(emptyList())
         val chapters = withContext(Dispatchers.IO) {
             chaptersUc.getChapters(bibleId, bookId)
         }
@@ -60,6 +68,7 @@ class ReadingViewModel @Inject constructor(
     }
 
     fun downloadChapter(bibleId: String, chapterId: String) = viewModelScope.launch {
+        mChapter.emit(Chapter { })
         val chapter = withContext(Dispatchers.IO) {
             chaptersUc.getChapter(bibleId, chapterId)
         }
