@@ -1,4 +1,4 @@
-package com.ajcm.bible.ui.splash.view
+package com.ajcm.bible.ui.splash
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -20,7 +20,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.ajcm.bible.R
 import com.ajcm.bible.ui.error.ErrorType
 import com.ajcm.bible.ui.navigation.StartNavigationActions
-import com.ajcm.bible.ui.splash.SplashViewModel
 import com.ajcm.design.common.State
 import com.ajcm.design.component.MediumSpacer
 import com.ajcm.design.component.SmallSpacer
