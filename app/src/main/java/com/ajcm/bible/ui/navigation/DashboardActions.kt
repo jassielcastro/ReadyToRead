@@ -1,11 +1,11 @@
 package com.ajcm.bible.ui.navigation
 
-import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.navOptions
 import com.ajcm.bible.ui.MainActivity
 import com.ajcm.design.navigation.NavigationItems
 import com.ajcm.design.navigation.navigateTo
+import com.ajcm.domain.entity.Bible
 
 class DashboardActions(
     private val navController: NavHostController
@@ -22,16 +22,24 @@ class DashboardActions(
                 addArgumentValue(value)
             },
             navOptions = navOptions {
-                popUpTo(navController.graph.findStartDestination().id)
+                navController.graph.startDestinationRoute?.let { screen_route ->
+                    popUpTo(screen_route) {
+                        saveState = true
+                    }
+                }
                 launchSingleTop = true
+                restoreState = true
             }
         )
     }
 
-    fun showReading() {
+    fun showReading(bible: Bible) {
         navController.navigateTo(
             route = {
                 destination = NavigationItems.Item.READING
+                addArgumentValue(bible.id)
+                addArgumentValue(bible.nameLocal)
+                addArgumentValue(bible.name)
             }
         )
     }

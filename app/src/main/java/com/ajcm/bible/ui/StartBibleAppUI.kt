@@ -8,6 +8,7 @@ import com.ajcm.bible.ui.navigation.SetupStartNavigationHost
 import com.ajcm.design.BibleAppState
 import com.ajcm.design.rememberBibleAppState
 import com.ajcm.design.screen.BibleScreen
+import com.ajcm.design.theme.MaterialBibleTheme
 import com.ajcm.design.theme.SetStatusBarColorEffect
 
 @Composable
@@ -21,6 +22,6 @@ fun SetupAppUI(appState: BibleAppState = rememberBibleAppState()) {
                 modifier = Modifier.padding(padding)
             )
         }
-        SetStatusBarColorEffect()
+        SetStatusBarColorEffect(color = MaterialBibleTheme.colors.green)
     }
 }

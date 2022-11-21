@@ -8,14 +8,15 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.composable
 import com.ajcm.bible.ui.dashboard.favorite.FavoriteScreen
 import com.ajcm.bible.ui.dashboard.search.SearchScreen
 import com.ajcm.bible.ui.dashboard.search.allowedSearchArguments
 import com.ajcm.bible.ui.dashboard.sections.SectionsScreen
 import com.ajcm.bible.ui.dashboard.viewmodels.SharedBibleViewModel
 import com.ajcm.bible.ui.reading.ReadingScreen
+import com.ajcm.bible.ui.reading.allowedReadingBibleArguments
 import com.ajcm.bible.ui.reading.readingDestination
+import com.ajcm.bible.ui.reading.viewmodel.ReadingViewModel
 import com.ajcm.design.common.cleanRoute
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
@@ -94,7 +95,7 @@ fun DashboardNavigationHost(
             SearchScreen(viewModel, it.arguments, actions)
         }
         composable(
-            favoritesDestination,
+            route = favoritesDestination,
             enterTransition = {
                 animateEnterDestination(
                     sectionAnimation = slideIntoContainerLeft(),
@@ -124,56 +125,50 @@ fun DashboardNavigationHost(
             FavoriteScreen(viewModel, actions)
         }
         composable(
-            readingDestination,
+            route = readingDestination,
+            arguments = allowedReadingBibleArguments,
             enterTransition = {
                 animateEnterDestination(
-                    all = slideIntoContainerUp()
+                    all = slideIntoContainerLeft()
                 )
             },
             exitTransition = {
                 animateExitDestination(
-                    all = slideOutOfContainerDown()
+                    all = slideOutOfContainerLeft()
                 )
             },
             popEnterTransition = {
                 animateEnterDestination(
-                    all = slideIntoContainerUp()
+                    all = slideIntoContainerRigth()
                 )
             },
             popExitTransition = {
                 animateExitDestination(
-                    all = slideOutOfContainerDown()
+                    all = slideOutOfContainerRight()
                 )
             }
         ) {
-            ReadingScreen()
+            val viewModel = hiltViewModel<ReadingViewModel>(it)
+            ReadingScreen(viewModel, it.arguments, actions)
         }
     }
 }
 
 @OptIn(ExperimentalAnimationApi::class)
 private fun AnimatedContentScope<NavBackStackEntry>.slideIntoContainerLeft() =
-    slideIntoContainer(AnimatedContentScope.SlideDirection.Left, animationSpec = tween(700))
+    slideIntoContainer(AnimatedContentScope.SlideDirection.Left, animationSpec = tween(400)) + fadeIn()
 
 @OptIn(ExperimentalAnimationApi::class)
 private fun AnimatedContentScope<NavBackStackEntry>.slideOutOfContainerLeft() =
-    slideOutOfContainer(AnimatedContentScope.SlideDirection.Left, animationSpec = tween(700))
+    slideOutOfContainer(AnimatedContentScope.SlideDirection.Left, animationSpec = tween(400)) + fadeOut()
 
 @OptIn(ExperimentalAnimationApi::class)
 private fun AnimatedContentScope<NavBackStackEntry>.slideIntoContainerRigth() =
-    slideIntoContainer(AnimatedContentScope.SlideDirection.Right, animationSpec = tween(700))
+    slideIntoContainer(AnimatedContentScope.SlideDirection.Right, animationSpec = tween(400)) + fadeIn()
 
 @OptIn(ExperimentalAnimationApi::class)
 private fun AnimatedContentScope<NavBackStackEntry>.slideOutOfContainerRight() =
-    slideOutOfContainer(AnimatedContentScope.SlideDirection.Right, animationSpec = tween(700))
-
-@OptIn(ExperimentalAnimationApi::class)
-private fun AnimatedContentScope<NavBackStackEntry>.slideIntoContainerUp() =
-    slideIntoContainer(AnimatedContentScope.SlideDirection.Down, animationSpec = tween(700))
-
-@OptIn(ExperimentalAnimationApi::class)
-private fun AnimatedContentScope<NavBackStackEntry>.slideOutOfContainerDown() =
-    slideOutOfContainer(AnimatedContentScope.SlideDirection.Up, animationSpec = tween(700))
+    slideOutOfContainer(AnimatedContentScope.SlideDirection.Right, animationSpec = tween(400)) + fadeOut()
 
 @OptIn(ExperimentalAnimationApi::class)
 private fun AnimatedContentScope<NavBackStackEntry>.animateEnterDestination(

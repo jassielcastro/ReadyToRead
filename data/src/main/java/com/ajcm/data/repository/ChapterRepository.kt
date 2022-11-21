@@ -12,12 +12,13 @@ class ChapterRepository @Inject constructor(
 ) : IChapterRepository {
 
     override suspend fun getChapters(bibleId: String, bookId: String): List<Chapter> {
-        if (localDataSource.getChapters(bibleId, bookId).isEmpty()) {
-            val chapters = remoteDataSource.getChapters(bibleId, bookId)
-            localDataSource.saveChapters(chapters)
+        var chapters = localDataSource.getChapters(bibleId, bookId)
+        if (chapters.isEmpty()) {
+            localDataSource.saveChapters(remoteDataSource.getChapters(bibleId, bookId))
+            chapters = localDataSource.getChapters(bibleId, bookId)
         }
 
-        return localDataSource.getChapters(bibleId, bookId)
+        return chapters
     }
 
     override suspend fun getChapter(bibleId: String, chapterId: String): Chapter {

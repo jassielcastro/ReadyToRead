@@ -12,7 +12,7 @@ import com.ajcm.design.common.bounceClick
 import com.ajcm.design.theme.MaterialBibleTheme
 
 @Composable
-fun FullRoundedItem(modifier: Modifier, title: String, onClick: (String) -> Unit = {}) {
+fun FullRoundedItem(modifier: Modifier, title: String, onClick: () -> Unit = {}) {
     Surface(
         shape = MaterialBibleTheme.shapes.shapeSmall,
         elevation = MaterialBibleTheme.dimensions.zero,
@@ -20,9 +20,7 @@ fun FullRoundedItem(modifier: Modifier, title: String, onClick: (String) -> Unit
         modifier = Modifier
             .fillMaxWidth()
             .clip(MaterialBibleTheme.shapes.shapeSmall)
-            .bounceClick {
-                onClick(title)
-            }
+            .bounceClick(onClick)
             .then(modifier)
     ) {
         Text(

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="dark_aqua">#003638</color>
+    <color name="dark_aqua">#FF58BE80</color>
     <color name="medium_aqua">#055052</color>
     <color name="teal_aqua">#53B8BB</color>
     <color name="teal_sandy">#F3F2C9</color>

@@ -12,12 +12,23 @@ class VerseRepository @Inject constructor(
 ) : IVerseRepository {
 
     override suspend fun getVerses(bibleId: String, chapterId: String): List<Verse> {
-        if (localDataSource.getVerses(bibleId, chapterId).isEmpty()) {
-            val verses = remoteDataSource.getVerses(bibleId, chapterId)
-            localDataSource.saveVerses(verses)
+        var verses = localDataSource.getVerses(bibleId, chapterId)
+        if (verses.isEmpty()) {
+            localDataSource.saveVerses(remoteDataSource.getVerses(bibleId, chapterId))
+            verses = localDataSource.getVerses(bibleId, chapterId)
         }
 
-        return localDataSource.getVerses(bibleId, chapterId)
+        var containChanges = false
+        verses.forEach {  verse ->
+            if (verse.content.isEmpty()) {
+                containChanges = true
+                getVerse(bibleId, verse.id)
+            }
+        }
+
+        if (containChanges) verses = localDataSource.getVerses(bibleId, chapterId)
+
+        return verses
     }
 
     override suspend fun getVerse(bibleId: String, verseId: String): Verse {

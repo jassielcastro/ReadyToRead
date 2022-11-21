@@ -12,6 +12,20 @@ data class Chapter(
     var previous: PreviousChapter?,
     var copyright: String
 ) {
+
+    fun getVerses(): List<String> {
+        return content.formateVerse()
+            .map {
+                it.replaceFirst("\\s".toRegex(), "")
+            }
+    }
+
+    private fun String.formateVerse(): List<String> {
+        return this.split("\\s\\[\\d*\\]".toRegex()).filter {
+            it.trim().isNotEmpty()
+        }
+    }
+
     class Builder {
         var id: String = ""
         var bibleId: String = ""

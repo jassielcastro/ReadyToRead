@@ -3,7 +3,7 @@ package com.ajcm.domain.entity.request
 class GetBibleRequest internal constructor(
     val query: String,
     val size: Int,
-    val sortedBy: OrderType
+    val orderBy: OrderType
 ) {
     class Builder {
         var query: String = ""

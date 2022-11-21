@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material.Surface
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -23,7 +22,6 @@ import com.ajcm.bible.ui.navigation.DashboardActions
 import com.ajcm.design.R
 import com.ajcm.design.common.State
 import com.ajcm.design.component.*
-import com.ajcm.design.theme.MaterialBibleTheme
 import com.ajcm.domain.entity.Bible
 
 @Composable
@@ -45,7 +43,7 @@ fun SearchListScreen(
     actions: DashboardActions,
     showBibleSheet: (Bundle) -> Unit
 ) {
-    val initialSearch = remember {
+    val initialSearch by remember {
         mutableStateOf(
             arguments?.getString(SEARCH_WITH_ARG_KEY)?.takeIf {
                 it != DashboardActions.NONE
@@ -61,9 +59,16 @@ fun SearchListScreen(
     ) {
         val (searchComponent, list, shimmer) = createRefs()
 
-        Surface(
-            color = MaterialBibleTheme.colors.white,
-            elevation = MaterialBibleTheme.dimensions.elevationSmall,
+        SearchBar(
+            initialSearch = initialSearch,
+            label = stringResource(id = R.string.search_by_hint_2),
+            hint = stringResource(id = R.string.search_by_hint),
+            onTextChange = {
+                viewModel.search(it)
+            },
+            onBack = {
+                actions.upPress()
+            },
             modifier = Modifier
                 .fillMaxWidth()
                 .wrapContentHeight()
@@ -71,19 +76,7 @@ fun SearchListScreen(
                     top.linkTo(parent.top)
                     width = Dimension.fillToConstraints
                 }
-        ) {
-            SearchBar(
-                initialSearch = initialSearch.value,
-                label = stringResource(id = R.string.search_by_hint_2),
-                hint = stringResource(id = R.string.search_by_hint),
-                onTextChange = {
-                    viewModel.search(it)
-                },
-                onBack = {
-                    actions.upPress()
-                }
-            )
-        }
+        )
 
         when (foundBibles) {
             State.Loading -> {

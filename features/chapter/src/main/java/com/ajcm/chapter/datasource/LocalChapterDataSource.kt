@@ -17,49 +17,27 @@ import kotlin.coroutines.suspendCoroutine
 
 class LocalChapterDataSource @Inject constructor(
     private val chapterDAO: ChapterDAO,
-    private val chapterMapper: BaseMapper<Chapter, ChapterDTO>,
-    @MainScope
-    private val mainScope: CoroutineScope,
-    @IoDispatcher
-    private val ioDispatcher: CoroutineDispatcher
+    private val chapterMapper: BaseMapper<Chapter, ChapterDTO>
 ) : ILocalChapterDataSource {
 
     override suspend fun saveChapters(chapters: List<Chapter>) {
-        mainScope.launch {
-            withContext(ioDispatcher) {
-                chapterDAO.insertChapters(chapters.map { chapterMapper.to(it) })
-            }
-        }
+        chapterDAO.insertChapters(
+            chapters
+                .filterNot { it.number.contentEquals("intro") }
+                .map { chapterMapper.to(it) }
+        )
     }
 
     override suspend fun saveChapter(chapter: Chapter) {
-        mainScope.launch {
-            withContext(ioDispatcher) {
-                chapterDAO.insertOrUpdateChapter(chapterMapper.to(chapter))
-            }
-        }
+        chapterDAO.insertOrUpdateChapter(chapterMapper.to(chapter))
     }
 
     override suspend fun getChapters(bibleId: String, bookId: String): List<Chapter> {
-        return suspendCoroutine { continuation ->
-            mainScope.launch {
-                val chapters = withContext(ioDispatcher) {
-                    chapterDAO.getChapterByBook(bibleId, bookId).map { chapterMapper.from(it) }
-                }
-                continuation.resume(chapters)
-            }
-        }
+        return chapterDAO.getChapterByBook(bibleId, bookId).map { chapterMapper.from(it) }
     }
 
     override suspend fun getChapter(bibleId: String, chapterId: String): Chapter {
-        return suspendCoroutine { continuation ->
-            mainScope.launch {
-                val chapter = withContext(ioDispatcher) {
-                    chapterMapper.from(chapterDAO.getChapter(chapterId, bibleId))
-                }
-                continuation.resume(chapter)
-            }
-        }
+        return chapterMapper.from(chapterDAO.getChapter(chapterId, bibleId))
     }
 
 }
