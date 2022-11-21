@@ -19,6 +19,7 @@ data class BibleDimensions(
     val bookInfo: Dp = 160.dp,
     val search: Dp = 92.dp,
     val cardInfo: Dp = 94.dp,
+    val appBar: Dp = 56.dp,
 )
 
 val LocalDimensions = staticCompositionLocalOf { BibleDimensions() }

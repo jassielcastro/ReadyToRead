@@ -28,6 +28,7 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.BaselineShift
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.sp
 import com.ajcm.bible.R
@@ -161,42 +162,49 @@ fun BibleDetailsAppBar(title: String, subTitle: String, actions: DashboardAction
         elevation = MaterialBibleTheme.dimensions.elevationSmall,
         modifier = Modifier
             .fillMaxWidth()
+            .wrapContentHeight()
     ) {
-
         Row(
             horizontalArrangement = Arrangement.Start,
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = MaterialBibleTheme.dimensions.normal)
+                .height(MaterialBibleTheme.dimensions.appBar)
         ) {
 
             Icon(
                 imageVector = ImageVector.vectorResource(id = R.drawable.ic_arrow_back),
                 contentDescription = "",
-                tint = MaterialBibleTheme.colors.black.copy(alpha = 0.5f),
                 modifier = Modifier
-                    .padding(horizontal = MaterialBibleTheme.dimensions.medium)
-                    .size(MaterialBibleTheme.dimensions.xxlarge)
+                    .padding(
+                        start = MaterialBibleTheme.dimensions.normal,
+                        bottom = MaterialBibleTheme.dimensions.normal,
+                        top = MaterialBibleTheme.dimensions.normal
+                    )
+                    .size(MaterialBibleTheme.dimensions.large)
                     .bounceClick { actions.onBack() }
-                    .padding(vertical = MaterialBibleTheme.dimensions.medium)
                     .clip(MaterialBibleTheme.shapes.shapeLarge)
             )
 
             Column(
                 modifier = Modifier
+                    .padding(vertical = MaterialBibleTheme.dimensions.medium)
+                    .padding(horizontal = MaterialBibleTheme.dimensions.large)
                     .fillMaxWidth()
-                    .padding(end = MaterialBibleTheme.dimensions.normal)
             ) {
                 Text(
                     text = title,
-                    style = MaterialBibleTheme.typography.section,
+                    style = MaterialBibleTheme.typography.caption,
+                    overflow = TextOverflow.Ellipsis,
+                    maxLines = 1
                 )
 
                 AnimatedContent(targetState = subTitle) { text ->
                     Text(
                         text = text,
-                        style = MaterialBibleTheme.typography.caption,
+                        style = MaterialBibleTheme.typography.subCaption2,
+                        overflow = TextOverflow.Ellipsis,
+                        maxLines = 1
                     )
                 }
             }
@@ -328,7 +336,8 @@ fun VerseText(verse: String, number: Int) {
                 if (number == 1) {
                     val verseSplited = verse.split("\\s".toRegex()).filter { it.isNotEmpty() }
                     val firstWord = verseSplited.first { it.trim().isNotEmpty() }
-                    val completeVerse = verseSplited.filterIndexed { index, _ -> index != 0 }.joinToString(" ")
+                    val completeVerse =
+                        verseSplited.filterIndexed { index, _ -> index != 0 }.joinToString(" ")
                     withStyle(
                         style = SpanStyle(
                             color = textColor,
