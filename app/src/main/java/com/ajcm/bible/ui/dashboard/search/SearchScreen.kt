@@ -17,7 +17,8 @@ import com.ajcm.bible.ui.components.CardBookItem
 import com.ajcm.bible.ui.dashboard.detail.BIBLE_ID_KEY
 import com.ajcm.bible.ui.dashboard.detail.BibleDetail
 import com.ajcm.bible.ui.dashboard.viewmodels.SharedBibleViewModel
-import com.ajcm.bible.ui.error.*
+import com.ajcm.bible.ui.error.ErrorScreen
+import com.ajcm.bible.ui.error.ErrorType
 import com.ajcm.bible.ui.navigation.DashboardActions
 import com.ajcm.design.R
 import com.ajcm.design.common.State
@@ -137,10 +138,8 @@ private fun ShowBibles(modifier: Modifier, bibles: List<Bible>, showBibleSheet: 
 @Composable
 private fun ShowEmptyState() {
     ErrorScreen(
-        bundleOf(
-            ERROR_TITLE_ARG_KEY to "No se encontraron resultados",
-            ERROR_MESSAGE_ARG_KEY to "Intenta con un criterio diferente",
-            ERROR_TYPE_ARG_KEY to ErrorType.EMPTY.name
-        )
+        "No se encontraron resultados",
+        "Intenta con un criterio diferente",
+        ErrorType.EMPTY
     )
 }

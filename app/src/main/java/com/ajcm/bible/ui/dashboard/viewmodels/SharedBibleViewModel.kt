@@ -16,6 +16,14 @@ class SharedBibleViewModel @Inject constructor(
     private val biblesUC: BiblesUc
 ) : ViewModel() {
 
+    private val mDownloadBibles = MutableSharedFlow<State>()
+    val downloadBibles = mDownloadBibles
+        .stateIn(
+            viewModelScope,
+            SharingStarted.Eagerly,
+            State.Loading
+        )
+
     private val mLanguages = MutableSharedFlow<List<String>>()
     val languages = mLanguages
         .stateIn(
@@ -57,6 +65,23 @@ class SharedBibleViewModel @Inject constructor(
         )
     private var searchJob: Job? = null
     private var currentQuery: String? = null
+
+    fun downloadBiblesIfNeed() = viewModelScope.launch {
+        val bibles = withContext(Dispatchers.IO) {
+            if (downloadBibles.value is State.Success<*>) {
+                (downloadBibles.value as State.Success<List<Bible>>).value
+            } else {
+                biblesUC.getAll()
+            }
+        }
+        mDownloadBibles.emit(
+            if (bibles.isNotEmpty()) {
+                State.Success(bibles)
+            } else {
+                State.Empty
+            }
+        )
+    }
 
     fun buildBibleSections() = viewModelScope.launch {
         val bibles = withContext(Dispatchers.IO) {

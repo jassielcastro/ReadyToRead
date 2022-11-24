@@ -1,6 +1,5 @@
 package com.ajcm.bible.ui.error
 
-import android.os.Bundle
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
@@ -13,18 +12,11 @@ import com.ajcm.design.component.MediumSpacer
 import com.ajcm.design.theme.MaterialBibleTheme
 
 @Composable
-fun ErrorScreen(arguments: Bundle? = null) {
-
-    val title = arguments?.getString(ERROR_TITLE_ARG_KEY) ?: ""
-    val message = arguments?.getString(ERROR_MESSAGE_ARG_KEY) ?: ""
-    val errorType = arguments?.getString(ERROR_TYPE_ARG_KEY) ?: ErrorType.FAILED.name
-
-    val errorIcon = try {
-        ErrorType.valueOf(errorType)
-    } catch (ignore: Exception) {
-        ErrorType.FAILED
-    }
-
+fun ErrorScreen(
+    title: String,
+    message: String,
+    errorIcon: ErrorType
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()

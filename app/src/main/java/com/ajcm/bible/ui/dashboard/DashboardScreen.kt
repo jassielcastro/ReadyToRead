@@ -12,19 +12,18 @@ import com.ajcm.bible.ui.navigation.sectionsDestination
 import com.ajcm.design.BibleAppState
 import com.ajcm.design.common.cleanRoute
 import com.ajcm.design.rememberAnimatedBibleAppState
-import com.ajcm.design.rememberBibleAppState
 import com.ajcm.design.screen.BibleScreen
+import com.ajcm.design.theme.MaterialBibleTheme
 import com.ajcm.design.theme.SetStatusBarColorEffect
 
 @Composable
 fun DashboardScreen(appState: BibleAppState = rememberAnimatedBibleAppState()) {
     BibleScreen {
         var showBottomBar by remember { mutableStateOf(false) }
-
         val navBackStackEntry by appState.navController.currentBackStackEntryAsState()
         val currentRoute = navBackStackEntry?.destination?.route?.cleanRoute()
         showBottomBar = when (currentRoute) {
-            sectionsDestination.cleanRoute() -> true
+            sectionsDestination.cleanRoute() -> false
             searchDestination.cleanRoute() -> true
             favoritesDestination.cleanRoute() -> true
             else -> false
@@ -37,8 +36,10 @@ fun DashboardScreen(appState: BibleAppState = rememberAnimatedBibleAppState()) {
             DashboardNavigationHost(
                 navController = appState.navController,
                 modifier = Modifier.padding(padding)
-            )
+            ) { isDownloadingBibles ->
+                showBottomBar = !isDownloadingBibles
+            }
         }
-        SetStatusBarColorEffect()
+        SetStatusBarColorEffect(color = MaterialBibleTheme.colors.green)
     }
 }

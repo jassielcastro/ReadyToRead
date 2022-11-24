@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
+import com.ajcm.bible.ui.dashboard.DashboardScreen
 import com.ajcm.bible.ui.navigation.DashboardActions
 import com.ajcm.bible.ui.reading.BibleDetailsAppBar
 import com.ajcm.design.component.SearchBar
@@ -22,7 +23,8 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            SetupAppUI()
+            //SetupAppUI()
+            DashboardScreen()
         }
     }
 }
