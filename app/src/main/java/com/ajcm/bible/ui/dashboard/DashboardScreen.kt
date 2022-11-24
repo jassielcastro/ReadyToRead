@@ -23,7 +23,7 @@ fun DashboardScreen(appState: BibleAppState = rememberAnimatedBibleAppState()) {
         val navBackStackEntry by appState.navController.currentBackStackEntryAsState()
         val currentRoute = navBackStackEntry?.destination?.route?.cleanRoute()
         showBottomBar = when (currentRoute) {
-            sectionsDestination.cleanRoute() -> false
+            sectionsDestination.cleanRoute() -> true
             searchDestination.cleanRoute() -> true
             favoritesDestination.cleanRoute() -> true
             else -> false
@@ -36,9 +36,7 @@ fun DashboardScreen(appState: BibleAppState = rememberAnimatedBibleAppState()) {
             DashboardNavigationHost(
                 navController = appState.navController,
                 modifier = Modifier.padding(padding)
-            ) { isDownloadingBibles ->
-                showBottomBar = !isDownloadingBibles
-            }
+            )
         }
         SetStatusBarColorEffect(color = MaterialBibleTheme.colors.green)
     }

@@ -32,8 +32,7 @@ import com.ajcm.design.theme.MaterialBibleTheme
 @Composable
 fun SectionsScreen(
     actions: DashboardActions,
-    viewModel: SharedBibleViewModel,
-    isDownloadingBibles: (Boolean) -> Unit
+    viewModel: SharedBibleViewModel
 ) {
     val hasBibles by viewModel.downloadBibles.collectAsState()
 
@@ -46,7 +45,6 @@ fun SectionsScreen(
     ) { state ->
         when (state) {
             State.Loading -> {
-                isDownloadingBibles(true)
                 SplashContent()
             }
             is State.Success<*> -> {
@@ -60,7 +58,6 @@ fun SectionsScreen(
                             viewModel = viewModel,
                             showBibleSheet = showBibleSheet
                         )
-                        isDownloadingBibles(false)
                     }
                 )
             }
@@ -77,7 +74,9 @@ fun SectionsScreen(
 
 @Composable
 fun SplashContent() {
-    Box(modifier = Modifier.fillMaxSize().background(MaterialBibleTheme.colors.white))
+    Box(modifier = Modifier
+        .fillMaxSize()
+        .background(MaterialBibleTheme.colors.green))
 }
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -87,8 +86,7 @@ private fun SectionListScreen(
     viewModel: SharedBibleViewModel,
     showBibleSheet: (Bundle) -> Unit
 ) {
-    val languages by viewModel.languages.collectAsState()
-    val bibles by viewModel.recomendedBibles.collectAsState()
+    val sectionContent by viewModel.sectionContent.collectAsState()
     val listState = rememberLazyListState()
 
     LaunchedEffect(Unit) {
@@ -129,8 +127,8 @@ private fun SectionListScreen(
             ) {
                 mediumSpace()
 
-                items(languages.size) { index ->
-                    SmallRoundedItem(title = languages[index]) { lang ->
+                items(sectionContent.languages.size) { index ->
+                    SmallRoundedItem(title = sectionContent.languages[index]) { lang ->
                         actions.showSearchBy(lang)
                     }
                 }
@@ -147,9 +145,9 @@ private fun SectionListScreen(
             }
         }
 
-        items(bibles.size) { index ->
+        items(sectionContent.bibles.size) { index ->
             CardBookItem(
-                bible = bibles[index],
+                bible = sectionContent.bibles[index],
                 onCardClicked = {
                     showBibleSheet(bundleOf(BIBLE_ID_KEY to it))
                 }

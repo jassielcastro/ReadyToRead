@@ -2,6 +2,7 @@ package com.ajcm.bible.ui.dashboard.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.ajcm.bible.ui.dashboard.sections.SectionContentModel
 import com.ajcm.design.common.State
 import com.ajcm.domain.entity.Bible
 import com.ajcm.domain.entity.request.GetBibleRequest
@@ -24,20 +25,12 @@ class SharedBibleViewModel @Inject constructor(
             State.Loading
         )
 
-    private val mLanguages = MutableSharedFlow<List<String>>()
-    val languages = mLanguages
+    private val mSectionContent = MutableSharedFlow<SectionContentModel>()
+    val sectionContent = mSectionContent
         .stateIn(
             viewModelScope,
             SharingStarted.Eagerly,
-            emptyList()
-        )
-
-    private val mRecomendedBibles = MutableSharedFlow<List<Bible>>()
-    val recomendedBibles = mRecomendedBibles
-        .stateIn(
-            viewModelScope,
-            SharingStarted.Eagerly,
-            emptyList()
+            SectionContentModel(isLoading = true)
         )
 
     private val mBibleDetail = MutableStateFlow<Bible?>(null)
@@ -84,8 +77,10 @@ class SharedBibleViewModel @Inject constructor(
     }
 
     fun buildBibleSections() = viewModelScope.launch {
-        val bibles = withContext(Dispatchers.IO) {
-            recomendedBibles.value.ifEmpty {
+        if (sectionContent.value.bibles.isNotEmpty() && sectionContent.value.languages.isNotEmpty()) {
+            mSectionContent.emit(sectionContent.value.copy(isLoading = false))
+        } else {
+            val bibles = withContext(Dispatchers.IO) {
                 biblesUC.getAll(
                     GetBibleRequest {
                         size = BIBLES_SIZE
@@ -93,16 +88,19 @@ class SharedBibleViewModel @Inject constructor(
                     }
                 )
             }
-        }
 
-        val languages = withContext(Dispatchers.IO) {
-            languages.value.ifEmpty {
+            val languages = withContext(Dispatchers.IO) {
                 biblesUC.getBibleLanguages(LANGUAGE_SIZE)
             }
-        }
 
-        mLanguages.emit(languages)
-        mRecomendedBibles.emit(bibles)
+            mSectionContent.emit(
+                SectionContentModel(
+                    isLoading = false,
+                    bibles = bibles,
+                    languages = languages
+                )
+            )
+        }
     }
 
     fun getBibleDetail(bibleId: String?) = viewModelScope.launch {
