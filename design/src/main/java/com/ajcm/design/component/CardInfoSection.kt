@@ -39,7 +39,6 @@ fun CardInfoSection(modifier: Modifier, onClick: () -> Unit) {
             contentScale = ContentScale.FillWidth,
             modifier = Modifier
                 .fillMaxWidth()
-                .rotate(180f)
         )
 
         ConstraintLayout(

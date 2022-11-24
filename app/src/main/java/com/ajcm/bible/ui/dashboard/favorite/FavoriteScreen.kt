@@ -20,7 +20,8 @@ import com.ajcm.bible.ui.components.CardBookItem
 import com.ajcm.bible.ui.dashboard.detail.BIBLE_ID_KEY
 import com.ajcm.bible.ui.dashboard.detail.BibleDetail
 import com.ajcm.bible.ui.dashboard.viewmodels.SharedBibleViewModel
-import com.ajcm.bible.ui.error.*
+import com.ajcm.bible.ui.error.ErrorScreen
+import com.ajcm.bible.ui.error.ErrorType
 import com.ajcm.bible.ui.navigation.DashboardActions
 import com.ajcm.design.R
 import com.ajcm.design.component.BottomSheetContainer
@@ -125,10 +126,8 @@ private fun ShowBibles(modifier: Modifier, bibles: List<Bible>, showBibleSheet: 
 @Composable
 private fun ShowEmptyState() {
     ErrorScreen(
-        bundleOf(
-            ERROR_TITLE_ARG_KEY to "Sin favoritos",
-            ERROR_MESSAGE_ARG_KEY to "Aún no has agregado libros a tus favoritos.",
-            ERROR_TYPE_ARG_KEY to ErrorType.WARNING.name
-        )
+        "Sin favoritos",
+        "Aún no has agregado libros a tus favoritos.",
+        ErrorType.WARNING
     )
 }

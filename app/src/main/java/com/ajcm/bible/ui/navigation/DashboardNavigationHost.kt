@@ -26,6 +26,7 @@ import com.google.accompanist.navigation.animation.composable
 fun DashboardNavigationHost(
     navController: NavHostController,
     modifier: Modifier = Modifier,
+    isDownloadingBibles: (Boolean) -> Unit
 ) {
     val actions = remember(navController) { DashboardActions(navController) }
     AnimatedNavHost(
@@ -61,7 +62,7 @@ fun DashboardNavigationHost(
             }
         ) {
             val viewModel = hiltViewModel<SharedBibleViewModel>(it)
-            SectionsScreen(actions, viewModel)
+            SectionsScreen(actions, viewModel, isDownloadingBibles)
         }
         composable(
             route = searchDestination,
