@@ -3,6 +3,8 @@ package com.ajcm.design.component
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -169,6 +171,80 @@ fun LoadBibleDetailShimmer() {
             )
 
             NormalSpacer()
+        }
+    }
+}
+
+@Composable
+fun LoadBooksShimmer() {
+    ShimmerEfect { brush ->
+        Column(
+            modifier = Modifier
+                .padding(top = MaterialBibleTheme.dimensions.xsmall)
+                .fillMaxSize()
+                .background(MaterialBibleTheme.colors.white)
+                .padding(MaterialBibleTheme.dimensions.medium)
+        ) {
+            MediumSpacer()
+
+            repeat(4) {
+                Spacer(
+                    modifier = Modifier
+                        .padding(bottom = MaterialBibleTheme.dimensions.normal)
+                        .fillMaxWidth(0.5f)
+                        .height(MaterialBibleTheme.dimensions.xlarge)
+                        .background(brush)
+                        .clip(MaterialBibleTheme.shapes.shapeLarge)
+                )
+
+                Spacer(
+                    modifier = Modifier
+                        .padding(bottom = MaterialBibleTheme.dimensions.normal)
+                        .fillMaxWidth(0.3f)
+                        .height(MaterialBibleTheme.dimensions.xlarge)
+                        .background(brush)
+                        .clip(MaterialBibleTheme.shapes.shapeLarge)
+                )
+
+                Spacer(
+                    modifier = Modifier
+                        .padding(bottom = MaterialBibleTheme.dimensions.normal)
+                        .fillMaxWidth(0.7f)
+                        .height(MaterialBibleTheme.dimensions.xlarge)
+                        .background(brush)
+                        .clip(MaterialBibleTheme.shapes.shapeLarge)
+                )
+            }
+
+            MediumSpacer()
+        }
+    }
+}
+
+@Composable
+fun LoadChapterShimmer() {
+    ShimmerEfect { brush ->
+        LazyVerticalGrid(
+            columns = GridCells.Fixed(5),
+            horizontalArrangement = Arrangement.Center,
+            modifier = Modifier
+                .padding(top = MaterialBibleTheme.dimensions.xsmall)
+                .fillMaxSize()
+                .background(MaterialBibleTheme.colors.white)
+                .padding(MaterialBibleTheme.dimensions.normal)
+        ) {
+            items(17) {
+                Spacer(
+                    modifier = Modifier
+                        .padding(
+                            end = MaterialBibleTheme.dimensions.normal,
+                            bottom = MaterialBibleTheme.dimensions.normal
+                        )
+                        .size(MaterialBibleTheme.dimensions.xxxlarge)
+                        .background(brush)
+                        .clip(MaterialBibleTheme.shapes.shapeLarge)
+                )
+            }
         }
     }
 }
