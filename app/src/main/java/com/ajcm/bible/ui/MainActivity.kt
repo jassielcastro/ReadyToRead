@@ -12,6 +12,7 @@ import androidx.navigation.compose.rememberNavController
 import com.ajcm.bible.ui.dashboard.DashboardScreen
 import com.ajcm.bible.ui.navigation.DashboardActions
 import com.ajcm.bible.ui.reading.BibleDetailsAppBar
+import com.ajcm.design.component.LoadBooksShimmer
 import com.ajcm.design.component.SearchBar
 import com.ajcm.design.component.SmallSpacer
 import com.ajcm.design.screen.BibleScreen
@@ -32,22 +33,6 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun PreviewComponent() {
     BibleScreen {
-        Column(
-            modifier = Modifier.fillMaxSize()
-        ) {
-            SearchBar(
-                label = "Page title",
-                initialSearch = "Barra de búsqueda",
-                modifier = Modifier
-            )
-
-            SmallSpacer()
-
-            BibleDetailsAppBar(
-                title = "Page title",
-                subTitle = "Barra de búsqueda sasdasdasdasdassdaasdasdasdasdasda",
-                actions = DashboardActions(rememberNavController())
-            )
-        }
+        LoadBooksShimmer()
     }
 }

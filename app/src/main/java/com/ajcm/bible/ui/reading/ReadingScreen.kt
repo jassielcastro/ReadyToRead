@@ -35,9 +35,13 @@ import com.ajcm.bible.R
 import com.ajcm.bible.ui.navigation.DashboardActions
 import com.ajcm.bible.ui.reading.viewmodel.ReadingViewModel
 import com.ajcm.design.common.bounceClick
+import com.ajcm.design.component.LoadBooksShimmer
+import com.ajcm.design.component.LoadChapterShimmer
 import com.ajcm.design.component.SmallSpacer
 import com.ajcm.design.component.normalSpace
 import com.ajcm.design.theme.MaterialBibleTheme
+import com.ajcm.domain.entity.Book
+import com.ajcm.domain.entity.Chapter
 
 sealed class ReadingStep(val step: Int) {
     data class Books(val bibleId: String) : ReadingStep(1)
@@ -212,6 +216,7 @@ fun BibleDetailsAppBar(title: String, subTitle: String, actions: DashboardAction
     }
 }
 
+@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun BookListScreen(
     bibleId: String,
@@ -224,9 +229,21 @@ fun BookListScreen(
         viewModel.downloadBooks(bibleId)
     }
 
+    AnimatedContent(targetState = books) { bookList ->
+        if (bookList.isNotEmpty()) {
+            BookListScreen(books = bookList, showChapters = showChapters)
+        } else {
+            LoadBooksShimmer()
+        }
+    }
+}
+
+@Composable
+fun BookListScreen(books: List<Book>, showChapters: (bookId: String, bookName: String) -> Unit) {
     Column(
         modifier = Modifier
             .padding(top = MaterialBibleTheme.dimensions.xsmall)
+            .fillMaxSize()
             .background(MaterialBibleTheme.colors.white)
             .verticalScroll(rememberScrollState())
     ) {
@@ -248,6 +265,7 @@ fun BookListScreen(
     }
 }
 
+@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun ChaptersListScreen(
     bibleId: String,
@@ -257,10 +275,24 @@ fun ChaptersListScreen(
 ) {
     val chapters by viewModel.chapters.collectAsState()
 
-    LaunchedEffect(bibleId, bookId) {
+    LaunchedEffect(Unit) {
         viewModel.downloadChapters(bibleId, bookId)
     }
 
+    AnimatedContent(targetState = chapters) { chapterList ->
+        if (chapterList.isNotEmpty()) {
+            ChapterListScreen(chapterList, showVerses)
+        } else {
+            LoadChapterShimmer()
+        }
+    }
+}
+
+@Composable
+fun ChapterListScreen(
+    chapters: List<Chapter>,
+    showVerses: (chapterId: String, chapterNumber: String) -> Unit
+) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(5),
         verticalArrangement = Arrangement.SpaceBetween,
@@ -290,7 +322,7 @@ fun ChaptersListScreen(
 fun VersesListScreen(bibleId: String, chapterId: String, viewModel: ReadingViewModel) {
     val chapter by viewModel.chapter.collectAsState()
 
-    LaunchedEffect(bibleId, chapterId) {
+    LaunchedEffect(chapterId) {
         viewModel.downloadChapter(bibleId, chapterId)
     }
 
@@ -306,6 +338,8 @@ fun VersesListScreen(bibleId: String, chapterId: String, viewModel: ReadingViewM
             if (verse.isNotEmpty()) {
                 VerseText(verse, index + 1)
             }
+
+            SmallSpacer()
         }
 
         normalSpace()
@@ -320,24 +354,25 @@ fun VerseText(verse: String, number: Int) {
 
     Text(
         buildAnnotatedString {
-            withStyle(style = ParagraphStyle(textAlign = TextAlign.Start)) {
+            withStyle(style = ParagraphStyle(textAlign = TextAlign.Justify)) {
                 withStyle(
                     style = SpanStyle(
                         color = textColor,
-                        fontSize = 10.sp,
+                        fontSize = 14.sp,
                         fontFamily = font,
-                        fontWeight = FontWeight.Bold,
-                        baselineShift = BaselineShift.Superscript
+                        fontWeight = FontWeight.Bold
                     )
                 ) {
-                    append("$number ")
+                    append("$number    ")
                 }
 
                 if (number == 1) {
                     val verseSplited = verse.split("\\s".toRegex()).filter { it.isNotEmpty() }
                     val firstWord = verseSplited.first { it.trim().isNotEmpty() }
-                    val completeVerse =
-                        verseSplited.filterIndexed { index, _ -> index != 0 }.joinToString(" ")
+                    val completeVerse = verseSplited
+                        .filterIndexed { index, _ -> index != 0 }
+                        .joinToString(" ")
+                        .removeSuffix("\n")
                     withStyle(
                         style = SpanStyle(
                             color = textColor,
