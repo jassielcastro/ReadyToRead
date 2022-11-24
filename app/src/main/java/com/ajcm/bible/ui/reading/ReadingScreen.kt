@@ -26,7 +26,6 @@ import androidx.compose.ui.text.ParagraphStyle
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.BaselineShift
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.withStyle
@@ -186,7 +185,7 @@ fun BibleDetailsAppBar(title: String, subTitle: String, actions: DashboardAction
                         top = MaterialBibleTheme.dimensions.normal
                     )
                     .size(MaterialBibleTheme.dimensions.large)
-                    .bounceClick { actions.onBack() }
+                    .bounceClick(onCLicked = { actions.onBack() })
                     .clip(MaterialBibleTheme.shapes.shapeLarge)
             )
 
@@ -256,7 +255,7 @@ fun BookListScreen(books: List<Book>, showChapters: (bookId: String, bookName: S
                 style = MaterialBibleTheme.typography.caption,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .bounceClick { showChapters(book.id, book.name) }
+                    .bounceClick(onCLicked = { showChapters(book.id, book.name) })
                     .padding(MaterialBibleTheme.dimensions.normal)
             )
         }
@@ -307,7 +306,7 @@ fun ChapterListScreen(
                 style = MaterialBibleTheme.typography.caption,
                 textAlign = TextAlign.Center,
                 modifier = Modifier
-                    .bounceClick { showVerses(chapter.id, chapter.number) }
+                    .bounceClick(onCLicked = { showVerses(chapter.id, chapter.number) })
                     .clip(MaterialBibleTheme.shapes.shapeXLarge)
                     .padding(
                         horizontal = MaterialBibleTheme.dimensions.medium,

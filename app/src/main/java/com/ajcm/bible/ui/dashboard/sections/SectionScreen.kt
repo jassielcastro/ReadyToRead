@@ -149,6 +149,9 @@ private fun SectionListScreen(
             CardBookItem(
                 bible = sectionContent.bibles[index],
                 onCardClicked = {
+                    actions.showReading(it)
+                },
+                onCardLongClicked = {
                     showBibleSheet(bundleOf(BIBLE_ID_KEY to it))
                 }
             )

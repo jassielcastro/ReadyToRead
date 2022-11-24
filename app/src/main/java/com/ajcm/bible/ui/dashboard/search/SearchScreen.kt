@@ -94,6 +94,7 @@ fun SearchListScreen(
                         .constrainAs(list) {
                             top.linkTo(searchComponent.bottom)
                         },
+                    actions = actions,
                     bibles = (foundBibles as State.Success<*>).value as List<Bible>,
                     showBibleSheet = showBibleSheet
                 )
@@ -106,7 +107,7 @@ fun SearchListScreen(
 }
 
 @Composable
-private fun ShowBibles(modifier: Modifier, bibles: List<Bible>, showBibleSheet: (Bundle) -> Unit) {
+private fun ShowBibles(modifier: Modifier, actions: DashboardActions, bibles: List<Bible>, showBibleSheet: (Bundle) -> Unit) {
     val listState = rememberLazyListState()
     LazyColumn(
         modifier = Modifier
@@ -126,6 +127,9 @@ private fun ShowBibles(modifier: Modifier, bibles: List<Bible>, showBibleSheet: 
             CardBookItem(
                 bible = bible,
                 onCardClicked = {
+                    actions.showReading(it)
+                },
+                onCardLongClicked = {
                     showBibleSheet(bundleOf(BIBLE_ID_KEY to it))
                 }
             )

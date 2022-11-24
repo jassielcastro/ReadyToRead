@@ -31,7 +31,7 @@ fun SearchComponent(modifier: Modifier = Modifier, onClick: () -> Unit) {
             .fillMaxWidth()
             .wrapContentHeight()
             .then(modifier)
-            .bounceClick(onClick)
+            .bounceClick(onCLicked = onClick)
             .clip(MaterialBibleTheme.shapes.shapeNormal)
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
