@@ -2,7 +2,8 @@ package com.ajcm.design.common
 
 import androidx.compose.animation.core.SpringSpec
 import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.gestures.awaitFirstDown
 import androidx.compose.foundation.gestures.waitForUpOrCancellation
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -17,7 +18,11 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.pointerInput
 import com.ajcm.design.theme.MaterialBibleTheme
 
-fun Modifier.bounceClick(onCLicked: () -> Unit) = composed {
+@OptIn(ExperimentalFoundationApi::class)
+fun Modifier.bounceClick(
+    onCLicked: () -> Unit,
+    onLongClick: () -> Unit = {}
+) = composed {
     var buttonState by remember { mutableStateOf(false) }
     val springSpec = SpringSpec<Float>(
         stiffness = 200f,
@@ -30,12 +35,13 @@ fun Modifier.bounceClick(onCLicked: () -> Unit) = composed {
             scaleX = scale
             scaleY = scale
         }
-        .clickable(
+        .combinedClickable(
             interactionSource = remember { MutableInteractionSource() },
             indication = rememberRipple(
                 color = MaterialBibleTheme.colors.green
             ),
-            onClick = { onCLicked() }
+            onClick = { onCLicked() },
+            onLongClick = { onLongClick() }
         )
         .pointerInput(buttonState) {
             awaitPointerEventScope {

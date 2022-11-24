@@ -67,7 +67,8 @@ fun BibleDetailContent(
 ) {
     val color = bible.color.toColor()
     val colorButtonBG = MaterialBibleTheme.colors.gray
-    val favoriteIcon = if (bible.isFavourite) R.drawable.ic_bookmark_fill else R.drawable.ic_bookmark_line
+    val favoriteIcon =
+        if (bible.isFavourite) R.drawable.ic_bookmark_fill else R.drawable.ic_bookmark_line
 
     Column(
         modifier = Modifier
@@ -107,7 +108,7 @@ fun BibleDetailContent(
                         top.linkTo(parent.top)
                         end.linkTo(parent.end)
                     }
-                    .bounceClick { actions.onBack() }
+                    .bounceClick(onCLicked = { actions.onBack() })
                     .padding(MaterialBibleTheme.dimensions.small)
             )
 
@@ -123,9 +124,11 @@ fun BibleDetailContent(
                         top.linkTo(closeButton.bottom)
                         end.linkTo(parent.end)
                     }
-                    .bounceClick {
-                        viewModel.toggleFavorite(bible.id)
-                    }
+                    .bounceClick(
+                        onCLicked = {
+                            viewModel.toggleFavorite(bible.id)
+                        }
+                    )
                     .padding(MaterialBibleTheme.dimensions.small)
             )
 

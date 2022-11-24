@@ -51,9 +51,12 @@ fun TextSections(text: String, onClick: () -> Unit) {
                     top.linkTo(parent.top)
                     bottom.linkTo(parent.bottom)
                 }
-                .bounceClick(onClick)
+                .bounceClick(onCLicked = onClick)
                 .clip(MaterialBibleTheme.shapes.shapeSmall)
-                .padding(horizontal = MaterialBibleTheme.dimensions.medium, vertical = MaterialBibleTheme.dimensions.small)
+                .padding(
+                    horizontal = MaterialBibleTheme.dimensions.medium,
+                    vertical = MaterialBibleTheme.dimensions.small
+                )
         )
     }
 }
