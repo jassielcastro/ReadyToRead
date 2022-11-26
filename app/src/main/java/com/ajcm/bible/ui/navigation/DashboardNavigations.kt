@@ -25,6 +25,10 @@ val favoritesDestination = navigationRoute {
     destination = NavigationItems.Item.FAVORITES
 }
 
+val moreMenuDestination = navigationRoute {
+    destination = NavigationItems.Item.MORE_MENU
+}
+
 data class BottomItem(
     val route: String,
     @DrawableRes val iconNormal: Int,
@@ -34,5 +38,6 @@ data class BottomItem(
 val bottomNavigationItems = listOf(
     BottomItem(sectionsDestination, R.drawable.ic_books_normal, R.drawable.ic_books_selected),
     BottomItem(searchDestinationArgs, R.drawable.ic_search_normal, R.drawable.ic_search_selected),
-    BottomItem(favoritesDestination, R.drawable.ic_bookmarks_normal, R.drawable.ic_bookmarks_selected)
+    BottomItem(favoritesDestination, R.drawable.ic_bookmarks_normal, R.drawable.ic_bookmarks_selected),
+    BottomItem(moreMenuDestination, R.drawable.ic_more_normal, R.drawable.ic_more_filled)
 )

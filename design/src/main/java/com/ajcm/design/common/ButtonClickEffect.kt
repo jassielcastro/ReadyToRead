@@ -28,12 +28,13 @@ fun Modifier.bounceClick(
         stiffness = 200f,
         dampingRatio = 0.8f
     )
-    val scale by animateFloatAsState(if (buttonState) 0.9f else 1f, springSpec)
+    val scale by animateFloatAsState(if (buttonState) 0.95f else 1f, springSpec)
 
     this
         .graphicsLayer {
             scaleX = scale
             scaleY = scale
+            clip = true
         }
         .combinedClickable(
             interactionSource = remember { MutableInteractionSource() },

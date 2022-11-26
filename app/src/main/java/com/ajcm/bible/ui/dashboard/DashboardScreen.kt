@@ -5,10 +5,7 @@ import androidx.compose.material.Scaffold
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.ajcm.bible.ui.navigation.DashboardNavigationHost
-import com.ajcm.bible.ui.navigation.favoritesDestination
-import com.ajcm.bible.ui.navigation.searchDestination
-import com.ajcm.bible.ui.navigation.sectionsDestination
+import com.ajcm.bible.ui.navigation.*
 import com.ajcm.design.BibleAppState
 import com.ajcm.design.common.cleanRoute
 import com.ajcm.design.rememberAnimatedBibleAppState
@@ -22,12 +19,7 @@ fun DashboardScreen(appState: BibleAppState = rememberAnimatedBibleAppState()) {
         var showBottomBar by remember { mutableStateOf(false) }
         val navBackStackEntry by appState.navController.currentBackStackEntryAsState()
         val currentRoute = navBackStackEntry?.destination?.route?.cleanRoute()
-        showBottomBar = when (currentRoute) {
-            sectionsDestination.cleanRoute() -> true
-            searchDestination.cleanRoute() -> true
-            favoritesDestination.cleanRoute() -> true
-            else -> false
-        }
+        showBottomBar = currentRoute in bottomNavigationItems.map { it.route.cleanRoute() }
 
         Scaffold(
             scaffoldState = appState.scaffoldState,

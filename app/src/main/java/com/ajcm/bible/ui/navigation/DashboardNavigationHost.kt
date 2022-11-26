@@ -9,6 +9,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavHostController
 import com.ajcm.bible.ui.dashboard.favorite.FavoriteScreen
+import com.ajcm.bible.ui.dashboard.more.MoreMenuScreen
 import com.ajcm.bible.ui.dashboard.search.SearchScreen
 import com.ajcm.bible.ui.dashboard.search.allowedSearchArguments
 import com.ajcm.bible.ui.dashboard.sections.SectionsScreen
@@ -37,26 +38,22 @@ fun DashboardNavigationHost(
             route = sectionsDestination,
             enterTransition = {
                 animateEnterDestination(
-                    searchAnimation = slideIntoContainerLeft(),
-                    favoriteAnimation = slideIntoContainerLeft()
+                    all = slideIntoContainerLeft()
                 )
             },
             exitTransition = {
                 animateExitDestination(
-                    searchAnimation = slideOutOfContainerLeft(),
-                    favoriteAnimation = slideOutOfContainerLeft()
+                    all = slideOutOfContainerLeft()
                 )
             },
             popEnterTransition = {
                 animateEnterDestination(
-                    searchAnimation = slideIntoContainerRigth(),
-                    favoriteAnimation = slideIntoContainerRigth()
+                    all = slideIntoContainerRigth()
                 )
             },
             popExitTransition = {
                 animateExitDestination(
-                    searchAnimation = slideOutOfContainerRight(),
-                    favoriteAnimation = slideOutOfContainerRight()
+                    all = slideOutOfContainerRight()
                 )
             }
         ) {
@@ -69,25 +66,29 @@ fun DashboardNavigationHost(
             enterTransition = {
                 animateEnterDestination(
                     sectionAnimation = slideIntoContainerLeft(),
-                    favoriteAnimation = slideIntoContainerRigth()
+                    favoriteAnimation = slideIntoContainerRigth(),
+                    moreMenuAnimation = slideIntoContainerRigth()
                 )
             },
             exitTransition = {
                 animateExitDestination(
                     sectionAnimation = slideOutOfContainerLeft(),
-                    favoriteAnimation = slideOutOfContainerRight()
+                    favoriteAnimation = slideOutOfContainerRight(),
+                    moreMenuAnimation = slideOutOfContainerRight()
                 )
             },
             popEnterTransition = {
                 animateEnterDestination(
                     sectionAnimation = slideIntoContainerRigth(),
-                    favoriteAnimation = slideIntoContainerLeft()
+                    favoriteAnimation = slideIntoContainerLeft(),
+                    moreMenuAnimation = slideIntoContainerLeft()
                 )
             },
             popExitTransition = {
                 animateExitDestination(
                     sectionAnimation = slideOutOfContainerRight(),
-                    favoriteAnimation = slideOutOfContainerLeft()
+                    favoriteAnimation = slideOutOfContainerLeft(),
+                    moreMenuAnimation = slideOutOfContainerLeft()
                 )
             }
         ) {
@@ -99,30 +100,59 @@ fun DashboardNavigationHost(
             enterTransition = {
                 animateEnterDestination(
                     sectionAnimation = slideIntoContainerLeft(),
-                    searchAnimation = slideIntoContainerLeft()
+                    searchAnimation = slideIntoContainerLeft(),
+                    moreMenuAnimation = slideIntoContainerRigth()
                 )
             },
             exitTransition = {
                 animateExitDestination(
                     sectionAnimation = slideOutOfContainerLeft(),
-                    searchAnimation = slideOutOfContainerLeft()
+                    searchAnimation = slideOutOfContainerLeft(),
+                    moreMenuAnimation = slideOutOfContainerRight()
                 )
             },
             popEnterTransition = {
                 animateEnterDestination(
                     sectionAnimation = slideIntoContainerRigth(),
-                    searchAnimation = slideIntoContainerRigth()
+                    searchAnimation = slideIntoContainerRigth(),
+                    moreMenuAnimation = slideIntoContainerLeft()
                 )
             },
             popExitTransition = {
                 animateExitDestination(
                     sectionAnimation = slideOutOfContainerRight(),
-                    searchAnimation = slideOutOfContainerRight()
+                    searchAnimation = slideOutOfContainerRight(),
+                    moreMenuAnimation = slideOutOfContainerLeft()
                 )
             }
         ) {
             val viewModel = hiltViewModel<SharedBibleViewModel>(it)
             FavoriteScreen(viewModel, actions)
+        }
+        composable(
+            route = moreMenuDestination,
+            enterTransition = {
+                animateEnterDestination(
+                    all = slideIntoContainerLeft()
+                )
+            },
+            exitTransition = {
+                animateExitDestination(
+                    all = slideOutOfContainerRight()
+                )
+            },
+            popEnterTransition = {
+                animateEnterDestination(
+                    all = slideIntoContainerRigth()
+                )
+            },
+            popExitTransition = {
+                animateExitDestination(
+                    all = slideOutOfContainerRight()
+                )
+            }
+        ) {
+            MoreMenuScreen()
         }
         composable(
             route = readingDestination,
@@ -134,7 +164,7 @@ fun DashboardNavigationHost(
             },
             exitTransition = {
                 animateExitDestination(
-                    all = slideOutOfContainerLeft()
+                    all = slideOutOfContainerRight()
                 )
             },
             popEnterTransition = {
@@ -176,10 +206,12 @@ private fun AnimatedContentScope<NavBackStackEntry>.animateEnterDestination(
     sectionAnimation: EnterTransition? = all,
     searchAnimation: EnterTransition? = all,
     favoriteAnimation: EnterTransition? = all,
+    moreMenuAnimation: EnterTransition? = all,
 ) = when (this.initialState.destination.route?.cleanRoute()) {
     sectionsDestination.cleanRoute() -> sectionAnimation
     searchDestination.cleanRoute() -> searchAnimation
     favoritesDestination.cleanRoute() -> favoriteAnimation
+    moreMenuDestination.cleanRoute() -> moreMenuAnimation
     else -> null
 }
 
@@ -189,9 +221,11 @@ private fun AnimatedContentScope<NavBackStackEntry>.animateExitDestination(
     sectionAnimation: ExitTransition? = all,
     searchAnimation: ExitTransition? = all,
     favoriteAnimation: ExitTransition? = all,
+    moreMenuAnimation: ExitTransition? = all,
 ) = when (this.initialState.destination.route?.cleanRoute()) {
     sectionsDestination.cleanRoute() -> sectionAnimation
     searchDestination.cleanRoute() -> searchAnimation
     favoritesDestination.cleanRoute() -> favoriteAnimation
+    moreMenuDestination.cleanRoute() -> moreMenuAnimation
     else -> null
 }

@@ -14,6 +14,7 @@ data class BibleDimensions(
     val xxlarge: Dp = 42.dp,
     val xxxlarge: Dp = 58.dp,
     val zero: Dp = 0.dp,
+    val elevationXSmall: Dp = 2.dp,
     val elevationSmall: Dp = 4.dp,
     val elevationNormal: Dp = 8.dp,
     val bookInfo: Dp = 160.dp,
