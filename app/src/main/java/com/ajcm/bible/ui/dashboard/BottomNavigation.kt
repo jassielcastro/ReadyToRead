@@ -40,13 +40,21 @@ fun BottomNavigationBar(navController: NavController, showBottomBar: Boolean) {
                 val icon = if (isSelected) item.iconSelected else item.iconNormal
 
                 BottomNavigationItem(
-                    icon = { Icon(imageVector = ImageVector.vectorResource(id = icon), contentDescription = "") },
+                    icon = {
+                        Icon(
+                            imageVector = ImageVector.vectorResource(id = icon),
+                            contentDescription = ""
+                        )
+                    },
                     selectedContentColor = MaterialBibleTheme.colors.white,
                     unselectedContentColor = unselectedColor,
                     alwaysShowLabel = false,
                     selected = isSelected,
                     modifier = Modifier
-                        .padding(horizontal = MaterialBibleTheme.dimensions.large, MaterialBibleTheme.dimensions.medium)
+                        .padding(
+                            horizontal = MaterialBibleTheme.dimensions.normal,
+                            vertical = MaterialBibleTheme.dimensions.medium
+                        )
                         .background(backgroundColor, MaterialBibleTheme.shapes.shapeXLarge),
                     onClick = {
                         navController.navigate(item.route) {

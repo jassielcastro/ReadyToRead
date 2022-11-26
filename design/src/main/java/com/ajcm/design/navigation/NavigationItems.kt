@@ -3,9 +3,7 @@ package com.ajcm.design.navigation
 class NavigationItems private constructor(val route: String) {
 
     enum class Item {
-        SPLASH,
-        ERROR,
-        DASHBOARD,
+        MORE_MENU,
         SECTIONS,
         FAVORITES,
         READING,

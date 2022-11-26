@@ -12,4 +12,7 @@
     <string name="search_by_name">Nombre</string>
     <string name="search_by_language">Idioma</string>
     <string name="search_by_region">País</string>
+
+    <string name="api_bible_description">La Sociedad Bíblica Americana (ABS) trabaja con una red mundial de socios para llegar a los no alcanzados y ayudar a todas las personas a participar. Nos apasiona poner la Biblia al alcance de todos en un idioma y en un formato que cualquiera pueda entender y permitirse, para que todas las personas puedan experimentar su mensaje transformador.\n\n Con casi 1500 versiones de la Biblia disponibles en más de 1000 idiomas, API.Bible ofrece la mayor colección de Biblias disponible.</string>
+    <string name="api_bible_copy">©2022 American Bible Society, All rights reserved</string>
 </resources>
