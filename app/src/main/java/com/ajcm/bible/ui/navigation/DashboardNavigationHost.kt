@@ -13,6 +13,7 @@ import com.ajcm.bible.ui.dashboard.more.MoreMenuScreen
 import com.ajcm.bible.ui.dashboard.search.SearchScreen
 import com.ajcm.bible.ui.dashboard.search.allowedSearchArguments
 import com.ajcm.bible.ui.dashboard.sections.SectionsScreen
+import com.ajcm.bible.ui.dashboard.viewmodels.ConfigurationsViewModel
 import com.ajcm.bible.ui.dashboard.viewmodels.SharedBibleViewModel
 import com.ajcm.bible.ui.reading.ReadingScreen
 import com.ajcm.bible.ui.reading.allowedReadingBibleArguments
@@ -152,7 +153,8 @@ fun DashboardNavigationHost(
                 )
             }
         ) {
-            MoreMenuScreen()
+            val viewModel = hiltViewModel<ConfigurationsViewModel>(it)
+            MoreMenuScreen(viewModel)
         }
         composable(
             route = readingDestination,
@@ -178,8 +180,9 @@ fun DashboardNavigationHost(
                 )
             }
         ) {
-            val viewModel = hiltViewModel<ReadingViewModel>(it)
-            ReadingScreen(viewModel, it.arguments, actions)
+            val configurationViewModel = hiltViewModel<ConfigurationsViewModel>(it)
+            val readingViewModel = hiltViewModel<ReadingViewModel>(it)
+            ReadingScreen(readingViewModel, configurationViewModel, it.arguments, actions)
         }
     }
 }

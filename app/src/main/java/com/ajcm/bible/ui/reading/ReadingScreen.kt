@@ -31,6 +31,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.sp
 import com.ajcm.bible.R
+import com.ajcm.bible.ui.dashboard.viewmodels.ConfigurationsViewModel
 import com.ajcm.bible.ui.navigation.DashboardActions
 import com.ajcm.bible.ui.reading.viewmodel.ReadingViewModel
 import com.ajcm.design.common.bounceClick
@@ -59,6 +60,7 @@ sealed class ReadingStep(val step: Int) {
     ) : ReadingStep(3)
 }
 
+@Immutable
 data class BookToRead(
     val id: String = "",
     val title: String = "",
@@ -67,7 +69,12 @@ data class BookToRead(
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
-fun ReadingScreen(viewModel: ReadingViewModel, arguments: Bundle?, actions: DashboardActions) {
+fun ReadingScreen(
+    readingViewModel: ReadingViewModel,
+    configurationViewModel: ConfigurationsViewModel,
+    arguments: Bundle?,
+    actions: DashboardActions
+) {
     val bookToRead by remember {
         mutableStateOf(
             BookToRead(
@@ -124,7 +131,7 @@ fun ReadingScreen(viewModel: ReadingViewModel, arguments: Bundle?, actions: Dash
             when (screen) {
                 is ReadingStep.Books -> {
                     subTitle = bookToRead.subTitle
-                    BookListScreen(screen.bibleId, viewModel) { bookId, bookName ->
+                    BookListScreen(screen.bibleId, readingViewModel) { bookId, bookName ->
                         step = ReadingStep.Chapters(screen.bibleId, bookId, bookName)
                     }
                 }
@@ -133,7 +140,7 @@ fun ReadingScreen(viewModel: ReadingViewModel, arguments: Bundle?, actions: Dash
                     ChaptersListScreen(
                         bibleId = screen.bibleId,
                         bookId = screen.bookId,
-                        viewModel
+                        readingViewModel
                     ) { chapterId, chapterNumber ->
                         step = ReadingStep.Verses(
                             screen.bibleId,
@@ -149,7 +156,7 @@ fun ReadingScreen(viewModel: ReadingViewModel, arguments: Bundle?, actions: Dash
                     VersesListScreen(
                         bibleId = screen.bibleId,
                         chapterId = screen.chapterId,
-                        viewModel
+                        readingViewModel
                     )
                 }
             }

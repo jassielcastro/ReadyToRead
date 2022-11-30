@@ -1,4 +1,4 @@
-rootProject.name = "Bible"
+rootProject.name = "Ready to read"
 include ':app'
 include ':domain'
 include ':data'

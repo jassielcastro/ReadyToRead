@@ -1,5 +1,6 @@
 package com.ajcm.bible.ui.dashboard.more
 
+import android.os.Bundle
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -15,16 +16,34 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.core.os.bundleOf
 import com.ajcm.bible.R
 import com.ajcm.bible.ui.components.AnimatedSurface
+import com.ajcm.bible.ui.dashboard.configuration.TextResizeScreen
+import com.ajcm.bible.ui.dashboard.viewmodels.ConfigurationsViewModel
 import com.ajcm.design.common.bounceClick
+import com.ajcm.design.component.BottomSheetContainer
 import com.ajcm.design.component.LargeSpacer
 import com.ajcm.design.component.NormalSpacer
 import com.ajcm.design.screen.BibleScreen
 import com.ajcm.design.theme.MaterialBibleTheme
 
 @Composable
-fun MoreMenuScreen() {
+fun MoreMenuScreen(
+    configurationsViewModel: ConfigurationsViewModel
+) {
+    BottomSheetContainer(
+        sheetContent = {
+           TextResizeScreen(configurationsViewModel)
+        },
+        content = { showSheet ->
+            MoreMenuScreen(showSheet)
+        }
+    )
+}
+
+@Composable
+fun MoreMenuScreen(showBibleSheet: (Bundle) -> Unit = {}) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -64,7 +83,7 @@ fun MoreMenuScreen() {
                         .padding(start = MaterialBibleTheme.dimensions.normal)
                 )
 
-                ChangeAppFontSize()
+                ChangeAppFontSize(showBibleSheet)
 
                 NormalSpacer()
 
@@ -86,7 +105,9 @@ fun MoreMenuScreen() {
 }
 
 @Composable
-fun ChangeAppFontSize() {
+fun ChangeAppFontSize(
+    showBibleSheet: (Bundle) -> Unit = {}
+) {
     Surface(
         color = MaterialBibleTheme.colors.gray,
         shape = MaterialBibleTheme.shapes.shapeMedium,
@@ -95,7 +116,7 @@ fun ChangeAppFontSize() {
             .fillMaxWidth()
             .bounceClick(
                 onCLicked = {
-
+                    showBibleSheet(bundleOf())
                 }
             )
             .clip(MaterialBibleTheme.shapes.shapeMedium)
