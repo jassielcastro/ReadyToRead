@@ -1,7 +1,5 @@
 package com.ajcm.bible.ui.dashboard.configuration
 
-import androidx.compose.animation.AnimatedContent
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Slider
@@ -21,13 +19,38 @@ import com.ajcm.design.component.NormalSpacer
 import com.ajcm.design.screen.BibleScreen
 import com.ajcm.design.theme.MaterialBibleTheme
 
-@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun TextResizeScreen(
     configurationsViewModel: ConfigurationsViewModel
 ) {
 
-    var onChange by remember { mutableStateOf(false) }
+    val configurations by configurationsViewModel.configurations.collectAsState()
+
+    LaunchedEffect(Unit) {
+        configurationsViewModel.getConfigurations()
+    }
+
+    println("<top>.TextResizeScreen ---> $configurations")
+
+    TextResizeScreen(
+        textSizeMultiplier = configurations?.textSizeMultiplier?.toFloat() ?: 1f,
+        onSliderFinished = {
+            configurationsViewModel.updateTextSizeMultiplier(it)
+        }
+    )
+}
+
+@Composable
+fun TextResizeScreen(
+    textSizeMultiplier: Float,
+    onSliderFinished: (Int) -> Unit
+) {
+
+    var internalMultiplier by remember { mutableStateOf(textSizeMultiplier) }
+
+    LaunchedEffect(textSizeMultiplier) {
+        internalMultiplier = textSizeMultiplier
+    }
 
     Column(
         modifier = Modifier
@@ -52,9 +75,6 @@ fun TextResizeScreen(
                 .wrapContentWidth()
                 .wrapContentHeight()
         ) {
-
-            var sliderPosition by remember { mutableStateOf(0f) }
-
             Image(
                 imageVector = ImageVector.vectorResource(id = R.drawable.ic_format_size),
                 contentDescription = "",
@@ -63,28 +83,27 @@ fun TextResizeScreen(
                     .weight(0.2f)
                     .bounceClick(
                         onCLicked = {
-                            if (sliderPosition > 0f) {
-                                sliderPosition--
+                            if (internalMultiplier > 1f) {
+                                onSliderFinished((internalMultiplier - 1).toInt())
                             }
                         }
                     )
             )
 
             Slider(
-                value = sliderPosition,
+                value = internalMultiplier,
                 onValueChange = {
-                    onChange = true
-                    sliderPosition = it
+                    internalMultiplier = it
                 },
-                valueRange = 0f..5f,
-                steps = 4,
+                valueRange = 1f..5f,
+                steps = 3,
                 colors = SliderDefaults.colors(
                     thumbColor = MaterialBibleTheme.colors.green,
                     activeTrackColor = MaterialBibleTheme.colors.greenLight,
                     activeTickColor = MaterialBibleTheme.colors.greenLight,
                 ),
                 onValueChangeFinished = {
-                    onChange = false
+                    onSliderFinished(internalMultiplier.toInt())
                 },
                 modifier = Modifier
                     .weight(0.6f)
@@ -98,25 +117,15 @@ fun TextResizeScreen(
                     .weight(0.2f)
                     .bounceClick(
                         onCLicked = {
-                            if (sliderPosition < 5f) {
-                                sliderPosition++
+                            if (internalMultiplier < 5f) {
+                                onSliderFinished((internalMultiplier + 1).toInt())
                             }
                         }
                     )
             )
         }
 
-        AnimatedContent(onChange) { state ->
-            Text(
-                text = if (state) "Guardando..." else "Listo!",
-                textAlign = TextAlign.Center,
-                style = MaterialBibleTheme.typography.subCaption2,
-                color = MaterialBibleTheme.colors.black,
-                modifier = Modifier
-                    .padding(MaterialBibleTheme.dimensions.normal)
-                    .fillMaxWidth()
-            )
-        }
+        NormalSpacer()
     }
 }
 
@@ -124,6 +133,9 @@ fun TextResizeScreen(
 @Composable
 fun PreviewComponent() {
     BibleScreen {
-        TextResizeScreen(ConfigurationsViewModel())
+        TextResizeScreen(
+            textSizeMultiplier = 2f,
+            onSliderFinished = {}
+        )
     }
 }
