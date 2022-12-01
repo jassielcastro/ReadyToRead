@@ -89,8 +89,7 @@ fun LoadBiblesShimmer(modifier: Modifier) {
                         )
                         .fillMaxWidth()
                         .height(MaterialBibleTheme.dimensions.cardInfo)
-                        .clip(MaterialBibleTheme.shapes.shapeMedium)
-                        .background(brush)
+                        .background(brush, MaterialBibleTheme.shapes.shapeMedium)
                 )
 
                 NormalSpacer()
@@ -113,8 +112,7 @@ fun LoadBibleDetailShimmer() {
                 Spacer(
                     modifier = Modifier
                         .size(MaterialBibleTheme.dimensions.cardInfo)
-                        .background(brush)
-                        .clip(MaterialBibleTheme.shapes.shapeNormal)
+                        .background(brush, MaterialBibleTheme.shapes.shapeMedium)
                 )
 
                 SmallSpacer()
@@ -130,8 +128,7 @@ fun LoadBibleDetailShimmer() {
                             .padding(horizontal = MaterialBibleTheme.dimensions.medium)
                             .fillMaxWidth()
                             .height(MaterialBibleTheme.dimensions.large)
-                            .background(brush)
-                            .clip(MaterialBibleTheme.shapes.shapeNormal)
+                            .background(brush, MaterialBibleTheme.shapes.shapeMedium)
                     )
 
                     MediumSpacer()
@@ -141,8 +138,7 @@ fun LoadBibleDetailShimmer() {
                             .padding(horizontal = MaterialBibleTheme.dimensions.medium)
                             .fillMaxWidth()
                             .height(MaterialBibleTheme.dimensions.large)
-                            .background(brush)
-                            .clip(MaterialBibleTheme.shapes.shapeNormal)
+                            .background(brush, MaterialBibleTheme.shapes.shapeMedium)
                     )
 
                 }
@@ -155,8 +151,7 @@ fun LoadBibleDetailShimmer() {
                     .padding(horizontal = MaterialBibleTheme.dimensions.normal)
                     .fillMaxWidth()
                     .height(MaterialBibleTheme.dimensions.large)
-                    .background(brush)
-                    .clip(MaterialBibleTheme.shapes.shapeNormal)
+                    .background(brush, MaterialBibleTheme.shapes.shapeMedium)
             )
 
             MediumSpacer()
@@ -166,8 +161,7 @@ fun LoadBibleDetailShimmer() {
                     .padding(horizontal = MaterialBibleTheme.dimensions.normal)
                     .fillMaxWidth()
                     .height(MaterialBibleTheme.dimensions.large)
-                    .background(brush)
-                    .clip(MaterialBibleTheme.shapes.shapeNormal)
+                    .background(brush, MaterialBibleTheme.shapes.shapeMedium)
             )
 
             NormalSpacer()
@@ -193,8 +187,7 @@ fun LoadBooksShimmer() {
                         .padding(bottom = MaterialBibleTheme.dimensions.normal)
                         .fillMaxWidth(0.5f)
                         .height(MaterialBibleTheme.dimensions.xlarge)
-                        .background(brush)
-                        .clip(MaterialBibleTheme.shapes.shapeLarge)
+                        .background(brush, MaterialBibleTheme.shapes.shapeMedium)
                 )
 
                 Spacer(
@@ -202,8 +195,7 @@ fun LoadBooksShimmer() {
                         .padding(bottom = MaterialBibleTheme.dimensions.normal)
                         .fillMaxWidth(0.3f)
                         .height(MaterialBibleTheme.dimensions.xlarge)
-                        .background(brush)
-                        .clip(MaterialBibleTheme.shapes.shapeLarge)
+                        .background(brush, MaterialBibleTheme.shapes.shapeMedium)
                 )
 
                 Spacer(
@@ -211,8 +203,7 @@ fun LoadBooksShimmer() {
                         .padding(bottom = MaterialBibleTheme.dimensions.normal)
                         .fillMaxWidth(0.7f)
                         .height(MaterialBibleTheme.dimensions.xlarge)
-                        .background(brush)
-                        .clip(MaterialBibleTheme.shapes.shapeLarge)
+                        .background(brush, MaterialBibleTheme.shapes.shapeMedium)
                 )
             }
 
@@ -241,8 +232,7 @@ fun LoadChapterShimmer() {
                             bottom = MaterialBibleTheme.dimensions.normal
                         )
                         .size(MaterialBibleTheme.dimensions.xxxlarge)
-                        .background(brush)
-                        .clip(MaterialBibleTheme.shapes.shapeLarge)
+                        .background(brush, MaterialBibleTheme.shapes.shapeMedium)
                 )
             }
         }

@@ -13,11 +13,13 @@ import com.ajcm.chapter.database.ChapterDAO
 import com.ajcm.chapter.database.converters.NextChapterConverter
 import com.ajcm.chapter.database.converters.PreviousChapterConverter
 import com.ajcm.chapter.database.model.ChapterDTO
+import com.ajcm.configuration.database.ConfigurationDAO
+import com.ajcm.configuration.database.model.ConfigurationDTO
 import com.ajcm.verse.database.VerseDAO
 import com.ajcm.verse.database.model.VerseDTO
 
 @Database(
-    entities = [BibleDTO::class, BookDTO::class, ChapterDTO::class, VerseDTO::class],
+    entities = [BibleDTO::class, BookDTO::class, ChapterDTO::class, VerseDTO::class, ConfigurationDTO::class],
     version = 1,
     exportSchema = false
 )
@@ -36,5 +38,7 @@ abstract class BibleDataBase : RoomDatabase() {
     abstract fun chapterDao(): ChapterDAO
 
     abstract fun verseDao(): VerseDAO
+
+    abstract fun configurationDao(): ConfigurationDAO
 
 }

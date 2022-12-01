@@ -6,6 +6,7 @@ import com.ajcm.bible.database.BibleDataBase
 import com.ajcm.bibles.database.BibleDAO
 import com.ajcm.book.database.BookDAO
 import com.ajcm.chapter.database.ChapterDAO
+import com.ajcm.configuration.database.ConfigurationDAO
 import com.ajcm.verse.database.VerseDAO
 import dagger.Module
 import dagger.Provides
@@ -44,6 +45,11 @@ class DataBaseModule {
     @Provides
     fun provideVerseDao(database: BibleDataBase): VerseDAO {
         return database.verseDao()
+    }
+
+    @Provides
+    fun provideConfigurationDao(database: BibleDataBase): ConfigurationDAO {
+        return database.configurationDao()
     }
 
 }

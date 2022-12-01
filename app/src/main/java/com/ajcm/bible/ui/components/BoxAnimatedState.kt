@@ -41,7 +41,7 @@ fun AnimatedSurface(
             .fillMaxWidth()
             .heigWrapContentIfApply(transitionData)
             .bounceClick(
-                onCLicked = {
+                onClicked = {
                     surfaceState =
                         if (surfaceState == BoxState.Collapsed) BoxState.Expanded else BoxState.Collapsed
                 }

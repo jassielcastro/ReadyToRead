@@ -19,7 +19,7 @@ fun SmallRoundedItem(title: String, onClick: (String) -> Unit = {}) {
         modifier = Modifier
             .clip(MaterialBibleTheme.shapes.shapeSmall)
             .bounceClick(
-                onCLicked = {
+                onClicked = {
                     onClick(title)
                 }
             )

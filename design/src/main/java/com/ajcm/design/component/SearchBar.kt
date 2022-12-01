@@ -55,7 +55,7 @@ fun SearchBar(
                         top = MaterialBibleTheme.dimensions.normal
                     )
                     .size(MaterialBibleTheme.dimensions.large)
-                    .bounceClick(onCLicked = onBack)
+                    .bounceClick(onClicked = onBack)
                     .clip(MaterialBibleTheme.shapes.shapeLarge)
             )
             TextField(

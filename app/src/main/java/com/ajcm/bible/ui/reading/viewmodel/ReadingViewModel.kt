@@ -1,12 +1,7 @@
 package com.ajcm.bible.ui.reading.viewmodel
 
-import android.os.Bundle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.ajcm.bible.ui.reading.BIBLE_ID_ARG_KEY
-import com.ajcm.bible.ui.reading.BIBLE_SUBTITLE_ARG_KEY
-import com.ajcm.bible.ui.reading.BIBLE_TITLE_ARG_KEY
-import com.ajcm.bible.ui.reading.BookToRead
 import com.ajcm.domain.entity.Book
 import com.ajcm.domain.entity.Chapter
 import com.ajcm.domain.usecase.book.BooksUc

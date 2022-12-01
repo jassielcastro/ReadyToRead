@@ -39,6 +39,7 @@ dependencies {
     implementation project(":feature_book")
     implementation project(":feature_chapter")
     implementation project(":feature_verse")
+    implementation project(":feature_configuration")
 
     implementation "androidx.appcompat:appcompat:$appcompatVersion"
     implementation "androidx.activity:activity-ktx:$activityKtxVersion"

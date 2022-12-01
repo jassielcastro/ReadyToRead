@@ -1,0 +1,42 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+}
+
+android {
+    buildFeatures {
+        compose true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion composeVersion
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+        //useIR = true
+    }
+}
+
+dependencies {
+    implementation project(":design")
+    implementation project(":data")
+    implementation project(":domain")
+    implementation project(":common")
+
+    //ROOM
+    implementation "androidx.room:room-runtime:$roomVersion"
+    kapt "androidx.room:room-compiler:$roomVersion"
+    annotationProcessor "androidx.room:room-compiler:$roomVersion"
+    implementation "androidx.room:room-ktx:$roomVersion"
+
+    //Dagger hilt
+    implementation "com.google.dagger:hilt-android:$hiltVersion"
+    kapt "com.google.dagger:hilt-android-compiler:$hiltVersion"
+
+    //Retrofit
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    implementation "com.google.code.gson:gson:$gsonVersion"
+}

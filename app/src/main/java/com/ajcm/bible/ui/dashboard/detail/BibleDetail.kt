@@ -108,7 +108,7 @@ fun BibleDetailContent(
                         top.linkTo(parent.top)
                         end.linkTo(parent.end)
                     }
-                    .bounceClick(onCLicked = { actions.onBack() })
+                    .bounceClick(onClicked = { actions.onBack() })
                     .padding(MaterialBibleTheme.dimensions.small)
             )
 
@@ -125,7 +125,7 @@ fun BibleDetailContent(
                         end.linkTo(parent.end)
                     }
                     .bounceClick(
-                        onCLicked = {
+                        onClicked = {
                             viewModel.toggleFavorite(bible.id)
                         }
                     )

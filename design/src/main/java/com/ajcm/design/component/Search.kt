@@ -1,7 +1,6 @@
 package com.ajcm.design.component
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -31,7 +30,7 @@ fun SearchComponent(modifier: Modifier = Modifier, onClick: () -> Unit) {
             .fillMaxWidth()
             .wrapContentHeight()
             .then(modifier)
-            .bounceClick(onCLicked = onClick)
+            .bounceClick(onClicked = onClick)
             .clip(MaterialBibleTheme.shapes.shapeNormal)
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
