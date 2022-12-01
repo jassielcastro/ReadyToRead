@@ -2,6 +2,8 @@ package com.ajcm.bible.ui.dashboard
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.FastOutLinearInEasing
+import androidx.compose.animation.core.tween
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.background
@@ -25,10 +27,18 @@ fun BottomNavigationBar(navController: NavController, showBottomBar: Boolean) {
     AnimatedVisibility(
         showBottomBar,
         enter = slideInVertically(initialOffsetY = { it }),
-        exit = slideOutVertically(targetOffsetY = { it })
+        exit = slideOutVertically(
+            targetOffsetY = { it },
+            animationSpec = tween(
+                durationMillis = 300,
+                delayMillis = 150,
+                easing = FastOutLinearInEasing
+            )
+        )
     ) {
         BottomNavigation(
-            backgroundColor = MaterialBibleTheme.colors.white
+            backgroundColor = MaterialBibleTheme.colors.white,
+            elevation = MaterialBibleTheme.dimensions.elevationSmall
         ) {
             val navBackStackEntry by navController.currentBackStackEntryAsState()
             val currentRoute = navBackStackEntry?.destination?.route?.cleanRoute()

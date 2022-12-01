@@ -44,7 +44,8 @@ import com.ajcm.design.screen.BibleScreen
 import com.ajcm.design.theme.MaterialBibleTheme
 import com.ajcm.domain.entity.Book
 import com.ajcm.domain.entity.Chapter
-import com.ajcm.domain.entity.Configuration
+
+const val SHOW_BOTTOM_SHEET_TEXT = "show_text"
 
 sealed class ReadingStep(val step: Int) {
     data class Books(val bibleId: String) : ReadingStep(1)
@@ -79,8 +80,17 @@ fun ReadingScreen(
     actions: DashboardActions
 ) {
     BottomSheetContainer(
-        sheetContent = {
-            TextResizeScreen(configurationViewModel)
+        sheetContent = { bundle ->
+            if (bundle.getBoolean(SHOW_BOTTOM_SHEET_TEXT, false)) {
+                TextResizeScreen(configurationViewModel)
+            } else {
+                Spacer(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(MaterialBibleTheme.dimensions.xsmall)
+                        .background(MaterialBibleTheme.colors.white)
+                )
+            }
         },
         content = { showSheet ->
             ReadingScreen(
@@ -272,7 +282,13 @@ fun BibleDetailsAppBar(
                             top = MaterialBibleTheme.dimensions.normal
                         )
                         .size(MaterialBibleTheme.dimensions.large)
-                        .bounceClick(onClicked = { showSheet(bundleOf()) })
+                        .bounceClick(onClicked = {
+                            showSheet(
+                                bundleOf(
+                                    SHOW_BOTTOM_SHEET_TEXT to true
+                                )
+                            )
+                        })
                         .clip(MaterialBibleTheme.shapes.shapeLarge)
                 )
             }

@@ -181,7 +181,7 @@ fun LoadBooksShimmer() {
         ) {
             MediumSpacer()
 
-            repeat(4) {
+            repeat(6) {
                 Spacer(
                     modifier = Modifier
                         .padding(bottom = MaterialBibleTheme.dimensions.normal)
