@@ -30,8 +30,6 @@ fun TextResizeScreen(
         configurationsViewModel.getConfigurations()
     }
 
-    println("<top>.TextResizeScreen ---> $configurations")
-
     TextResizeScreen(
         textSizeMultiplier = configurations?.textSizeMultiplier?.toFloat() ?: 1f,
         onSliderFinished = {
@@ -82,7 +80,7 @@ fun TextResizeScreen(
                     .size(MaterialBibleTheme.dimensions.normal)
                     .weight(0.2f)
                     .bounceClick(
-                        onCLicked = {
+                        onClicked = {
                             if (internalMultiplier > 1f) {
                                 onSliderFinished((internalMultiplier - 1).toInt())
                             }
@@ -116,7 +114,7 @@ fun TextResizeScreen(
                     .size(MaterialBibleTheme.dimensions.xlarge)
                     .weight(0.2f)
                     .bounceClick(
-                        onCLicked = {
+                        onClicked = {
                             if (internalMultiplier < 5f) {
                                 onSliderFinished((internalMultiplier + 1).toInt())
                             }

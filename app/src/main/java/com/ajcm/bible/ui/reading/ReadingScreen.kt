@@ -29,19 +29,22 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
+import androidx.core.os.bundleOf
+import androidx.navigation.compose.rememberNavController
 import com.ajcm.bible.R
+import com.ajcm.bible.ui.dashboard.configuration.TextResizeScreen
 import com.ajcm.bible.ui.dashboard.viewmodels.ConfigurationsViewModel
 import com.ajcm.bible.ui.navigation.DashboardActions
 import com.ajcm.bible.ui.reading.viewmodel.ReadingViewModel
 import com.ajcm.design.common.bounceClick
-import com.ajcm.design.component.LoadBooksShimmer
-import com.ajcm.design.component.LoadChapterShimmer
-import com.ajcm.design.component.SmallSpacer
-import com.ajcm.design.component.normalSpace
+import com.ajcm.design.component.*
+import com.ajcm.design.screen.BibleScreen
 import com.ajcm.design.theme.MaterialBibleTheme
 import com.ajcm.domain.entity.Book
 import com.ajcm.domain.entity.Chapter
+import com.ajcm.domain.entity.Configuration
 
 sealed class ReadingStep(val step: Int) {
     data class Books(val bibleId: String) : ReadingStep(1)
@@ -75,6 +78,32 @@ fun ReadingScreen(
     arguments: Bundle?,
     actions: DashboardActions
 ) {
+    BottomSheetContainer(
+        sheetContent = {
+            TextResizeScreen(configurationViewModel)
+        },
+        content = { showSheet ->
+            ReadingScreen(
+                arguments,
+                actions,
+                configurationViewModel,
+                readingViewModel,
+                showSheet
+            )
+        }
+    )
+}
+
+@OptIn(ExperimentalAnimationApi::class)
+@Composable
+fun ReadingScreen(
+    arguments: Bundle?,
+    actions: DashboardActions,
+    configurationViewModel: ConfigurationsViewModel,
+    readingViewModel: ReadingViewModel,
+    showSheet: (Bundle) -> Unit = {}
+) {
+
     val bookToRead by remember {
         mutableStateOf(
             BookToRead(
@@ -104,7 +133,13 @@ fun ReadingScreen(
             .fillMaxSize()
             .background(MaterialBibleTheme.colors.white)
     ) {
-        BibleDetailsAppBar(title = title, subTitle = subTitle, actions = actions)
+        BibleDetailsAppBar(
+            title = title,
+            subTitle = subTitle,
+            actions = actions,
+            step is ReadingStep.Verses,
+            showSheet
+        )
 
         AnimatedContent(
             targetState = step,
@@ -156,7 +191,8 @@ fun ReadingScreen(
                     VersesListScreen(
                         bibleId = screen.bibleId,
                         chapterId = screen.chapterId,
-                        readingViewModel
+                        readingViewModel,
+                        configurationViewModel
                     )
                 }
             }
@@ -166,7 +202,13 @@ fun ReadingScreen(
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
-fun BibleDetailsAppBar(title: String, subTitle: String, actions: DashboardActions) {
+fun BibleDetailsAppBar(
+    title: String,
+    subTitle: String,
+    actions: DashboardActions,
+    showConfigurations: Boolean,
+    showSheet: (Bundle) -> Unit = {}
+) {
     Surface(
         color = MaterialBibleTheme.colors.white,
         elevation = MaterialBibleTheme.dimensions.elevationSmall,
@@ -192,7 +234,7 @@ fun BibleDetailsAppBar(title: String, subTitle: String, actions: DashboardAction
                         top = MaterialBibleTheme.dimensions.normal
                     )
                     .size(MaterialBibleTheme.dimensions.large)
-                    .bounceClick(onCLicked = { actions.onBack() })
+                    .bounceClick(onClicked = { actions.onBack() })
                     .clip(MaterialBibleTheme.shapes.shapeLarge)
             )
 
@@ -200,7 +242,7 @@ fun BibleDetailsAppBar(title: String, subTitle: String, actions: DashboardAction
                 modifier = Modifier
                     .padding(vertical = MaterialBibleTheme.dimensions.medium)
                     .padding(horizontal = MaterialBibleTheme.dimensions.large)
-                    .fillMaxWidth()
+                    .fillMaxWidth(0.85f)
             ) {
                 Text(
                     text = title,
@@ -217,6 +259,22 @@ fun BibleDetailsAppBar(title: String, subTitle: String, actions: DashboardAction
                         maxLines = 1
                     )
                 }
+            }
+
+            AnimatedVisibility(showConfigurations) {
+                Icon(
+                    imageVector = ImageVector.vectorResource(id = R.drawable.ic_format_size),
+                    contentDescription = "",
+                    modifier = Modifier
+                        .padding(
+                            end = MaterialBibleTheme.dimensions.normal,
+                            bottom = MaterialBibleTheme.dimensions.normal,
+                            top = MaterialBibleTheme.dimensions.normal
+                        )
+                        .size(MaterialBibleTheme.dimensions.large)
+                        .bounceClick(onClicked = { showSheet(bundleOf()) })
+                        .clip(MaterialBibleTheme.shapes.shapeLarge)
+                )
             }
         }
     }
@@ -262,7 +320,8 @@ fun BookListScreen(books: List<Book>, showChapters: (bookId: String, bookName: S
                 style = MaterialBibleTheme.typography.caption,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .bounceClick(onCLicked = { showChapters(book.id, book.name) })
+                    .clip(MaterialBibleTheme.shapes.shapeMedium)
+                    .bounceClick(onClicked = { showChapters(book.id, book.name) })
                     .padding(MaterialBibleTheme.dimensions.normal)
             )
         }
@@ -299,42 +358,56 @@ fun ChapterListScreen(
     chapters: List<Chapter>,
     showVerses: (chapterId: String, chapterNumber: String) -> Unit
 ) {
-    LazyVerticalGrid(
-        columns = GridCells.Fixed(5),
-        verticalArrangement = Arrangement.SpaceBetween,
-        horizontalArrangement = Arrangement.Center,
+    Box(
         modifier = Modifier
             .padding(top = MaterialBibleTheme.dimensions.xsmall)
+            .fillMaxSize()
             .background(MaterialBibleTheme.colors.white)
     ) {
-        items(chapters) { chapter ->
-            Text(
-                text = chapter.number,
-                style = MaterialBibleTheme.typography.caption,
-                textAlign = TextAlign.Center,
-                modifier = Modifier
-                    .bounceClick(onCLicked = { showVerses(chapter.id, chapter.number) })
-                    .clip(MaterialBibleTheme.shapes.shapeXLarge)
-                    .padding(
-                        horizontal = MaterialBibleTheme.dimensions.medium,
-                        vertical = MaterialBibleTheme.dimensions.xxlarge
-                    )
-            )
+        LazyVerticalGrid(
+            columns = GridCells.Fixed(5),
+            verticalArrangement = Arrangement.SpaceBetween,
+            horizontalArrangement = Arrangement.Center,
+            modifier = Modifier
+                .fillMaxWidth()
+        ) {
+            items(chapters) { chapter ->
+                Text(
+                    text = chapter.number,
+                    style = MaterialBibleTheme.typography.caption,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier
+                        .clip(MaterialBibleTheme.shapes.shapeMedium)
+                        .bounceClick(onClicked = { showVerses(chapter.id, chapter.number) })
+                        .padding(
+                            horizontal = MaterialBibleTheme.dimensions.medium,
+                            vertical = MaterialBibleTheme.dimensions.xxlarge
+                        )
+                )
+            }
         }
     }
 }
 
 @Composable
-fun VersesListScreen(bibleId: String, chapterId: String, viewModel: ReadingViewModel) {
+fun VersesListScreen(
+    bibleId: String,
+    chapterId: String,
+    viewModel: ReadingViewModel,
+    configurationViewModel: ConfigurationsViewModel
+) {
     val chapter by viewModel.chapter.collectAsState()
+    val configurations by configurationViewModel.configurations.collectAsState()
 
     LaunchedEffect(chapterId) {
         viewModel.downloadChapter(bibleId, chapterId)
+        configurationViewModel.getConfigurations()
     }
 
     LazyColumn(
         modifier = Modifier
             .padding(top = MaterialBibleTheme.dimensions.xsmall)
+            .fillMaxSize()
             .background(MaterialBibleTheme.colors.white)
     ) {
 
@@ -342,10 +415,10 @@ fun VersesListScreen(bibleId: String, chapterId: String, viewModel: ReadingViewM
 
         itemsIndexed(chapter.getVerses()) { index: Int, verse: String ->
             if (verse.isNotEmpty()) {
-                VerseText(verse, index + 1)
+                VerseText(verse, index + 1, configurations?.textSizeMultiplier ?: 3)
             }
 
-            SmallSpacer()
+            MediumSpacer()
         }
 
         normalSpace()
@@ -353,10 +426,18 @@ fun VersesListScreen(bibleId: String, chapterId: String, viewModel: ReadingViewM
 }
 
 @Composable
-fun VerseText(verse: String, number: Int) {
+fun VerseText(verse: String, number: Int, textSizeMultiplier: Int) {
     val textColor = MaterialBibleTheme.colors.black
     val fontTitle = MaterialBibleTheme.typography.h1.fontFamily
     val font = MaterialBibleTheme.typography.caption.fontFamily
+
+    var normalFontSize by remember { mutableStateOf((8 * textSizeMultiplier).sp) }
+    var titleFontSize by remember { mutableStateOf((16 * textSizeMultiplier).sp) }
+
+    LaunchedEffect(textSizeMultiplier) {
+        normalFontSize = (8 * textSizeMultiplier).sp
+        titleFontSize = (16 * textSizeMultiplier).sp
+    }
 
     Text(
         buildAnnotatedString {
@@ -364,7 +445,7 @@ fun VerseText(verse: String, number: Int) {
                 withStyle(
                     style = SpanStyle(
                         color = textColor,
-                        fontSize = 14.sp,
+                        fontSize = normalFontSize,
                         fontFamily = font,
                         fontWeight = FontWeight.Bold
                     )
@@ -382,7 +463,7 @@ fun VerseText(verse: String, number: Int) {
                     withStyle(
                         style = SpanStyle(
                             color = textColor,
-                            fontSize = 32.sp,
+                            fontSize = titleFontSize,
                             fontFamily = fontTitle,
                             fontWeight = FontWeight.Bold,
                         )
@@ -392,7 +473,7 @@ fun VerseText(verse: String, number: Int) {
                     withStyle(
                         style = SpanStyle(
                             color = textColor,
-                            fontSize = 14.sp,
+                            fontSize = normalFontSize,
                             fontFamily = font
                         )
                     ) {
@@ -402,7 +483,7 @@ fun VerseText(verse: String, number: Int) {
                     withStyle(
                         style = SpanStyle(
                             color = textColor,
-                            fontSize = 14.sp,
+                            fontSize = normalFontSize,
                             fontFamily = font
                         )
                     ) {
@@ -412,7 +493,7 @@ fun VerseText(verse: String, number: Int) {
                     withStyle(
                         style = SpanStyle(
                             color = textColor,
-                            fontSize = 14.sp,
+                            fontSize = normalFontSize,
                             fontFamily = font
                         )
                     ) {
@@ -427,3 +508,21 @@ fun VerseText(verse: String, number: Int) {
             )
     )
 }
+
+@Preview(showSystemUi = true)
+@Composable
+fun PreviewComponent() {
+    BibleScreen {
+        Column {
+            BibleDetailsAppBar(
+                title = "Biblia",
+                subTitle = "Subtitle",
+                actions = DashboardActions(rememberNavController()),
+                showConfigurations = true
+            )
+
+            LoadChapterShimmer()
+        }
+    }
+}
+

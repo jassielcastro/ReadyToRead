@@ -13,6 +13,6 @@ data class ConfigurationDTO(
 ) {
     companion object {
         const val TABLE_NAME = "Configuration"
-        const val DEFAULT = 3
+        const val DEFAULT = 2
     }
 }

@@ -37,7 +37,7 @@ fun CardBookItem(
             .padding(bottom = MaterialBibleTheme.dimensions.normal)
             .padding(horizontal = MaterialBibleTheme.dimensions.normal)
             .bounceClick(
-                onCLicked = {
+                onClicked = {
                     onCardClicked(bible)
                 },
                 onLongClick = {

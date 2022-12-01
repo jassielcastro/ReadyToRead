@@ -43,7 +43,7 @@ fun MoreMenuScreen(
 }
 
 @Composable
-fun MoreMenuScreen(showBibleSheet: (Bundle) -> Unit = {}) {
+fun MoreMenuScreen(showSheet: (Bundle) -> Unit = {}) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -83,7 +83,7 @@ fun MoreMenuScreen(showBibleSheet: (Bundle) -> Unit = {}) {
                         .padding(start = MaterialBibleTheme.dimensions.normal)
                 )
 
-                ChangeAppFontSize(showBibleSheet)
+                ChangeAppFontSize(showSheet)
 
                 NormalSpacer()
 
@@ -115,7 +115,7 @@ fun ChangeAppFontSize(
             .padding(horizontal = MaterialBibleTheme.dimensions.normal)
             .fillMaxWidth()
             .bounceClick(
-                onCLicked = {
+                onClicked = {
                     showBibleSheet(bundleOf())
                 }
             )

@@ -105,7 +105,7 @@ fun CardInfoSection(modifier: Modifier, onClick: () -> Unit) {
                         bottom.linkTo(imageBook.bottom)
                         end.linkTo(parent.end)
                     }
-                    .bounceClick(onCLicked = onClick)
+                    .bounceClick(onClicked = onClick)
                     .clip(MaterialBibleTheme.shapes.shapeNormal)
                     .background(MaterialBibleTheme.colors.white)
                     .padding(

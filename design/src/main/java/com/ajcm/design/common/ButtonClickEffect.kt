@@ -20,7 +20,7 @@ import com.ajcm.design.theme.MaterialBibleTheme
 
 @OptIn(ExperimentalFoundationApi::class)
 fun Modifier.bounceClick(
-    onCLicked: () -> Unit,
+    onClicked: () -> Unit,
     onLongClick: () -> Unit = {}
 ) = composed {
     var buttonState by remember { mutableStateOf(false) }
@@ -41,7 +41,7 @@ fun Modifier.bounceClick(
             indication = rememberRipple(
                 color = MaterialBibleTheme.colors.green
             ),
-            onClick = { onCLicked() },
+            onClick = { onClicked() },
             onLongClick = { onLongClick() }
         )
         .pointerInput(buttonState) {

@@ -20,7 +20,7 @@ fun FullRoundedItem(modifier: Modifier, title: String, onClick: () -> Unit = {})
         modifier = Modifier
             .fillMaxWidth()
             .clip(MaterialBibleTheme.shapes.shapeSmall)
-            .bounceClick(onCLicked = onClick)
+            .bounceClick(onClicked = onClick)
             .then(modifier)
     ) {
         Text(
