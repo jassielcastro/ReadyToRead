@@ -1,6 +1,7 @@
 package com.ajcm.bible.ui.dashboard.favorite
 
 import android.os.Bundle
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.wrapContentHeight
@@ -51,57 +52,66 @@ fun FavoriteListScreen(
     actions: DashboardActions,
     showBibleSheet: (Bundle) -> Unit
 ) {
-    val foundBibles by viewModel.favoriteBibles.collectAsState()
-
-    LaunchedEffect(Unit) {
-        viewModel.downloadFavorites()
-    }
-
-    ConstraintLayout(
+    Box(
         modifier = Modifier
             .fillMaxSize()
     ) {
-        val (toolbar, list) = createRefs()
+        val foundBibles by viewModel.favoriteBibles.collectAsState()
 
-        SearchBar(
-            label = stringResource(id = R.string.favorites_title),
-            readOnly = true,
-            onBack = {
-                actions.upPress()
-            },
+        LaunchedEffect(Unit) {
+            viewModel.downloadFavorites()
+        }
+
+        ConstraintLayout(
             modifier = Modifier
-                .fillMaxWidth()
-                .wrapContentHeight()
-                .constrainAs(toolbar) {
-                    top.linkTo(parent.top)
-                    width = Dimension.fillToConstraints
-                }
-        )
+                .fillMaxSize()
+        ) {
+            val (toolbar, list) = createRefs()
 
-        if (foundBibles.isNotEmpty()) {
-            ShowBibles(
+            SearchBar(
+                label = stringResource(id = R.string.favorites_title),
+                readOnly = true,
+                onBack = {
+                    actions.upPress()
+                },
                 modifier = Modifier
-                    .constrainAs(list) {
-                        top.linkTo(toolbar.bottom)
-                    },
-                actions = actions,
-                bibles = foundBibles,
-                showBibleSheet = showBibleSheet
+                    .fillMaxWidth()
+                    .wrapContentHeight()
+                    .constrainAs(toolbar) {
+                        top.linkTo(parent.top)
+                        width = Dimension.fillToConstraints
+                    }
             )
-        } else {
-            ShowEmptyState()
+
+            if (foundBibles.isNotEmpty()) {
+                ShowBibles(
+                    modifier = Modifier
+                        .constrainAs(list) {
+                            top.linkTo(toolbar.bottom)
+                        },
+                    actions = actions,
+                    bibles = foundBibles,
+                    showBibleSheet = showBibleSheet
+                )
+            } else {
+                ShowEmptyState()
+            }
         }
     }
 }
 
 @Composable
-private fun ShowBibles(modifier: Modifier, actions: DashboardActions, bibles: List<Bible>, showBibleSheet: (Bundle) -> Unit) {
-    val listState = rememberLazyListState()
+private fun ShowBibles(
+    modifier: Modifier,
+    actions: DashboardActions,
+    bibles: List<Bible>,
+    showBibleSheet: (Bundle) -> Unit
+) {
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
             .then(modifier),
-        state = listState
+        state = rememberLazyListState()
     ) {
 
         normalSpace()

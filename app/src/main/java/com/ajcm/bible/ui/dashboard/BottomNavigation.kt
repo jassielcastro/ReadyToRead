@@ -2,7 +2,7 @@ package com.ajcm.bible.ui.dashboard
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColorAsState
-import androidx.compose.animation.core.FastOutLinearInEasing
+import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
@@ -32,7 +32,7 @@ fun BottomNavigationBar(navController: NavController, showBottomBar: Boolean) {
             animationSpec = tween(
                 durationMillis = 300,
                 delayMillis = 150,
-                easing = FastOutLinearInEasing
+                easing = FastOutSlowInEasing
             )
         )
     ) {

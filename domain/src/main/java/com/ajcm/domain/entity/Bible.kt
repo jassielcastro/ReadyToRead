@@ -16,9 +16,9 @@ data class Bible(
     val type: String,
     val updatedAt: String,
     val relatedDbl: String,
-    var isFavourite: Boolean,
-    var color: Int,
-    var image: String
+    val isFavourite: Boolean,
+    val color: Int,
+    val image: String
 ) {
 
     fun getRegions(): String =

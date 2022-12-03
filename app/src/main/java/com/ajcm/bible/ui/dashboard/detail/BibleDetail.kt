@@ -43,18 +43,20 @@ fun BibleDetail(
     viewModel: SharedBibleViewModel,
     actions: DashboardActions
 ) {
-    val id = bundle.getString(BIBLE_ID_KEY)
+    Box(modifier = Modifier.fillMaxWidth()) {
+        val id = bundle.getString(BIBLE_ID_KEY)
 
-    val bibleDetail by viewModel.bibleDetail.collectAsState()
+        val bibleDetail by viewModel.bibleDetail.collectAsState()
 
-    LaunchedEffect(id) {
-        viewModel.getBibleDetail(id)
-    }
+        LaunchedEffect(id) {
+            viewModel.getBibleDetail(id)
+        }
 
-    if (bibleDetail != null) {
-        BibleDetailContent(bibleDetail!!, viewModel, actions)
-    } else {
-        LoadBibleDetailShimmer()
+        if (bibleDetail != null) {
+            BibleDetailContent(bibleDetail!!, viewModel, actions)
+        } else {
+            LoadBibleDetailShimmer()
+        }
     }
 }
 
@@ -65,17 +67,17 @@ fun BibleDetailContent(
     viewModel: SharedBibleViewModel,
     actions: DashboardActions
 ) {
-    val color = bible.color.toColor()
-    val colorButtonBG = MaterialBibleTheme.colors.gray
-    val favoriteIcon =
-        if (bible.isFavourite) R.drawable.ic_bookmark_fill else R.drawable.ic_bookmark_line
-
     Column(
         modifier = Modifier
             .fillMaxWidth()
             .wrapContentHeight()
             .padding(MaterialBibleTheme.dimensions.normal)
     ) {
+
+        val color = bible.color.toColor()
+        val colorButtonBG = MaterialBibleTheme.colors.gray
+        val favoriteIcon =
+            if (bible.isFavourite) R.drawable.ic_bookmark_fill else R.drawable.ic_bookmark_line
 
         ConstraintLayout(
             modifier = Modifier

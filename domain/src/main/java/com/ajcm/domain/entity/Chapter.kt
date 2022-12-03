@@ -8,9 +8,9 @@ data class Chapter(
     val content: String,
     val reference: String,
     val verseCount: Int,
-    var next: NextChapter?,
-    var previous: PreviousChapter?,
-    var copyright: String
+    val next: NextChapter?,
+    val previous: PreviousChapter?,
+    val copyright: String
 ) {
 
     fun getVerses(): List<String> {
