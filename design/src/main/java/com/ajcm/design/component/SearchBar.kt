@@ -61,6 +61,7 @@ fun SearchBar(
             TextField(
                 value = text,
                 readOnly = readOnly,
+                enabled = !readOnly,
                 onValueChange = {
                     text = it
                     onTextChange(it)

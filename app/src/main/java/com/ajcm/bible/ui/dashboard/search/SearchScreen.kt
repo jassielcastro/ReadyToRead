@@ -1,13 +1,16 @@
 package com.ajcm.bible.ui.dashboard.search
 
 import android.os.Bundle
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.constraintlayout.compose.ConstraintLayout
@@ -44,76 +47,78 @@ fun SearchListScreen(
     actions: DashboardActions,
     showBibleSheet: (Bundle) -> Unit
 ) {
-    val initialSearch by remember {
-        mutableStateOf(
-            arguments?.getString(SEARCH_WITH_ARG_KEY)?.takeIf {
-                it != DashboardActions.NONE
-            } ?: ""
-        )
-    }
-
-    val foundBibles by viewModel.foundBibles.collectAsState(State.Loading)
-
-    ConstraintLayout(
+    Box(
         modifier = Modifier
             .fillMaxSize()
     ) {
-        val (searchComponent, list, shimmer) = createRefs()
+        val foundBibles by viewModel.foundBibles.collectAsState(State.Loading)
 
-        SearchBar(
-            initialSearch = initialSearch,
-            label = stringResource(id = R.string.search_by_hint_2),
-            hint = stringResource(id = R.string.search_by_hint),
-            onTextChange = {
-                viewModel.search(it)
-            },
-            onBack = {
-                actions.upPress()
-            },
+        ConstraintLayout(
             modifier = Modifier
-                .fillMaxWidth()
-                .wrapContentHeight()
-                .constrainAs(searchComponent) {
-                    top.linkTo(parent.top)
-                    width = Dimension.fillToConstraints
-                }
-        )
+                .fillMaxSize()
+        ) {
+            val (searchComponent, list, shimmer) = createRefs()
 
-        when (foundBibles) {
-            State.Loading -> {
-                LoadBiblesShimmer(
-                    modifier = Modifier
-                        .constrainAs(shimmer) {
-                            top.linkTo(searchComponent.bottom)
-                        }
-                )
-            }
-            is State.Success<*> -> {
-                ShowBibles(
-                    modifier = Modifier
-                        .constrainAs(list) {
-                            top.linkTo(searchComponent.bottom)
-                        },
-                    actions = actions,
-                    bibles = (foundBibles as State.Success<*>).value as List<Bible>,
-                    showBibleSheet = showBibleSheet
-                )
-            }
-            State.Empty, is State.Failure -> {
-                ShowEmptyState()
+            SearchBar(
+                initialSearch = arguments?.getString(SEARCH_WITH_ARG_KEY)
+                    ?.takeIf { it != DashboardActions.NONE } ?: "",
+                label = stringResource(id = R.string.search_by_hint_2),
+                hint = stringResource(id = R.string.search_by_hint),
+                onTextChange = {
+                    viewModel.search(it)
+                },
+                onBack = {
+                    actions.upPress()
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .wrapContentHeight()
+                    .constrainAs(searchComponent) {
+                        top.linkTo(parent.top)
+                        width = Dimension.fillToConstraints
+                    }
+            )
+
+            when (foundBibles) {
+                State.Loading -> {
+                    LoadBiblesShimmer(
+                        modifier = Modifier
+                            .constrainAs(shimmer) {
+                                top.linkTo(searchComponent.bottom)
+                            }
+                    )
+                }
+                is State.Success<*> -> {
+                    ShowBibles(
+                        modifier = Modifier
+                            .constrainAs(list) {
+                                top.linkTo(searchComponent.bottom)
+                            },
+                        actions = actions,
+                        bibles = (foundBibles as State.Success<*>).value as List<Bible>,
+                        showBibleSheet = showBibleSheet
+                    )
+                }
+                State.Empty, is State.Failure -> {
+                    ShowEmptyState()
+                }
             }
         }
     }
 }
 
 @Composable
-private fun ShowBibles(modifier: Modifier, actions: DashboardActions, bibles: List<Bible>, showBibleSheet: (Bundle) -> Unit) {
-    val listState = rememberLazyListState()
+private fun ShowBibles(
+    modifier: Modifier,
+    actions: DashboardActions,
+    bibles: List<Bible>,
+    showBibleSheet: (Bundle) -> Unit
+) {
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
             .then(modifier),
-        state = listState
+        state = rememberLazyListState()
     ) {
 
         normalSpace()

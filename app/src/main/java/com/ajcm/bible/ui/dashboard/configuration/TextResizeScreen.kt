@@ -23,19 +23,23 @@ import com.ajcm.design.theme.MaterialBibleTheme
 fun TextResizeScreen(
     configurationsViewModel: ConfigurationsViewModel
 ) {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+    ) {
+        val configurations by configurationsViewModel.configurations.collectAsState()
 
-    val configurations by configurationsViewModel.configurations.collectAsState()
-
-    LaunchedEffect(Unit) {
-        configurationsViewModel.getConfigurations()
-    }
-
-    TextResizeScreen(
-        textSizeMultiplier = configurations?.textSizeMultiplier?.toFloat() ?: 1f,
-        onSliderFinished = {
-            configurationsViewModel.updateTextSizeMultiplier(it)
+        SideEffect {
+            configurationsViewModel.getConfigurations()
         }
-    )
+
+        TextResizeScreen(
+            textSizeMultiplier = configurations?.textSizeMultiplier?.toFloat() ?: 1f,
+            onSliderFinished = {
+                configurationsViewModel.updateTextSizeMultiplier(it)
+            }
+        )
+    }
 }
 
 @Composable

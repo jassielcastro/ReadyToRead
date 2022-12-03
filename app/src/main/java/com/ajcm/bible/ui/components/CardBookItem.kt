@@ -28,8 +28,6 @@ fun CardBookItem(
     onCardClicked: (bible: Bible) -> Unit,
     onCardLongClicked: (bibleId: String) -> Unit
 ) {
-    val color = bible.color.toColor()
-
     ConstraintLayout(
         modifier = Modifier
             .fillMaxWidth()
@@ -47,6 +45,7 @@ fun CardBookItem(
             .clip(MaterialBibleTheme.shapes.shapeMedium)
     ) {
         val (imageBook, content) = createRefs()
+        val color = bible.color.toColor()
         Surface(
             color = color.copy(alpha = 0.7f),
             shape = MaterialBibleTheme.shapes.startShape,

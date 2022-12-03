@@ -114,18 +114,12 @@ fun ReadingScreen(
     showSheet: (Bundle) -> Unit = {}
 ) {
 
-    val bookToRead by remember {
-        mutableStateOf(
-            BookToRead(
-                id = arguments?.getString(BIBLE_ID_ARG_KEY) ?: "",
-                title = arguments?.getString(BIBLE_TITLE_ARG_KEY) ?: "",
-                subTitle = arguments?.getString(BIBLE_SUBTITLE_ARG_KEY) ?: ""
-            )
-        )
-    }
+    val bookToRead = BookToRead(
+        id = arguments?.getString(BIBLE_ID_ARG_KEY) ?: "",
+        title = arguments?.getString(BIBLE_TITLE_ARG_KEY) ?: "",
+        subTitle = arguments?.getString(BIBLE_SUBTITLE_ARG_KEY) ?: ""
+    )
 
-    val title by remember { mutableStateOf(bookToRead.title) }
-    var subTitle by remember { mutableStateOf(bookToRead.subTitle) }
     var step by remember { mutableStateOf<ReadingStep>(ReadingStep.Books(bookToRead.id)) }
 
     BackHandler(enabled = step.step > 1) {
@@ -143,6 +137,9 @@ fun ReadingScreen(
             .fillMaxSize()
             .background(MaterialBibleTheme.colors.white)
     ) {
+        val title by remember { mutableStateOf(bookToRead.title) }
+        var subTitle by remember { mutableStateOf(bookToRead.subTitle) }
+
         BibleDetailsAppBar(
             title = title,
             subTitle = subTitle,
@@ -154,23 +151,7 @@ fun ReadingScreen(
         AnimatedContent(
             targetState = step,
             transitionSpec = {
-                if (targetState.step > initialState.step) {
-                    slideIntoContainer(
-                        towards = AnimatedContentScope.SlideDirection.Left,
-                        animationSpec = tween(300),
-                    ) with fadeOut(
-                        animationSpec = tween(300)
-                    )
-                } else {
-                    fadeIn(
-                        animationSpec = tween(300),
-                    ) with slideOutOfContainer(
-                        towards = AnimatedContentScope.SlideDirection.Right,
-                        animationSpec = tween(300)
-                    )
-                }.apply {
-                    targetContentZIndex = targetState.step.toFloat()
-                }
+                slideIf { targetState.step > initialState.step }
             }
         ) { screen ->
             when (screen) {
@@ -261,7 +242,10 @@ fun BibleDetailsAppBar(
                     maxLines = 1
                 )
 
-                AnimatedContent(targetState = subTitle) { text ->
+                AnimatedContent(
+                    targetState = subTitle,
+                    transitionSpec = { slideIf { targetState != initialState } }
+                ) { text ->
                     Text(
                         text = text,
                         style = MaterialBibleTheme.typography.subCaption2,
@@ -303,17 +287,19 @@ fun BookListScreen(
     viewModel: ReadingViewModel,
     showChapters: (bookId: String, bookName: String) -> Unit
 ) {
-    val books by viewModel.books.collectAsState()
+    Box(modifier = Modifier.fillMaxSize()) {
+        val books by viewModel.books.collectAsState()
 
-    LaunchedEffect(bibleId) {
-        viewModel.downloadBooks(bibleId)
-    }
+        LaunchedEffect(bibleId) {
+            viewModel.downloadBooks(bibleId)
+        }
 
-    AnimatedContent(targetState = books) { bookList ->
-        if (bookList.isNotEmpty()) {
-            BookListScreen(books = bookList, showChapters = showChapters)
-        } else {
-            LoadBooksShimmer()
+        Crossfade(targetState = books) { bookList ->
+            if (bookList.isNotEmpty()) {
+                BookListScreen(books = bookList, showChapters = showChapters)
+            } else {
+                LoadBooksShimmer()
+            }
         }
     }
 }
@@ -354,17 +340,21 @@ fun ChaptersListScreen(
     viewModel: ReadingViewModel,
     showVerses: (chapterId: String, chapterNumber: String) -> Unit
 ) {
-    val chapters by viewModel.chapters.collectAsState()
+    Box(modifier = Modifier.fillMaxSize()) {
+        val chapters by viewModel.chapters.collectAsState()
 
-    LaunchedEffect(Unit) {
-        viewModel.downloadChapters(bibleId, bookId)
-    }
+        SideEffect {
+            viewModel.downloadChapters(bibleId, bookId)
+        }
 
-    AnimatedContent(targetState = chapters) { chapterList ->
-        if (chapterList.isNotEmpty()) {
-            ChapterListScreen(chapterList, showVerses)
-        } else {
-            LoadChapterShimmer()
+        Crossfade(
+            targetState = chapters
+        ) { chapterList ->
+            if (chapterList.isNotEmpty()) {
+                ChapterListScreen(chapterList, showVerses)
+            } else {
+                LoadChapterShimmer()
+            }
         }
     }
 }
@@ -412,32 +402,34 @@ fun VersesListScreen(
     viewModel: ReadingViewModel,
     configurationViewModel: ConfigurationsViewModel
 ) {
-    val chapter by viewModel.chapter.collectAsState()
-    val configurations by configurationViewModel.configurations.collectAsState()
+    Box(modifier = Modifier.fillMaxSize()) {
+        val chapter by viewModel.chapter.collectAsState()
+        val configurations by configurationViewModel.configurations.collectAsState()
 
-    LaunchedEffect(chapterId) {
-        viewModel.downloadChapter(bibleId, chapterId)
-        configurationViewModel.getConfigurations()
-    }
-
-    LazyColumn(
-        modifier = Modifier
-            .padding(top = MaterialBibleTheme.dimensions.xsmall)
-            .fillMaxSize()
-            .background(MaterialBibleTheme.colors.white)
-    ) {
-
-        normalSpace()
-
-        itemsIndexed(chapter.getVerses()) { index: Int, verse: String ->
-            if (verse.isNotEmpty()) {
-                VerseText(verse, index + 1, configurations?.textSizeMultiplier ?: 3)
-            }
-
-            MediumSpacer()
+        LaunchedEffect(chapterId) {
+            viewModel.downloadChapter(bibleId, chapterId)
+            configurationViewModel.getConfigurations()
         }
 
-        normalSpace()
+        LazyColumn(
+            modifier = Modifier
+                .padding(top = MaterialBibleTheme.dimensions.xsmall)
+                .fillMaxSize()
+                .background(MaterialBibleTheme.colors.white)
+        ) {
+
+            normalSpace()
+
+            itemsIndexed(chapter.getVerses()) { index: Int, verse: String ->
+                if (verse.isNotEmpty()) {
+                    VerseText(verse, index + 1, configurations?.textSizeMultiplier ?: 3)
+                }
+
+                MediumSpacer()
+            }
+
+            normalSpace()
+        }
     }
 }
 
@@ -450,7 +442,7 @@ fun VerseText(verse: String, number: Int, textSizeMultiplier: Int) {
     var normalFontSize by remember { mutableStateOf((8 * textSizeMultiplier).sp) }
     var titleFontSize by remember { mutableStateOf((16 * textSizeMultiplier).sp) }
 
-    LaunchedEffect(textSizeMultiplier) {
+    SideEffect {
         normalFontSize = (8 * textSizeMultiplier).sp
         titleFontSize = (16 * textSizeMultiplier).sp
     }
@@ -523,6 +515,27 @@ fun VerseText(verse: String, number: Int, textSizeMultiplier: Int) {
                 vertical = MaterialBibleTheme.dimensions.xsmall
             )
     )
+}
+
+@OptIn(ExperimentalAnimationApi::class)
+fun slideIf(isFromLeft: () -> Boolean): ContentTransform {
+    return if (isFromLeft()) {
+        slideInHorizontally(
+            animationSpec = tween(300),
+            initialOffsetX = { fullWidth -> fullWidth }
+        ) with slideOutHorizontally(
+            animationSpec = tween(300),
+            targetOffsetX = { fullWidth -> -fullWidth }
+        )
+    } else {
+        slideInHorizontally(
+            animationSpec = tween(300),
+            initialOffsetX = { fullWidth -> -fullWidth }
+        ) with slideOutHorizontally(
+            animationSpec = tween(300),
+            targetOffsetX = { fullWidth -> fullWidth }
+        )
+    }
 }
 
 @Preview(showSystemUi = true)
