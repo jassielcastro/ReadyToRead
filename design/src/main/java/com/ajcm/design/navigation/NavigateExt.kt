@@ -2,7 +2,7 @@ package com.ajcm.design.navigation
 
 import android.annotation.SuppressLint
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.SideEffect
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import androidx.navigation.Navigator
@@ -19,7 +19,7 @@ fun NavController.safeNavigateTo(
     navOptions: NavOptions? = null,
     navigatorExtras: Navigator.Extras? = null
 ) {
-    LaunchedEffect(Unit) {
+    SideEffect {
         navigate(route = navigationRoute(route), navOptions, navigatorExtras)
     }
 }

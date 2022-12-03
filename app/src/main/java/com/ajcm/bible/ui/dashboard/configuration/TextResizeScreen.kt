@@ -15,7 +15,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.ajcm.bible.R
 import com.ajcm.bible.ui.dashboard.viewmodels.ConfigurationsViewModel
 import com.ajcm.design.common.bounceClick
-import com.ajcm.design.component.LargeSpacer
 import com.ajcm.design.component.NormalSpacer
 import com.ajcm.design.screen.BibleScreen
 import com.ajcm.design.theme.MaterialBibleTheme
@@ -30,7 +29,7 @@ fun TextResizeScreen(
     ) {
         val configurations by configurationsViewModel.configurations.collectAsState()
 
-        LaunchedEffect(Unit) {
+        SideEffect {
             configurationsViewModel.getConfigurations()
         }
 
