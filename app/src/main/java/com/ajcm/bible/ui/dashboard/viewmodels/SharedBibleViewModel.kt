@@ -104,17 +104,14 @@ class SharedBibleViewModel @Inject constructor(
     }
 
     fun getBibleDetail(bibleId: String?) = viewModelScope.launch {
-        println("SharedBibleViewModel.getBibleDetail ---> id: $bibleId")
         mBibleDetail.emit(null)
         runCatching {
             withContext(Dispatchers.IO) {
                 biblesUC.getBible(bibleId)
             }
         }.onSuccess {
-            println("SharedBibleViewModel.getBibleDetail --> success")
             mBibleDetail.emit(it)
         }.onFailure {
-            println("SharedBibleViewModel.getBibleDetail --> $it")
             mBibleDetail.emit(null)
         }
     }
