@@ -50,7 +50,7 @@ class BibleRepository @Inject constructor(
             remoteDataSource.getBible(bibleId)
         }
 
-        if (bible.info.isEmpty()) {
+        if (bible.info.isNullOrEmpty()) {
             val completeBible = remoteDataSource.getBible(bibleId).copy(
                 image = bible.image,
                 color = bible.color

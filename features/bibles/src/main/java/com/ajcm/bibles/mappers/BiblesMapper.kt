@@ -16,8 +16,6 @@ class BiblesMapper @Inject constructor() : BaseMapper<Bible, BibleDTO> {
         return Bible(
             id = e.id,
             dblId = e.dblId,
-            abbreviation = e.abbreviation ?: "",
-            abbreviationLocal = e.abbreviationLocal ?: "",
             copyright = e.copyright ?: "",
             language = e.language,
             countries = e.countries,
@@ -27,8 +25,6 @@ class BiblesMapper @Inject constructor() : BaseMapper<Bible, BibleDTO> {
             descriptionLocal = e.descriptionLocal ?: "",
             info = e.info ?: "",
             type = e.type ?: "",
-            updatedAt = e.updatedAt ?: "",
-            relatedDbl = e.relatedDbl ?: "",
             isFavourite = e.isFavourite == 1,
             color = e.color,
             image = e.image
@@ -39,8 +35,6 @@ class BiblesMapper @Inject constructor() : BaseMapper<Bible, BibleDTO> {
         return BibleDTO(
             id = t.id,
             dblId = t.dblId,
-            abbreviation = t.abbreviation,
-            abbreviationLocal = t.abbreviationLocal,
             copyright = t.copyright,
             language = t.language,
             countries = t.countries,
@@ -50,8 +44,6 @@ class BiblesMapper @Inject constructor() : BaseMapper<Bible, BibleDTO> {
             descriptionLocal = t.descriptionLocal,
             info = t.info,
             type = t.type,
-            updatedAt = t.updatedAt,
-            relatedDbl = t.relatedDbl,
             isFavourite = if (t.isFavourite) 1 else 0,
             color = if (t.color == 0) randomColors.random().toArgb() else t.color,
             image = if (t.image.isNullOrEmpty()) randomImage() else t.image
