@@ -10,8 +10,6 @@ data class BibleDTO(
     @PrimaryKey
     val id: String,
     val dblId: String,
-    val abbreviation: String?,
-    val abbreviationLocal: String?,
     val copyright: String?,
     val language: Language,
     val countries: List<Country>,
@@ -21,8 +19,6 @@ data class BibleDTO(
     val descriptionLocal: String?,
     val info: String?,
     val type: String?,
-    val updatedAt: String?,
-    val relatedDbl: String?,
     var isFavourite: Int,
     var color: Int,
     var image: String
