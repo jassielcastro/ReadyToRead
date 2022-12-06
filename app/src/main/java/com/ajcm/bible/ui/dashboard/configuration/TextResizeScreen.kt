@@ -30,7 +30,7 @@ fun TextResizeScreen(
     ) {
         val configurations by configurationsViewModel.configurations.collectAsState()
 
-        LaunchedEffect(Unit) {
+        SideEffect {
             configurationsViewModel.getConfigurations()
         }
 

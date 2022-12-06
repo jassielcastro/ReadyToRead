@@ -10,7 +10,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -37,7 +37,7 @@ fun SectionsScreen(
     Box(modifier = Modifier.fillMaxSize()) {
         val hasBibles by viewModel.downloadBibles.collectAsState()
 
-        LaunchedEffect(Unit) {
+        SideEffect {
             viewModel.downloadBiblesIfNeed()
         }
 
@@ -95,7 +95,7 @@ private fun SectionListScreen(
         val sectionContent by viewModel.sectionContent.collectAsState()
         val listState = rememberLazyListState()
 
-        LaunchedEffect(Unit) {
+        SideEffect {
             viewModel.buildBibleSections()
         }
 
