@@ -8,6 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavHostController
+import com.ajcm.bible.ui.components.common.cleanRoute
 import com.ajcm.bible.ui.dashboard.favorite.FavoriteScreen
 import com.ajcm.bible.ui.dashboard.more.MoreMenuScreen
 import com.ajcm.bible.ui.dashboard.search.SearchScreen
@@ -19,7 +20,6 @@ import com.ajcm.bible.ui.reading.ReadingScreen
 import com.ajcm.bible.ui.reading.allowedReadingBibleArguments
 import com.ajcm.bible.ui.reading.readingDestination
 import com.ajcm.bible.ui.reading.viewmodel.ReadingViewModel
-import com.ajcm.design.common.cleanRoute
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 

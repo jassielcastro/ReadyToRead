@@ -20,7 +20,7 @@ data class BibleDTO(
     val info: String?,
     val type: String?,
     var isFavourite: Int,
-    var color: Int,
+    var color: String,
     var image: String
 ) {
     companion object {

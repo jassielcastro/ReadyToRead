@@ -15,11 +15,11 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
-import com.ajcm.design.R
-import com.ajcm.design.common.bounceClick
-import com.ajcm.design.theme.MaterialBibleTheme
-import com.ajcm.design.theme.toColor
-import com.ajcm.design.theme.transformToImage
+import com.ajcm.bible.R
+import com.ajcm.bible.ui.components.common.bounceClick
+import com.ajcm.bible.ui.theme.MaterialBibleTheme
+import com.ajcm.bible.ui.theme.toLocalColor
+import com.ajcm.bible.ui.theme.toLocalImage
 import com.ajcm.domain.entity.Bible
 
 @Composable
@@ -45,7 +45,7 @@ fun CardBookItem(
             .clip(MaterialBibleTheme.shapes.shapeMedium)
     ) {
         val (imageBook, content) = createRefs()
-        val color = bible.color.toColor()
+        val color = bible.color.toLocalColor()
         Surface(
             color = color.copy(alpha = 0.7f),
             shape = MaterialBibleTheme.shapes.startShape,
@@ -70,7 +70,7 @@ fun CardBookItem(
             )
 
             Image(
-                imageVector = ImageVector.vectorResource(id = bible.image.transformToImage().resource),
+                imageVector = ImageVector.vectorResource(id = bible.image.toLocalImage()),
                 contentDescription = "",
                 modifier = Modifier
                     .fillMaxWidth()

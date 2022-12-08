@@ -18,9 +18,9 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
+import com.ajcm.bible.ui.components.common.cleanRoute
 import com.ajcm.bible.ui.navigation.bottomNavigationItems
-import com.ajcm.design.common.cleanRoute
-import com.ajcm.design.theme.MaterialBibleTheme
+import com.ajcm.bible.ui.theme.MaterialBibleTheme
 
 @Composable
 fun BottomNavigationBar(navController: NavController, showBottomBar: Boolean) {

@@ -2,9 +2,9 @@ package com.ajcm.bible.ui.navigation
 
 import androidx.annotation.DrawableRes
 import com.ajcm.bible.R
+import com.ajcm.bible.ui.components.navigation.NavigationItems
+import com.ajcm.bible.ui.components.navigation.navigationRoute
 import com.ajcm.bible.ui.dashboard.search.SEARCH_WITH_ARG_KEY
-import com.ajcm.design.navigation.NavigationItems
-import com.ajcm.design.navigation.navigationRoute
 
 val sectionsDestination = navigationRoute {
     destination = NavigationItems.Item.SECTIONS

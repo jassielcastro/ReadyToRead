@@ -38,10 +38,10 @@ import com.ajcm.bible.ui.dashboard.configuration.TextResizeScreen
 import com.ajcm.bible.ui.dashboard.viewmodels.ConfigurationsViewModel
 import com.ajcm.bible.ui.navigation.DashboardActions
 import com.ajcm.bible.ui.reading.viewmodel.ReadingViewModel
-import com.ajcm.design.common.bounceClick
-import com.ajcm.design.component.*
-import com.ajcm.design.screen.BibleScreen
-import com.ajcm.design.theme.MaterialBibleTheme
+import com.ajcm.bible.ui.BibleScreen
+import com.ajcm.bible.ui.components.*
+import com.ajcm.bible.ui.components.common.bounceClick
+import com.ajcm.bible.ui.theme.MaterialBibleTheme
 import com.ajcm.domain.entity.Book
 import com.ajcm.domain.entity.Chapter
 

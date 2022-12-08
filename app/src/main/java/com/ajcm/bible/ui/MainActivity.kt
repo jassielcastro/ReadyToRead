@@ -7,7 +7,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.ajcm.bible.ui.dashboard.DashboardScreen
 import com.ajcm.bible.ui.dashboard.more.MoreMenuScreen
-import com.ajcm.design.screen.BibleScreen
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

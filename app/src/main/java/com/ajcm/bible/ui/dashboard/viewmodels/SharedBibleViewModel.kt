@@ -2,8 +2,8 @@ package com.ajcm.bible.ui.dashboard.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.ajcm.bible.ui.components.common.State
 import com.ajcm.bible.ui.dashboard.sections.SectionContentModel
-import com.ajcm.design.common.State
 import com.ajcm.domain.entity.Bible
 import com.ajcm.domain.entity.request.GetBibleRequest
 import com.ajcm.domain.usecase.bible.BiblesUc
