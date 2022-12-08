@@ -24,14 +24,14 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
+import com.ajcm.bible.ui.components.*
 import com.ajcm.bible.ui.dashboard.viewmodels.SharedBibleViewModel
 import com.ajcm.bible.ui.navigation.DashboardActions
-import com.ajcm.design.R
-import com.ajcm.design.common.bounceClick
-import com.ajcm.design.component.*
-import com.ajcm.design.theme.MaterialBibleTheme
-import com.ajcm.design.theme.toColor
-import com.ajcm.design.theme.transformToImage
+import com.ajcm.bible.R
+import com.ajcm.bible.ui.components.common.bounceClick
+import com.ajcm.bible.ui.theme.MaterialBibleTheme
+import com.ajcm.bible.ui.theme.toLocalColor
+import com.ajcm.bible.ui.theme.toLocalImage
 import com.ajcm.domain.entity.Bible
 import de.charlex.compose.HtmlText
 
@@ -74,7 +74,7 @@ fun BibleDetailContent(
             .padding(MaterialBibleTheme.dimensions.normal)
     ) {
 
-        val color = bible.color.toColor()
+        val color = bible.color.toLocalColor()
         val colorButtonBG = MaterialBibleTheme.colors.gray
         val favoriteIcon =
             if (bible.isFavourite) R.drawable.ic_bookmark_fill else R.drawable.ic_bookmark_line
@@ -96,7 +96,7 @@ fun BibleDetailContent(
                         height = Dimension.fillToConstraints
                     },
                 color = color,
-                image = ImageVector.vectorResource(id = bible.image.transformToImage().resource)
+                image = ImageVector.vectorResource(id = bible.image.toLocalImage())
             )
 
             Image(

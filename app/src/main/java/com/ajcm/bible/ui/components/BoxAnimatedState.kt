@@ -14,8 +14,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.Dp
-import com.ajcm.design.common.bounceClick
-import com.ajcm.design.theme.MaterialBibleTheme
+import com.ajcm.bible.ui.components.common.bounceClick
+import com.ajcm.bible.ui.theme.MaterialBibleTheme
 
 enum class BoxState { Collapsed, Expanded }
 

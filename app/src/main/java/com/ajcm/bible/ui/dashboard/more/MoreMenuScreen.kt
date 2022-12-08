@@ -21,12 +21,12 @@ import com.ajcm.bible.R
 import com.ajcm.bible.ui.components.AnimatedSurface
 import com.ajcm.bible.ui.dashboard.configuration.TextResizeScreen
 import com.ajcm.bible.ui.dashboard.viewmodels.ConfigurationsViewModel
-import com.ajcm.design.common.bounceClick
-import com.ajcm.design.component.BottomSheetContainer
-import com.ajcm.design.component.LargeSpacer
-import com.ajcm.design.component.NormalSpacer
-import com.ajcm.design.screen.BibleScreen
-import com.ajcm.design.theme.MaterialBibleTheme
+import com.ajcm.bible.ui.components.BottomSheetContainer
+import com.ajcm.bible.ui.components.LargeSpacer
+import com.ajcm.bible.ui.components.NormalSpacer
+import com.ajcm.bible.ui.BibleScreen
+import com.ajcm.bible.ui.components.common.bounceClick
+import com.ajcm.bible.ui.theme.MaterialBibleTheme
 
 @Composable
 fun MoreMenuScreen(

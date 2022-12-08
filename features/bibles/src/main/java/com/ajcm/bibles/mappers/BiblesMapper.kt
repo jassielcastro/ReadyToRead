@@ -1,11 +1,10 @@
 package com.ajcm.bibles.mappers
 
-import androidx.compose.ui.graphics.toArgb
 import com.ajcm.bibles.database.model.BibleDTO
 import com.ajcm.data.mapper.BaseMapper
-import com.ajcm.design.theme.randomColors
-import com.ajcm.design.theme.randomImage
 import com.ajcm.domain.entity.Bible
+import com.ajcm.domain.entity.randomColor
+import com.ajcm.domain.entity.randomImage
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -45,7 +44,7 @@ class BiblesMapper @Inject constructor() : BaseMapper<Bible, BibleDTO> {
             info = t.info,
             type = t.type,
             isFavourite = if (t.isFavourite) 1 else 0,
-            color = if (t.color == 0) randomColors.random().toArgb() else t.color,
+            color = if (t.color.isNullOrEmpty()) randomColor() else t.color,
             image = if (t.image.isNullOrEmpty()) randomImage() else t.image
         )
     }

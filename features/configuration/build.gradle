@@ -16,15 +16,15 @@ android {
 
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
-        //useIR = true
     }
 }
 
 dependencies {
-    implementation project(":design")
     implementation project(":data")
     implementation project(":domain")
     implementation project(":common")
+
+    implementation "androidx.compose.runtime:runtime:$composeVersion"
 
     //ROOM
     implementation "androidx.room:room-runtime:$roomVersion"

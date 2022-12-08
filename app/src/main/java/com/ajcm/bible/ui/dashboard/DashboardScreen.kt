@@ -5,13 +5,13 @@ import androidx.compose.material.Scaffold
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.currentBackStackEntryAsState
+import com.ajcm.bible.ui.BibleAppState
 import com.ajcm.bible.ui.navigation.*
-import com.ajcm.design.BibleAppState
-import com.ajcm.design.common.cleanRoute
-import com.ajcm.design.rememberAnimatedBibleAppState
-import com.ajcm.design.screen.BibleScreen
-import com.ajcm.design.theme.MaterialBibleTheme
-import com.ajcm.design.theme.SetStatusBarColorEffect
+import com.ajcm.bible.ui.BibleScreen
+import com.ajcm.bible.ui.components.common.cleanRoute
+import com.ajcm.bible.ui.rememberAnimatedBibleAppState
+import com.ajcm.bible.ui.theme.MaterialBibleTheme
+import com.ajcm.bible.ui.theme.SetStatusBarColorEffect
 
 @Composable
 fun DashboardScreen(appState: BibleAppState = rememberAnimatedBibleAppState()) {

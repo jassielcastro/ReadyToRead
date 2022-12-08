@@ -3,8 +3,8 @@ package com.ajcm.bible.ui.navigation
 import androidx.navigation.NavHostController
 import androidx.navigation.navOptions
 import com.ajcm.bible.ui.MainActivity
-import com.ajcm.design.navigation.NavigationItems
-import com.ajcm.design.navigation.navigateTo
+import com.ajcm.bible.ui.components.navigation.NavigationItems
+import com.ajcm.bible.ui.components.navigation.navigateTo
 import com.ajcm.domain.entity.Bible
 
 class DashboardActions(

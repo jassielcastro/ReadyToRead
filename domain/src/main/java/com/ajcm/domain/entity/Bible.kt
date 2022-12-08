@@ -13,7 +13,7 @@ data class Bible(
     val info: String?,
     val type: String,
     val isFavourite: Boolean,
-    val color: Int,
+    val color: String,
     val image: String
 ) {
 
@@ -38,7 +38,7 @@ data class Bible(
         var info: String = ""
         var type: String = ""
         var isFavourite: Boolean = false
-        var color: Int = 0
+        var color: String = ""
         var image: String = ""
 
         fun build() = Bible(

@@ -24,11 +24,11 @@ import com.ajcm.bible.ui.dashboard.viewmodels.SharedBibleViewModel
 import com.ajcm.bible.ui.error.ErrorScreen
 import com.ajcm.bible.ui.error.ErrorType
 import com.ajcm.bible.ui.navigation.DashboardActions
-import com.ajcm.design.R
-import com.ajcm.design.component.BottomSheetContainer
-import com.ajcm.design.component.SearchBar
-import com.ajcm.design.component.largeSpace
-import com.ajcm.design.component.normalSpace
+import com.ajcm.bible.R
+import com.ajcm.bible.ui.components.BottomSheetContainer
+import com.ajcm.bible.ui.components.SearchBar
+import com.ajcm.bible.ui.components.largeSpace
+import com.ajcm.bible.ui.components.normalSpace
 import com.ajcm.domain.entity.Bible
 
 @Composable

@@ -8,8 +8,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
-import com.ajcm.design.component.MediumSpacer
-import com.ajcm.design.theme.MaterialBibleTheme
+import com.ajcm.bible.ui.components.MediumSpacer
+import com.ajcm.bible.ui.theme.MaterialBibleTheme
 
 @Composable
 fun ErrorScreen(

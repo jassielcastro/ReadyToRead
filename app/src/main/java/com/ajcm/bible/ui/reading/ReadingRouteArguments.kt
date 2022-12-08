@@ -2,8 +2,8 @@ package com.ajcm.bible.ui.reading
 
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
-import com.ajcm.design.navigation.NavigationItems
-import com.ajcm.design.navigation.navigationRoute
+import com.ajcm.bible.ui.components.navigation.NavigationItems
+import com.ajcm.bible.ui.components.navigation.navigationRoute
 
 const val BIBLE_ID_ARG_KEY = "BIBLE_ID_ARG_KEY"
 const val BIBLE_TITLE_ARG_KEY = "BIBLE_TITLE_ARG_KEY"

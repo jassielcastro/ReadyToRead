@@ -20,7 +20,7 @@ android {
 
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
-        //useIR = true
+        freeCompilerArgs += ["-Xjvm-default=all"]
     }
 
     packagingOptions {
@@ -31,7 +31,6 @@ android {
 }
 
 dependencies {
-    implementation project(":design")
     implementation project(":data")
     implementation project(":domain")
     implementation project(":common")
@@ -45,6 +44,33 @@ dependencies {
     implementation "androidx.activity:activity-ktx:$activityKtxVersion"
     implementation "androidx.core:core-ktx:$coreKtxVersion"
     implementation "androidx.activity:activity-compose:$activityComposeVersion"
+
+    //Compose
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
+
+    implementation "androidx.compose.runtime:runtime:$composeVersion"
+    implementation "androidx.compose.ui:ui:$composeVersion"
+    implementation "androidx.compose.foundation:foundation-layout:$composeVersion"
+    implementation "androidx.compose.material:material:$composeVersion"
+    implementation "androidx.compose.material:material-icons-extended:$composeVersion"
+    implementation "androidx.compose.foundation:foundation:$composeVersion"
+    implementation "androidx.compose.animation:animation:$composeVersion"
+    implementation "androidx.compose.ui:ui-tooling-preview:$composeVersion"
+    implementation "androidx.compose.runtime:runtime-livedata:$composeVersion"
+    implementation "androidx.constraintlayout:constraintlayout-compose:1.0.1"
+    debugImplementation "androidx.compose.ui:ui-tooling:$composeVersion"
+    implementation "com.google.accompanist:accompanist-systemuicontroller:$accompanistVersion"
+    implementation "com.google.accompanist:accompanist-navigation-animation:$accompanistVersion"
+    //Compose - ViewModel
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$viewModelVersion"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:$viewModelVersion"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$viewModelVersion"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:$viewModelVersion"
+    //Compose - Navigation
+    implementation "androidx.navigation:navigation-compose:$navigationComposeVersion"
+    implementation "androidx.hilt:hilt-navigation-compose:$hiltNavigationComposeVersion"
+    kapt "androidx.hilt:hilt-compiler:$hiltNavigationComposeVersion"
+    implementation "de.charlex.compose:html-text:$htmlText"
 
     //ROOM
     implementation "androidx.room:room-runtime:$roomVersion"

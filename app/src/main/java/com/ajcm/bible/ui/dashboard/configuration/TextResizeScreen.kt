@@ -14,11 +14,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import com.ajcm.bible.R
 import com.ajcm.bible.ui.dashboard.viewmodels.ConfigurationsViewModel
-import com.ajcm.design.common.bounceClick
-import com.ajcm.design.component.MediumSpacer
-import com.ajcm.design.component.NormalSpacer
-import com.ajcm.design.screen.BibleScreen
-import com.ajcm.design.theme.MaterialBibleTheme
+import com.ajcm.bible.ui.components.common.bounceClick
+import com.ajcm.bible.ui.components.MediumSpacer
+import com.ajcm.bible.ui.components.NormalSpacer
+import com.ajcm.bible.ui.BibleScreen
+import com.ajcm.bible.ui.theme.MaterialBibleTheme
 
 @Composable
 fun TextResizeScreen(
