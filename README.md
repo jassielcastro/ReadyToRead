@@ -6,7 +6,7 @@ Ready to read is a small learning project focused on the different versions of t
 
 Here the books are loaded randomly where you can see the details of the book or start reading it.
 
-![Screenshot](screenshoots/sections.png)
+<img src="screenshoots/sections.png" width="40%"/>
 
 ## Search
 
@@ -18,13 +18,13 @@ We will be able to search from the name of the book, the country of origin or th
 
 Here we will see all the books we have added to Favorites.
 
-![Screenshot](screenshoots/favotires.png)
+<img src="screenshoots/favotires.png" width="40%"/>
 
 ## Book detail
 
 This section appears when you LongClick on the book items and has action to add to Favorites and start reading from that same detail.
 
-![Screenshot](screenshoots/details.png)
+<img src="screenshoots/details.png" width="40%"/>
 
 ## Reading
 
@@ -45,5 +45,8 @@ Here's what's left to do:
 
 # Useful Links
 
-[Api.Bible](https://docs.api.bible/)
-![Screenshot](https://docs.api.bible/d11b74afcf410f946a0233ac51f585f9/api-logo.svg)
+Resources downloaded using [Api.Bible](https://docs.api.bible/)
+
+<p align="center">
+  <img src="https://docs.api.bible/d11b74afcf410f946a0233ac51f585f9/api-logo.svg" alt="Api.Bible">
+</p>
