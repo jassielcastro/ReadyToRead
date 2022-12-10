@@ -121,6 +121,11 @@ fun ReadingScreen(
     )
 
     var step by remember { mutableStateOf<ReadingStep>(ReadingStep.Books(bookToRead.id)) }
+    val showResizeAction by remember {
+        derivedStateOf {
+            step is ReadingStep.Verses
+        }
+    }
 
     BackHandler(enabled = step.step > 1) {
         if (step is ReadingStep.Verses) {
@@ -137,14 +142,13 @@ fun ReadingScreen(
             .fillMaxSize()
             .background(MaterialBibleTheme.colors.white)
     ) {
-        val title by remember { mutableStateOf(bookToRead.title) }
         var subTitle by remember { mutableStateOf(bookToRead.subTitle) }
 
         BibleDetailsAppBar(
-            title = title,
+            title = bookToRead.title,
             subTitle = subTitle,
             actions = actions,
-            step is ReadingStep.Verses,
+            showResizeAction,
             showSheet
         )
 
@@ -377,7 +381,7 @@ fun ChapterListScreen(
             modifier = Modifier
                 .fillMaxWidth()
         ) {
-            items(chapters) { chapter ->
+            items(chapters, key = { it.id }) { chapter ->
                 Text(
                     text = chapter.number,
                     style = MaterialBibleTheme.typography.caption,

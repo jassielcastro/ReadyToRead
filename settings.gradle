@@ -2,7 +2,6 @@ rootProject.name = "Ready to read"
 include ':app'
 include ':domain'
 include ':data'
-include ':common'
 include ':feature_bibles'
 include ':feature_book'
 include ':feature_chapter'

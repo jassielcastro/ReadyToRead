@@ -224,7 +224,7 @@ fun LoadChapterShimmer() {
                 .background(MaterialBibleTheme.colors.white)
                 .padding(MaterialBibleTheme.dimensions.normal)
         ) {
-            items(17) {
+            items(17, key = { it }) {
                 Spacer(
                     modifier = Modifier
                         .padding(

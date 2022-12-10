@@ -1,10 +1,6 @@
 package com.ajcm.bible.di
 
 import com.ajcm.bible.network.HeaderInterceptor
-import com.ajcm.common.annotation.ApiToken
-import com.ajcm.common.annotation.BaseUrl
-import com.ajcm.common.annotation.InterceptorHeader
-import com.ajcm.common.annotation.InterceptorLogin
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

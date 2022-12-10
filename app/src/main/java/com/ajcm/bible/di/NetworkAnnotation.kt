@@ -1,4 +1,4 @@
-package com.ajcm.common.annotation
+package com.ajcm.bible.di
 
 import javax.inject.Qualifier
 

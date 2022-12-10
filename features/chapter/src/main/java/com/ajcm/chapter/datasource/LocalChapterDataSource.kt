@@ -1,19 +1,11 @@
 package com.ajcm.chapter.datasource
 
+import com.ajcm.chapter.database.ChapterDAO
+import com.ajcm.chapter.database.model.ChapterDTO
 import com.ajcm.data.datasource.ILocalChapterDataSource
 import com.ajcm.data.mapper.BaseMapper
 import com.ajcm.domain.entity.Chapter
-import com.ajcm.chapter.database.ChapterDAO
-import com.ajcm.chapter.database.model.ChapterDTO
-import com.ajcm.common.annotation.IoDispatcher
-import com.ajcm.common.annotation.MainScope
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
-import kotlin.coroutines.resume
-import kotlin.coroutines.suspendCoroutine
 
 class LocalChapterDataSource @Inject constructor(
     private val chapterDAO: ChapterDAO,

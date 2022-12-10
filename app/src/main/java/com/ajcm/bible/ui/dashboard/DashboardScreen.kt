@@ -16,10 +16,13 @@ import com.ajcm.bible.ui.theme.SetStatusBarColorEffect
 @Composable
 fun DashboardScreen(appState: BibleAppState = rememberAnimatedBibleAppState()) {
     BibleScreen {
-        var showBottomBar by remember { mutableStateOf(false) }
         val navBackStackEntry by appState.navController.currentBackStackEntryAsState()
-        val currentRoute = navBackStackEntry?.destination?.route?.cleanRoute()
-        showBottomBar = currentRoute in bottomNavigationItems.map { it.route.cleanRoute() }
+        val showBottomBar by remember {
+            derivedStateOf {
+                val currentRoute = navBackStackEntry?.destination?.route?.cleanRoute()
+                currentRoute in bottomNavigationItems.map { it.route.cleanRoute() }
+            }
+        }
 
         Scaffold(
             scaffoldState = appState.scaffoldState,
