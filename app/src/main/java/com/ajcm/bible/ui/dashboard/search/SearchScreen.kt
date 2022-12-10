@@ -16,15 +16,15 @@ import androidx.compose.ui.res.stringResource
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import androidx.core.os.bundleOf
+import com.ajcm.bible.R
 import com.ajcm.bible.ui.components.*
+import com.ajcm.bible.ui.components.common.State
 import com.ajcm.bible.ui.dashboard.detail.BIBLE_ID_KEY
 import com.ajcm.bible.ui.dashboard.detail.BibleDetail
 import com.ajcm.bible.ui.dashboard.viewmodels.SharedBibleViewModel
 import com.ajcm.bible.ui.error.ErrorScreen
 import com.ajcm.bible.ui.error.ErrorType
 import com.ajcm.bible.ui.navigation.DashboardActions
-import com.ajcm.bible.R
-import com.ajcm.bible.ui.components.common.State
 import com.ajcm.domain.entity.Bible
 
 @Composable

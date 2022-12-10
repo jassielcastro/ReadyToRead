@@ -35,10 +35,11 @@ fun CardInfoSection(modifier: Modifier, onClick: () -> Unit) {
         Image(
             imageVector = ImageVector.vectorResource(id = R.drawable.ic_waves),
             contentDescription = "",
-            alignment = Alignment.BottomCenter,
+            alignment = Alignment.TopCenter,
             contentScale = ContentScale.FillWidth,
             modifier = Modifier
-                .fillMaxWidth()
+                .fillMaxSize()
+                .rotate(180f)
         )
 
         ConstraintLayout(

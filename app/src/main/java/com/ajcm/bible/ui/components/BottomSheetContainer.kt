@@ -20,7 +20,10 @@ fun BottomSheetContainer(
     sheetContent: @Composable (bundle: Bundle) -> Unit,
     content: @Composable (showBibleSheet: (Bundle) -> Unit) -> Unit
 ) {
-    val state = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden)
+    val state = rememberModalBottomSheetState(
+        ModalBottomSheetValue.Hidden,
+        skipHalfExpanded = false
+    )
     val scope = rememberCoroutineScope()
     var bundle by remember { mutableStateOf(bundleOf()) }
 

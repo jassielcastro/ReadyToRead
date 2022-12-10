@@ -34,13 +34,13 @@ import androidx.compose.ui.unit.sp
 import androidx.core.os.bundleOf
 import androidx.navigation.compose.rememberNavController
 import com.ajcm.bible.R
+import com.ajcm.bible.ui.BibleScreen
+import com.ajcm.bible.ui.components.*
+import com.ajcm.bible.ui.components.common.bounceClick
 import com.ajcm.bible.ui.dashboard.configuration.TextResizeScreen
 import com.ajcm.bible.ui.dashboard.viewmodels.ConfigurationsViewModel
 import com.ajcm.bible.ui.navigation.DashboardActions
 import com.ajcm.bible.ui.reading.viewmodel.ReadingViewModel
-import com.ajcm.bible.ui.BibleScreen
-import com.ajcm.bible.ui.components.*
-import com.ajcm.bible.ui.components.common.bounceClick
 import com.ajcm.bible.ui.theme.MaterialBibleTheme
 import com.ajcm.domain.entity.Book
 import com.ajcm.domain.entity.Chapter
@@ -71,7 +71,6 @@ data class BookToRead(
     val subTitle: String = ""
 )
 
-@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun ReadingScreen(
     readingViewModel: ReadingViewModel,
@@ -284,7 +283,6 @@ fun BibleDetailsAppBar(
     }
 }
 
-@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun BookListScreen(
     bibleId: String,
@@ -336,7 +334,6 @@ fun BookListScreen(books: List<Book>, showChapters: (bookId: String, bookName: S
     }
 }
 
-@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun ChaptersListScreen(
     bibleId: String,
@@ -453,7 +450,7 @@ fun VerseText(verse: String, number: Int, textSizeMultiplier: Int) {
 
     Text(
         buildAnnotatedString {
-            withStyle(style = ParagraphStyle(textAlign = TextAlign.Justify)) {
+            withStyle(style = ParagraphStyle(textAlign = TextAlign.Start)) {
                 withStyle(
                     style = SpanStyle(
                         color = textColor,
@@ -517,6 +514,10 @@ fun VerseText(verse: String, number: Int, textSizeMultiplier: Int) {
             .padding(
                 horizontal = MaterialBibleTheme.dimensions.normal,
                 vertical = MaterialBibleTheme.dimensions.xsmall
+            )
+            .bounceClick(
+                onClicked = {},
+                onLongClick = {}
             )
     )
 }

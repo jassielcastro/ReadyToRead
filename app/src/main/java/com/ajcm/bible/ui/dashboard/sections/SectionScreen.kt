@@ -108,7 +108,7 @@ private fun SectionListScreen(
                 CardInfoSection(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .fillParentMaxHeight(0.35f)
+                        .fillMaxHeight(0.35f)
                         .clip(MaterialBibleTheme.shapes.bottomShape)
                 ) { actions.showSearchBy() }
             }
