@@ -24,7 +24,7 @@ class ConfigurationModule {
 
     @ApiToken
     @Provides
-    fun provideApiToken(): String = "78f3d242b9698359bf237a6816232629"
+    fun provideApiToken(): String = "add_your_api_token"
 
     @Provides
     fun provideConnectionSpec(): ConnectionSpec {
