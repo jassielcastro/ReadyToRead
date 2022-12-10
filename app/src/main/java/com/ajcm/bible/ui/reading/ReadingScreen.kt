@@ -71,7 +71,6 @@ data class BookToRead(
     val subTitle: String = ""
 )
 
-@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun ReadingScreen(
     readingViewModel: ReadingViewModel,
@@ -284,7 +283,6 @@ fun BibleDetailsAppBar(
     }
 }
 
-@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun BookListScreen(
     bibleId: String,
@@ -336,7 +334,6 @@ fun BookListScreen(books: List<Book>, showChapters: (bookId: String, bookName: S
     }
 }
 
-@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun ChaptersListScreen(
     bibleId: String,

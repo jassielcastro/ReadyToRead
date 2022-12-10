@@ -2,6 +2,7 @@ package com.ajcm.bible.ui.dashboard.configuration
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement.Bottom
 import androidx.compose.material.Slider
 import androidx.compose.material.SliderDefaults
 import androidx.compose.material.Text
@@ -14,8 +15,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import com.ajcm.bible.R
 import com.ajcm.bible.ui.BibleScreen
-import com.ajcm.bible.ui.components.MediumSpacer
+import com.ajcm.bible.ui.components.LargeSpacer
 import com.ajcm.bible.ui.components.NormalSpacer
+import com.ajcm.bible.ui.components.SmallSpacer
 import com.ajcm.bible.ui.components.common.bounceClick
 import com.ajcm.bible.ui.dashboard.viewmodels.ConfigurationsViewModel
 import com.ajcm.bible.ui.theme.MaterialBibleTheme
@@ -25,8 +27,10 @@ fun TextResizeScreen(
     configurationsViewModel: ConfigurationsViewModel
 ) {
     Box(
+        contentAlignment = Alignment.BottomCenter,
         modifier = Modifier
-            .fillMaxSize()
+            .fillMaxWidth()
+            .wrapContentHeight()
     ) {
         val configurations by configurationsViewModel.configurations.collectAsState()
 
@@ -128,7 +132,7 @@ fun TextResizeScreen(
             )
         }
 
-        MediumSpacer()
+        LargeSpacer()
     }
 }
 

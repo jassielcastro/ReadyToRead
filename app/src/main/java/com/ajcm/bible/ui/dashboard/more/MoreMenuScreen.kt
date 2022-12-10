@@ -148,7 +148,6 @@ fun ChangeAppFontSize(
     }
 }
 
-@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun ApiReference() {
     AnimatedSurface(
