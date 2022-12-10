@@ -18,14 +18,14 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.os.bundleOf
 import com.ajcm.bible.R
+import com.ajcm.bible.ui.BibleScreen
 import com.ajcm.bible.ui.components.AnimatedSurface
-import com.ajcm.bible.ui.dashboard.configuration.TextResizeScreen
-import com.ajcm.bible.ui.dashboard.viewmodels.ConfigurationsViewModel
 import com.ajcm.bible.ui.components.BottomSheetContainer
 import com.ajcm.bible.ui.components.LargeSpacer
 import com.ajcm.bible.ui.components.NormalSpacer
-import com.ajcm.bible.ui.BibleScreen
 import com.ajcm.bible.ui.components.common.bounceClick
+import com.ajcm.bible.ui.dashboard.configuration.TextResizeScreen
+import com.ajcm.bible.ui.dashboard.viewmodels.ConfigurationsViewModel
 import com.ajcm.bible.ui.theme.MaterialBibleTheme
 
 @Composable

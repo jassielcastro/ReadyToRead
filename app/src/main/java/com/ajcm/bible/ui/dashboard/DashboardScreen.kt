@@ -2,13 +2,17 @@ package com.ajcm.bible.ui.dashboard
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Scaffold
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.ajcm.bible.ui.BibleAppState
-import com.ajcm.bible.ui.navigation.*
 import com.ajcm.bible.ui.BibleScreen
 import com.ajcm.bible.ui.components.common.cleanRoute
+import com.ajcm.bible.ui.navigation.DashboardNavigationHost
+import com.ajcm.bible.ui.navigation.bottomNavigationItems
 import com.ajcm.bible.ui.rememberAnimatedBibleAppState
 import com.ajcm.bible.ui.theme.MaterialBibleTheme
 import com.ajcm.bible.ui.theme.SetStatusBarColorEffect

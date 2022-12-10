@@ -21,9 +21,9 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
+import com.ajcm.bible.R
 import com.ajcm.bible.ui.components.common.bounceClick
 import com.ajcm.bible.ui.theme.MaterialBibleTheme
-import com.ajcm.bible.R
 
 @Composable
 fun CardInfoSection(modifier: Modifier, onClick: () -> Unit) {

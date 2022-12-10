@@ -24,11 +24,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
+import com.ajcm.bible.R
 import com.ajcm.bible.ui.components.*
+import com.ajcm.bible.ui.components.common.bounceClick
 import com.ajcm.bible.ui.dashboard.viewmodels.SharedBibleViewModel
 import com.ajcm.bible.ui.navigation.DashboardActions
-import com.ajcm.bible.R
-import com.ajcm.bible.ui.components.common.bounceClick
 import com.ajcm.bible.ui.theme.MaterialBibleTheme
 import com.ajcm.bible.ui.theme.toLocalColor
 import com.ajcm.bible.ui.theme.toLocalImage

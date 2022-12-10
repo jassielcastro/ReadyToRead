@@ -30,8 +30,8 @@ fun BottomNavigationBar(navController: NavController, showBottomBar: Boolean) {
         exit = slideOutVertically(
             targetOffsetY = { it },
             animationSpec = tween(
-                durationMillis = 300,
-                delayMillis = 150,
+                durationMillis = 250,
+                delayMillis = 450,
                 easing = FastOutSlowInEasing
             )
         )
