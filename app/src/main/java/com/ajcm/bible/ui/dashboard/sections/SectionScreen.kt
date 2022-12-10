@@ -8,6 +8,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -132,8 +133,8 @@ private fun SectionListScreen(
                 ) {
                     mediumSpace()
 
-                    items(sectionContent.languages.size) { index ->
-                        SmallRoundedItem(title = sectionContent.languages[index]) { lang ->
+                    items(sectionContent.languages, key = { it }) { language ->
+                        SmallRoundedItem(title = language) { lang ->
                             actions.showSearchBy(lang)
                         }
                     }
@@ -150,9 +151,9 @@ private fun SectionListScreen(
                 }
             }
 
-            items(sectionContent.bibles.size) { index ->
+            items(sectionContent.bibles, key = { it.id }) { bible ->
                 CardBookItem(
-                    bible = sectionContent.bibles[index],
+                    bible = bible,
                     onCardClicked = {
                         actions.showReading(it)
                     },
