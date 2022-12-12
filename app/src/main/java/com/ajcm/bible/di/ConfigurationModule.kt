@@ -1,5 +1,6 @@
 package com.ajcm.bible.di
 
+import com.ajcm.bible.BuildConfig
 import com.ajcm.bible.network.HeaderInterceptor
 import dagger.Module
 import dagger.Provides
@@ -24,7 +25,7 @@ class ConfigurationModule {
 
     @ApiToken
     @Provides
-    fun provideApiToken(): String = "add_your_api_token"
+    fun provideApiToken(): String = BuildConfig.API_TOKEN
 
     @Provides
     fun provideConnectionSpec(): ConnectionSpec {
