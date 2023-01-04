@@ -6,7 +6,7 @@ Ready to read is a small learning project focused on the different versions of t
 
 Here the books are loaded randomly where you can see the details of the book or start reading it.
 
-<img src="screenshoots/sections.png" width="40%"/>
+![Screenshot](screenshoots/sections.gif)
 
 ## Search
 
