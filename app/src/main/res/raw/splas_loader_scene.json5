@@ -1,0 +1,167 @@
+{
+  ConstraintSets: {
+    start: {
+      app_bar: {
+        width: 'spread',
+        height: 'spread',
+        start: ['parent', 'start'],
+        end: [
+          'parent',
+          'end'
+        ],
+        top: [
+          'parent',
+          'top'
+        ],
+        bottom: [
+          'parent',
+          'bottom'
+        ]
+      },
+      search_bar: {
+        width: 'spread',
+        height: 56,
+        start: [
+          'parent',
+          'start'
+        ],
+        end: [
+          'parent',
+          'end'
+        ],
+        top: [
+          'parent',
+          'top'
+        ]
+      },
+      image_loader: {
+        width: 160,
+        height: 160,
+        start: [
+          'parent',
+          'start'
+        ],
+        end: [
+          'parent',
+          'end'
+        ],
+        top: [
+          'parent',
+          'top'
+        ],
+        bottom: [
+          'parent',
+          'bottom'
+        ]
+      },
+      books_list: {
+        width: 'spread',
+        height: 'spread',
+        start: [
+          'parent',
+          'start'
+        ],
+        end: [
+          'parent',
+          'end'
+        ],
+        top: [
+          'app_bar',
+          'bottom'
+        ],
+        bottom: [
+          'parent',
+          'bottom'
+        ]
+      }
+    },
+    end: {
+      app_bar: {
+        width: 'spread',
+        height: 64,
+        start: [
+          'parent',
+          'start'
+        ],
+        end: [
+          'parent',
+          'end'
+        ],
+        top: [
+          'parent',
+          'top'
+        ]
+      },
+      search_bar: {
+        width: 'spread',
+        height: 56,
+        start: [
+          'image_loader',
+          'end'
+        ],
+        end: [
+          'parent',
+          'end'
+        ],
+        top: [
+          'parent',
+          'top'
+        ]
+      },
+      image_loader: {
+        width: 56,
+        height: 56,
+        start: [
+          'parent',
+          'start',
+          8
+        ],
+        top: [
+          'parent',
+          'top'
+        ],
+        bottom: [
+          'app_bar',
+          'bottom'
+        ]
+      },
+      books_list: {
+        width: 'spread',
+        height: 'spread',
+        start: [
+          'parent',
+          'start'
+        ],
+        end: [
+          'parent',
+          'end'
+        ],
+        top: [
+          'app_bar',
+          'bottom'
+        ],
+        bottom: [
+          'parent',
+          'bottom'
+        ]
+      }
+    }
+  },
+  Transitions: {
+    default: {
+      from: 'start',
+      to: 'end',
+      pathMotionArc: 'startHorizontal',
+      KeyFrames: {
+        KeyAttributes: [
+          {
+            target: ['search_bar'],
+            frames: [0, 100],
+            alpha: [0.0, 1.0],
+            translationX: [-120, 0]
+          }
+        ]
+      }
+    }
+  }
+}
