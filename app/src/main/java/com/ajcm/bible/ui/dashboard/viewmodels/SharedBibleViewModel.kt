@@ -160,7 +160,7 @@ class SharedBibleViewModel @Inject constructor(
 
     private companion object {
         const val LANGUAGE_SIZE = 7
-        const val BIBLES_SIZE = 5
+        const val BIBLES_SIZE = 10
         const val DELAY = 200L
     }
 

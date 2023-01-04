@@ -24,8 +24,7 @@ fun SearchComponent(modifier: Modifier = Modifier, onClick: () -> Unit) {
         modifier = Modifier
             .padding(horizontal = MaterialBibleTheme.dimensions.medium)
             .padding(
-                top = MaterialBibleTheme.dimensions.normal,
-                bottom = MaterialBibleTheme.dimensions.small
+                top = MaterialBibleTheme.dimensions.medium
             )
             .fillMaxWidth()
             .wrapContentHeight()
